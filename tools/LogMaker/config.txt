@@ -1,0 +1,21 @@
+#############
+## Configs ##
+#############
+
+# Start date - format: y-m-d
+date 2017-01-01
+
+# Start time - format: h:m:s
+time 08:00:00
+
+# Number of log days
+days 30
+
+#######################
+## Log Builder Rules ##
+#######################
+
+# line format: time_offset -- time_interval -- data
+# time format: S,M,H,D,M,Y
+0,0,0,0,0,0 -- 0,0,0,1,0,0 -- Java Coffee
+0,0,12,0,0,0 -- 0,0,0,1,0,0 -- Java Programming
