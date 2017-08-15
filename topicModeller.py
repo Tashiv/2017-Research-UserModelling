@@ -1,6 +1,6 @@
-#########################
-## Warning Supressions ##
-#########################
+#####################################
+## Fix: Windows Warning Supression ##
+#####################################
 
 import warnings
 warnings.filterwarnings(action='ignore', category=UserWarning, module='gensim')
@@ -9,85 +9,125 @@ warnings.filterwarnings(action='ignore', category=UserWarning, module='gensim')
 ## Imports ##
 #############
 
-import gensim
+from gensim import corpora, models
+from nltk.stem.porter import PorterStemmer
 from nltk.tokenize import RegexpTokenizer
 from stop_words import get_stop_words
-from nltk.stem.porter import PorterStemmer
-from gensim import corpora, models
 
-####################
-## Configurations ##
-####################
+######################
+## Global Variables ##
+######################
 
-tokenizer = RegexpTokenizer(r'\w+')
-en_stop = get_stop_words('en')							# English stop words list
+tokenizer = RegexpTokenizer(r'\w+')								# Regex for matching words made up of alphanumeric and underscore characters
+stopWordsList = get_stop_words('en')							# English stop words list
+stemmer = PorterStemmer()										# Tool for stemming tokens
 
-###############
-## Main Loop ##
-###############
+##########
+## Main ##
+##########
 
 def main():
-	# make example data set
-	number_of_topics = 2
-	doc_set = ["I like to pet cats.",
-				"cats are great pets.",
-				"computers are my most favourite thing.",
-				"a good program runs well on all computers.",
-				"cats dont like dogs very much.",
-				"cats could fly if they wanted to",
-				"I left my computer running a program last night",
-				"Programs really make my computer great"]
+
+	########################
+	## Get Relevance Data ##
+	########################
 
 	# heading
-	print("\n[Queries]")
-
+	print("\n[Relevance Data]")
+	# "Load Past Data"
+	LDA_documents = ["I like to pet cats.",
+						"cats are great pets.",
+						"computers are my most favourite thing.",
+						"a good program runs well on all computers.",
+						"cats dont like dogs very much.",
+						"cats could fly if they wanted to",
+						"I left my computer running a program last night",
+						"Programs really make my computer great"]
 	# output
-	for i in range(0, len(doc_set)):
-		print(" - " + str(i) + ": " + doc_set[i])
+	for i in range(0, len(LDA_documents)):
+		print(" - " + str(i) + ": " + LDA_documents[i])
+
+	####################
+	## Make LDA Model ##
+	####################
 
 	# make LDA model
-	LDA_Model = makeLDAModel(doc_set, number_of_topics)
+	LDA_model = makeLDAModel(LDA_documents)
+
+	#############################
+	## Output Resulting Topics ##
+	#############################
 
 	# heading
 	print("\n[Resulting Topics]")
-
 	# print results
-	for i in LDA_Model:
+	for i in LDA_model.print_topics(num_topics=2, num_words=3):
 		# report
 		print(" - " + str(i[0]) + ": " + str(i[1]))
+
+	#############
+	## Testing ##
+	#############
+
+	# heading
+	print("\n[Topic Distribution Test]")
+	# load test document
+	LDA_testDoc = ["cats are the best pet"]
+	print(" - Test Document - '" + LDA_testDoc[0] + "'")
+	# convert to required format
+	LDA_testTokens = docsToTokens(LDA_testDoc)
+	LDA_testDictionary = corpora.Dictionary(LDA_testTokens)
+	LDA_testCorpus = [LDA_testDictionary.doc2bow(token) for token in LDA_testTokens]
+	# determine topic distribution
+	print(" - Topic Distribution:")
+	for i in LDA_model.get_document_topics(LDA_testCorpus)[0]:
+		print("    - Topic " + str(i[0]) + ": " + str(i[1]))
 
 #############
 ## Methods ##
 #############
 
-def makeLDAModel(doc_set, number_of_topics):
+def docsToTokens(LDA_documents):
 	# initialize
-	p_stemmer = PorterStemmer()
-	texts = []
-
+	LDA_tokens = []
 	# loop through document list
-	for i in doc_set:
+	for i in LDA_documents:
 		# clean and tokenize document string
-		raw = i.lower()
-		tokens = tokenizer.tokenize(raw)
+		tokens_cleaned = tokenizer.tokenize(i.lower())
 		# remove stop words from tokens
-		stopped_tokens = [i for i in tokens if not i in en_stop]
+		tokens_stopped = [i for i in tokens_cleaned if not i in stopWordsList]
 		# stem tokens
-		stemmed_tokens = [p_stemmer.stem(i) for i in stopped_tokens]
+		tokens_stemmed = [stemmer.stem(i) for i in tokens_stopped]
 		# add tokens to list
-		texts.append(stemmed_tokens)
+		LDA_tokens.append(tokens_stemmed)
+	# Done
+	return LDA_tokens
 
-	# turn our tokenized documents into a id <-> term dictionary
-	dictionary = corpora.Dictionary(texts)
+def makeLDAModel(LDA_documents):
 
-	# convert tokenized documents into a document-term matrix
-	corpus = [dictionary.doc2bow(text) for text in texts]
+	#############################
+	## Generate LDA Primatives ##
+	#############################
+
+	# generate LDA tokens from documents
+	LDA_tokens = docsToTokens(LDA_documents)
+	# tokens to id-term dictionary
+	dictionary = corpora.Dictionary(LDA_tokens)
+	# tokens to document-term matrix
+	corpus = [dictionary.doc2bow(token) for token in LDA_tokens]
+
+	########################
+	## Generate LDA Model ##
+	########################
 
 	# generate LDA model
-	ldamodel = gensim.models.ldamodel.LdaModel(corpus, num_topics=2, id2word = dictionary, passes=20)
+	LDA_model = models.ldamodel.LdaModel(corpus, num_topics=2, id2word=dictionary, passes=50)
 
-	# check results
-	return ldamodel.print_topics(num_topics=3, num_words=3)
+	##########
+	## Done ##
+	##########
+
+	return LDA_model
 
 #########################
 ## Program Entry Point ##
