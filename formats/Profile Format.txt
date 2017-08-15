@@ -1,0 +1,15 @@
+# FORMAT: [<TimeFactor>, ..., <TimeFactor>] [(<Probability>, <Topic>), ..., (<Probability>, <Topic>)]
+
+# LEGEND: <TimeFactor> = A normailized (i.e value = [0.0,1.0]) representation of time.
+#         # = a comment
+#         [] = A list
+#         () = A set
+#         <Probability> = Probability of Topic Keyword Occuring (Part of LDA Modelling)
+#         <Topic> = Topic Keyword (Part of LDA Modelling)
+#         [(<Probability>, <Topic>), ..., (<Probability>, <Topic>)] = LDA Topic
+
+# Java Coffee Example (3 topics with three keywords each):
+
+[0.08] [(0.6, Coffee), (0.6, drink)]
+[0.13, 0.23] [(0.6, Coffee), (0.6, Shop), (0.6, store), (0.2, Java)]
+[0.6, 0.85] [(0.2, Programming), (0.6, Java), (0.6, Reference)]
