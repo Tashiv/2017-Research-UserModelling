@@ -9,7 +9,11 @@ warnings.filterwarnings(action='ignore', category=UserWarning, module='gensim')
 ## Imports ##
 #############
 
-from gensim import corpora, models
+import numpy
+import sys
+from scipy import stats
+from matplotlib import pyplot
+from gensim import corpora, models, similarities, matutils
 from nltk.stem.porter import PorterStemmer
 from nltk.tokenize import RegexpTokenizer
 from stop_words import get_stop_words
@@ -18,120 +22,348 @@ from stop_words import get_stop_words
 ## Global Variables ##
 ######################
 
-tokenizer = RegexpTokenizer(r'\w+')								# Regex for matching words made up of alphanumeric and underscore characters
-stopWordsList = get_stop_words('en')							# English stop words list
-stemmer = PorterStemmer()										# Tool for stemming tokens
+## LDA Parameters
+LDA_Passes = 50
+LDA_Iterations = 100
+LDA_EvalEvery = None                                            # Don't evaluate model perplexity, takes too much time.
+LDA_Alpha = 0.01
+LDA_Eta = 0.01
+LDA_MaxTopcs = 40
+
+## Tools
+fTokenizer = RegexpTokenizer(r'\w+')							# Regex for matching words made up of alphanumeric and underscore characters
+fStemmer = PorterStemmer()										# Tool for stemming tokens
+fStopWordsList = get_stop_words('en')							# English stop words list
+
+## Debugging
+fIsDebugging = True
 
 ##########
 ## Main ##
 ##########
 
 def main():
+    # header
+    print("[Topic Modeller]")
+    # testing
+    buildTrivialModel()
 
-	########################
-	## Get Relevance Data ##
-	########################
+#######################
+## Modelling Methods ##
+#######################
 
-	# heading
-	print("\n[Relevance Data]")
-	# "Load Past Data"
-	LDA_documents = ["I like to pet cats.",
-						"cats are great pets.",
-						"computers are my most favourite thing.",
-						"a good program runs well on all computers.",
-						"cats dont like dogs very much.",
-						"cats could fly if they wanted to",
-						"I left my computer running a program last night",
-						"Programs really make my computer great"]
-	# output
-	for i in range(0, len(LDA_documents)):
-		print(" - " + str(i) + ": " + LDA_documents[i])
+def buildTrivialModel():
+    '''
+    @info Generates a trivial model and reports each stage for testing purposes.
+    '''
+    ###############
+    ## Test Data ##
+    ###############
 
-	####################
-	## Make LDA Model ##
-	####################
+    # initialize
+    documents = ["desk desk desk",
+                    "cat cat cat",
+                    "computer computer computer",
+                    "desk desk desk",
+                    "cat cat cat",
+                    "computer computer computer"]
+    # report
+    printDocuments(documents)
 
-	# make LDA model
-	LDA_model = makeLDAModel(LDA_documents)
+    ############################
+    ## Prepare LDA Primatives ##
+    ############################
 
-	#############################
-	## Output Resulting Topics ##
-	#############################
+    # convert documents to token set
+    tokens = generateTokens(documents)
+    printTokens(tokens)
 
-	# heading
-	print("\n[Resulting Topics]")
-	# print results
-	for i in LDA_model.print_topics(num_topics=2, num_words=3):
-		# report
-		print(" - " + str(i[0]) + ": " + str(i[1]))
+    # convert tokens to dictionary format (bow)
+    dictionary = generateDictionary(tokens, True)
+    printDictionary(dictionary)
 
-	#############
-	## Testing ##
-	#############
+    # generate corpus
+    corpus = generateCorpus(dictionary, tokens)
+    printCorpus(corpus)
 
-	# heading
-	print("\n[Topic Distribution Test]")
-	# load test document
-	LDA_testDoc = ["cats are the best pet"]
-	print(" - Test Document - '" + LDA_testDoc[0] + "'")
-	# convert to required format
-	LDA_testTokens = docsToTokens(LDA_testDoc)
-	LDA_testDictionary = corpora.Dictionary(LDA_testTokens)
-	LDA_testCorpus = [LDA_testDictionary.doc2bow(token) for token in LDA_testTokens]
-	# determine topic distribution
-	print(" - Topic Distribution:")
-	for i in LDA_model.get_document_topics(LDA_testCorpus)[0]:
-		print("    - Topic " + str(i[0]) + ": " + str(i[1]))
+    ###################################
+    ## Determine Optimal Topic Count ##
+    ###################################
 
-#############
-## Methods ##
-#############
+    # Caluculates symmetric KL divergence.
+    KL_Divergences = calculateKLDivergences(corpus, dictionary, max_topics=LDA_MaxTopcs)
+    printKLDivergences(KL_Divergences)
+    saveKLDivergencesGraph(KL_Divergences)
 
-def docsToTokens(LDA_documents):
+    # final optimal topic count
+    optimalTopicCnt = findKLDivergenceDip(KL_Divergences)
+    print("\n - Optimal number of topics:", optimalTopicCnt)
+
+    ####################
+    ## LDA Model Test ##
+    ####################
+
+    # build resulting optimal model
+    print("\n - Resulting LDA Topics")
+    LDA_Model = generateLDAModel(corpus, dictionary, optimalTopicCnt)
+    # print topics
+    for i in LDA_Model.print_topics():
+        print("    - TOPIC_" + str(i[0]) + ": " + str(i[1]))
+
+    # build actual optimal model
+    print("\n - Actual LDA Topics")
+    LDA_Model = generateLDAModel(corpus, dictionary, 3)
+    # print topics
+    for i in LDA_Model.print_topics():
+        print("    - TOPIC_" + str(i[0]) + ": " + str(i[1]))
+
+    #############################################
+    ## Topic Distribution of New Document Test ##
+    #############################################
+
+    # seen pure document test
+    testDoc = "computer computer computer computer"
+    print("\n - Testing Unseen Document: '" + testDoc + "'")
+    # determine topic distribution
+    testDocTopics = classifyDocument(LDA_Model, testDoc)
+    print("    - Topic Distribution:")
+    for i in testDocTopics:
+        print("       - TOPIC_" + str(i[0]) + " : " + str(i[1]))
+
+    # seen mixed document test
+    testDoc = "computer cat computer cat"
+    print("\n - Testing Unseen Document: '" + testDoc + "'")
+    # determine topic distribution
+    testDocTopics = classifyDocument(LDA_Model, testDoc)
+    print("    - Topic Distribution:")
+    for i in testDocTopics:
+        print("       - TOPIC_" + str(i[0]) + " : " + str(i[1]))
+
+    # unseen document test
+    testDoc = "dog dog dog"
+    print("\n - Testing Unseen Document: '" + testDoc + "'")
+    # determine topic distribution
+    testDocTopics = classifyDocument(LDA_Model, testDoc)
+    print("    - Topic Distribution:")
+    for i in testDocTopics:
+        print("       - TOPIC_" + str(i[0]) + " : " + str(i[1]))
+
+##################################
+## LDA Modelling Helper Methods ##
+##################################
+
+def generateTokens(documents):
+	'''
+	@info Converts an array of documents to tokens and cleans them using stop words and stemming.
+	'''
 	# initialize
-	LDA_tokens = []
+	tokens_final = []
 	# loop through document list
-	for i in LDA_documents:
-		# clean and tokenize document string
-		tokens_cleaned = tokenizer.tokenize(i.lower())
-		# remove stop words from tokens
-		tokens_stopped = [i for i in tokens_cleaned if not i in stopWordsList]
-		# stem tokens
-		tokens_stemmed = [stemmer.stem(i) for i in tokens_stopped]
-		# add tokens to list
-		LDA_tokens.append(tokens_stemmed)
+	for i in documents:
+		# add tokens to final list
+		tokens_final.append(generateTokensFromString(i))
 	# Done
-	return LDA_tokens
+	return tokens_final
 
-def makeLDAModel(LDA_documents):
+def generateTokensFromString(string):
+    # convert to lower case and tokenize document string
+    tokens_cleaned = fTokenizer.tokenize(string.lower())
+    # remove stop words from tokens
+    tokens_stopped = [i for i in tokens_cleaned if not i in fStopWordsList]
+    # stem tokens
+    tokens_stemmed = [fStemmer.stem(i) for i in tokens_stopped]
+    # done
+    return tokens_stemmed
 
-	#############################
-	## Generate LDA Primatives ##
-	#############################
+def generateDictionary(tokens, mustClean):
+    '''
+    @info Generates a dictionary from a set of tokens and cleans the dictionary if required.
+    '''
+    # generate dictionary
+    dictionary = corpora.Dictionary(tokens)
+    # apply filtering
+    if mustClean:
+        # FILTER 1: filter out uncommon tokens (appear only once)
+        unique_ids = [token_id for token_id, frequency in dictionary.iteritems() if frequency == 1]
+        dictionary.filter_tokens(unique_ids)
+        # FILTER 2: filter out common tokens (appear in more than 5 documents)
+        ## dictionary.filter_extremes(no_above=5, keep_n=100000)
+        # CLEAN: Reassign ids to 'fill gaps'
+        dictionary.compactify()
+    # done
+    return dictionary
 
-	# generate LDA tokens from documents
-	LDA_tokens = docsToTokens(LDA_documents)
-	# tokens to id-term dictionary
-	dictionary = corpora.Dictionary(LDA_tokens)
-	# tokens to document-term matrix
-	corpus = [dictionary.doc2bow(token) for token in LDA_tokens]
+def generateCorpus(dictionary, tokens):
+    # generate corpus
+    corpus = [dictionary.doc2bow(token) for token in tokens]
+    # done
+    return corpus
 
-	########################
-	## Generate LDA Model ##
-	########################
+def generateLDAModel(corpus, dictionary, topicCount):
+    return models.ldamodel.LdaModel(corpus=corpus, id2word=dictionary, num_topics=topicCount,
+                                        iterations=LDA_Iterations, passes=LDA_Passes, eval_every=LDA_EvalEvery,
+                                        alpha=LDA_Alpha, eta=LDA_Eta)
 
-	# generate LDA model
-	LDA_model = models.ldamodel.LdaModel(corpus, num_topics=2, id2word=dictionary, passes=50)
+#################################
+## LDA Model Interface Methods ##
+#################################
 
-	##########
-	## Done ##
-	##########
+def classifyDocument(LDA_Model, document):
+    # convert to token format
+    tokens = generateTokensFromString(document)
+    bagOfWords = LDA_Model.id2word.doc2bow(tokens)
+    # determine topics
+    return LDA_Model.get_document_topics(bagOfWords, minimum_probability=0)
 
-	return LDA_model
+###########################
+## LDA Reporting Methods ##
+###########################
+
+def printDocuments(documents):
+    # heading
+    print("\n - Raw Documents:")
+    # output
+    for i in range(0, len(documents)):
+        print("    - [DOC_" + str(i) + "] : " + documents[i])
+
+def printTokens(tokens):
+    # heading
+    print("\n - Generated Document Tokens:")
+    # output
+    for i in range(0, len(tokens)):
+        print("    - [DOC_" + str(i) + "] : " + str(tokens[i]))
+
+def printDictionary(dictionary):
+    # heading
+    print("\n - Generated Dictionary:")
+    # output
+    for i in dictionary:
+        print("    - [DICT_" + str(i) + "] : " + dictionary[i])
+
+def printCorpus(corpus):
+    # heading
+    print("\n - Generated Corpus:")
+    # output
+    for i in range(0, len(corpus)):
+        print("    - [DOC_" + str(i) + "] : " + str(corpus[i]))
+
+def printKLDivergences(KL_Divergences):
+    # heading
+    print("\n - Topic Symmetric KL Divergences:")
+    # output
+    for i in range(0, len(KL_Divergences)):
+        print("    - [TOPIC_" + str(i) + "] : " + str(KL_Divergences[i]))
+
+
+###########################
+## KL Divergence Methods ##
+###########################
+
+def symmetric_kl_divergence(p, q):
+    '''
+    @info Caluculates symmetric Kullback-Leibler divergence.
+    @author Shingo OKAWA
+    @source https://gist.github.com/shingoOKAWA/b8f92cc0f6f0183767dc
+    '''
+    return numpy.sum([stats.entropy(p, q), stats.entropy(q, p)])
+
+def calculateKLDivergences(corpus, dictionary, min_topics=1, max_topics=1, iteration=1):
+    """
+    @info   Caluculates symmetric Kullback-Leibler divergence.
+    @author Shingo OKAWA, Modified by Tashiv Sewpersad
+    @source https://gist.github.com/shingoOKAWA/b8f92cc0f6f0183767dc
+    """
+    # initialize
+    result = [];
+    # Generates corpus length vectors.
+    corpus_length_vector = numpy.array([sum(frequency for _, frequency in document) for document in corpus])
+    # sanity check
+    token_count = len(dictionary)
+    if max_topics > token_count:
+        # report
+        if (fIsDebugging):
+            print("\n*** Warning: Max_topics is more than number of tokens, using " + str(token_count) + " instead of " + str(max_topics) + " as max topics ***")
+        # update
+        max_topics = token_count
+    # calculate KL divergence
+    for i in range(min_topics, max_topics+1, iteration):
+        # Instanciates LDA.
+        lda = generateLDAModel(corpus, dictionary, i)
+        # Caluculates raw LDA matrix.
+        matrix = lda.expElogbeta
+        # Caluculates SVD for LDA matris.
+        U, document_word_vector, V = numpy.linalg.svd(matrix)
+        # Gets LDA topics.
+        lda_topics = lda[corpus]
+        # Caluculates document-topic matrix.
+        term_document_matrix = matutils.corpus2dense(
+            lda_topics, lda.num_topics
+        ).transpose()
+        document_topic_vector = corpus_length_vector.dot(term_document_matrix)
+        document_topic_vector = document_topic_vector + 0.0001
+        document_topic_norm   = numpy.linalg.norm(corpus_length_vector)
+        document_topic_vector = document_topic_vector / document_topic_norm
+        result.append(symmetric_kl_divergence(document_word_vector, document_topic_vector))
+    return result
+
+def findKLDivergenceDip(KL_Divergences):
+    '''
+        Finds the dip in the divergence values which indicates optimal number of topics
+    '''
+    # sanity check for degenerate cases
+    if len(KL_Divergences) < 2:
+        return len(KL_Divergences)
+    elif len(KL_Divergences) == 2:
+        if KL_Divergences[0] < KL_Divergences[1]:
+            return 0
+        else:
+            return 1
+    # initialize
+    iMin = 1000000
+    iMinID = 0
+    # check
+    for i in range(1, len(KL_Divergences), 1):
+        # end case
+        if i == len(KL_Divergences)-1:
+            if (KL_Divergences[i] > KL_Divergences[i-1]):
+                continue
+            # check to see if global minimum
+            if KL_Divergences[i] > iMin:
+                continue
+            # potential minimum
+            iMin = KL_Divergences[i]
+            iMinID = i
+        else:
+            # check to see if local minimum
+            if (KL_Divergences[i] > KL_Divergences[i+1]) or (KL_Divergences[i] > KL_Divergences[i-1]):
+                continue
+            # check to see if global minimum
+            if KL_Divergences[i] > iMin:
+                continue
+            # potential minimum
+            iMin = KL_Divergences[i]
+            iMinID = i
+    # Done
+    return iMinID + 1
+
+##############
+## File i/o ##
+##############
+
+def saveKLDivergencesGraph(KL_Divergences):
+    '''
+    @info Saves a graph of KL Divergences to disk.
+    '''
+    # setup graph
+    pyplot.plot(KL_Divergences, color="red")
+    pyplot.ylabel('Symmetric KL Divergence', color="black")
+    pyplot.xlabel('Number of Topics', color="black")
+    # save graph
+    pyplot.savefig('data/KL_Divergences.png', facecolor='white', edgecolor='white', bbox_inches='tight')
 
 #########################
 ## Program Entry Point ##
 #########################
 
-if (__name__=="__main__"):
-	main()
+if __name__ == '__main__':
+    main()
