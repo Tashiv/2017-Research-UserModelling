@@ -11,6 +11,7 @@ warnings.filterwarnings(action='ignore', category=UserWarning, module='gensim')
 
 import numpy
 import sys
+import datetime
 from scipy import stats
 from matplotlib import pyplot
 from gensim import corpora, models, similarities, matutils
@@ -29,6 +30,7 @@ LDA_EvalEvery = None                                            # Don't evaluate
 LDA_Alpha = 0.01
 LDA_Eta = 0.01
 LDA_MaxTopcs = 40
+LDA_MinimumTimeFactorDifference = 0.01
 
 ## Tools
 fTokenizer = RegexpTokenizer(r'\w+')							# Regex for matching words made up of alphanumeric and underscore characters
@@ -46,13 +48,72 @@ def main():
     # header
     print("[Topic Modeller]")
     # testing
-    buildTrivialModel()
+    runProfileGeneratorTest()
+    #runModellingTest()
 
-#######################
-## Modelling Methods ##
-#######################
 
-def buildTrivialModel():
+########################
+## Modelling Routines ##
+########################
+
+def runProfileGeneratorTest():
+    '''
+    @info Generates a basic user profile from a log.
+    '''
+    ###################
+    ## Load Log Data ##
+    ###################
+
+    # load data
+    print("\n - Loading Log Data...")
+    logFile = "data/testlog.txt"
+    print("    - location: " + logFile)
+    logData = loadLogData("data/testlog.txt")
+    print("    - items:", len(logData))
+
+    # extract documents
+    documents = []
+    for i in logData:
+        documents.append(i[1])
+
+    #####################
+    ## Build LDA Model ##
+    #####################
+
+    # build resulting optimal model
+    LDA_Model = generateLDAModelFromDocuments(documents)
+    # print topics
+    print("\n - Resulting LDA Topics:")
+    for i in LDA_Model.print_topics():
+        print("    - TOPIC_" + str(i[0]) + ": " + str(i[1]))
+
+    #############################
+    ## Topics Time Association ##
+    #############################
+
+    # generate time factor data
+    timeFactors = gatherTopicTimeFactors(LDA_Model, logData)
+    cleanedTimeFactors = cleanTimeFactors(timeFactors)
+    # print time factors
+    print("\n - Resulting Time Factors:")
+    for i in cleanedTimeFactors:
+        # print data
+        print("    - TOPIC_" + str(i) + ": " + str(cleanedTimeFactors[i]))
+
+    #####################
+    ## Save to profile ##
+    #####################
+
+    print("\n - saving user profile to data/userProfile.txt...")
+    createUserProfile(LDA_Model, cleanedTimeFactors)
+
+    ##########
+    ## Done ##
+    ##########
+
+    print("\n[EXITED]")
+
+def runModellingTest():
     '''
     @info Generates a trivial model and reports each stage for testing purposes.
     '''
@@ -148,6 +209,12 @@ def buildTrivialModel():
     for i in testDocTopics:
         print("       - TOPIC_" + str(i[0]) + " : " + str(i[1]))
 
+    ##########
+    ## Done ##
+    ##########
+
+    print("\n[EXITED]")
+
 ##################################
 ## LDA Modelling Helper Methods ##
 ##################################
@@ -204,6 +271,17 @@ def generateLDAModel(corpus, dictionary, topicCount):
                                         iterations=LDA_Iterations, passes=LDA_Passes, eval_every=LDA_EvalEvery,
                                         alpha=LDA_Alpha, eta=LDA_Eta)
 
+def generateLDAModelFromDocuments(documents):
+    # prepare LDA primatives
+    tokens = generateTokens(documents)
+    dictionary = generateDictionary(tokens, True)
+    corpus = generateCorpus(dictionary, tokens)
+    # determine optimal topic count
+    KL_Divergences = calculateKLDivergences(corpus, dictionary, max_topics=LDA_MaxTopcs)
+    optimalTopicCnt = findKLDivergenceDip(KL_Divergences)
+    # build model
+    return generateLDAModel(corpus, dictionary, optimalTopicCnt)
+
 #################################
 ## LDA Model Interface Methods ##
 #################################
@@ -253,7 +331,6 @@ def printKLDivergences(KL_Divergences):
     # output
     for i in range(0, len(KL_Divergences)):
         print("    - [TOPIC_" + str(i) + "] : " + str(KL_Divergences[i]))
-
 
 ###########################
 ## KL Divergence Methods ##
@@ -308,21 +385,18 @@ def calculateKLDivergences(corpus, dictionary, min_topics=1, max_topics=1, itera
 
 def findKLDivergenceDip(KL_Divergences):
     '''
-        Finds the dip in the divergence values which indicates optimal number of topics
+    @info Finds the dip in the divergence values which indicates optimal number of topics
     '''
     # sanity check for degenerate cases
     if len(KL_Divergences) < 2:
         return len(KL_Divergences)
     elif len(KL_Divergences) == 2:
-        if KL_Divergences[0] < KL_Divergences[1]:
-            return 0
-        else:
-            return 1
+        return 1
     # initialize
-    iMin = 1000000
-    iMinID = 0
+    iMin = KL_Divergences[1]
+    iMinID = 1
     # check
-    for i in range(1, len(KL_Divergences), 1):
+    for i in range(2, len(KL_Divergences), 1):
         # end case
         if i == len(KL_Divergences)-1:
             if (KL_Divergences[i] > KL_Divergences[i-1]):
@@ -346,6 +420,60 @@ def findKLDivergenceDip(KL_Divergences):
     # Done
     return iMinID + 1
 
+#########################
+## Time Factor Methods ##
+#########################
+
+def calculateTimeFactor(timestamp):
+    return abs(((timestamp.hour*60+timestamp.minute)-720)/720)
+
+def gatherTopicTimeFactors(LDA_Model, logData):
+    # initialize
+    timeFactors = dict()
+    minimumProbability = 1 / len(LDA_Model.print_topics())
+    # gather time factors
+    for i in logData:
+        # determine document's topic distribution
+        topicDistributions = classifyDocument(LDA_Model, i[1])
+        # process distribution info
+        for topicDistribution in topicDistributions:
+            # check if significant probability
+            if topicDistribution[1] > minimumProbability:
+                # store time factor
+                if topicDistribution[0] in timeFactors:
+                    timeFactors[topicDistribution[0]].append(i[0])
+                else:
+                    timeFactors[topicDistribution[0]] = [i[0]]
+    # done
+    return timeFactors
+
+def cleanTimeFactors(timeFactors):
+    # initialize
+    cleanedTimeFactors = dict()
+    LDA_MinimumTimeFactorDifference = 0.01
+    # look at each topic's time factor
+    for i in timeFactors:
+        # process timeFactors
+        for timeFactor in timeFactors[i]:
+            # initial insert
+            if not(i in cleanedTimeFactors):
+                cleanedTimeFactors[i] = [timeFactor]
+                continue
+            # check if similar element exists
+            foundSimilarElement = False
+            for k in range(0, len(cleanedTimeFactors[i])):
+                if abs(cleanedTimeFactors[i][k] - timeFactor) < LDA_MinimumTimeFactorDifference:
+                    # average similarities
+                    cleanedTimeFactors[i][k] = (cleanedTimeFactors[i][k] + timeFactor) / 2.0
+                    # log finding
+                    foundSimilarElement = True
+                    break
+            # add to list if no similarities
+            if foundSimilarElement == False:
+                cleanedTimeFactors[i].append(timeFactor)
+    # done
+    return cleanedTimeFactors
+
 ##############
 ## File i/o ##
 ##############
@@ -360,6 +488,48 @@ def saveKLDivergencesGraph(KL_Divergences):
     pyplot.xlabel('Number of Topics', color="black")
     # save graph
     pyplot.savefig('data/KL_Divergences.png', facecolor='white', edgecolor='white', bbox_inches='tight')
+
+def loadLogData(filename):
+    # initialize
+    result = []
+    # read from file
+    file = open(filename, "r")
+    for line in file:
+        # clean line
+        line = line.strip()
+        line = line.split("_#_")
+        # process time part
+        dateData = line[0].split(',')
+        timestamp = datetime.datetime(int(dateData[0]), int(dateData[1]), int(dateData[2]), int(dateData[3]), int(dateData[4]), int(dateData[5]))
+        timeFactor = calculateTimeFactor(timestamp)
+        # generate record
+        logItem = [timeFactor, line[1]]
+        result.append(logItem)
+    # close file
+    file.close()
+    # done
+    return result
+
+def createUserProfile(LDA_Model, timeFactors):
+    # initialize
+    file = open("data/userProfile.txt", "w")
+    # write topics
+    for topic in LDA_Model.print_topics():
+        # write time Factors
+        file.write(str(timeFactors[topic[0]]))
+        # write topic keywords
+        file.write(" [")
+        topicKeywords = topic[1].split(" + ")
+        for i in range(0, len(topicKeywords)):
+            # write keyword
+            topicKeyword = topicKeywords[i].split("*")
+            file.write("(" + topicKeyword[0] + ", " + topicKeyword[1] + ")")
+            # space with comma
+            if (i < len(topicKeywords)-1):
+                file.write(", ")
+        file.write("]\n")
+    # close file
+    file.close()
 
 #########################
 ## Program Entry Point ##

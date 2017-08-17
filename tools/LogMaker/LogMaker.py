@@ -72,7 +72,7 @@ class LogItem:
 
     ## output interface ##
     def __str__(self):
-        return str(self.time) + " " + self.data
+        return self.time.strftime("%Y,%m,%d,%H,%M,%S") + "_#_" + self.data
 
 #############
 ## Methods ##
