@@ -12,6 +12,7 @@ warnings.filterwarnings(action='ignore', category=UserWarning, module='gensim')
 import numpy
 import sys
 import datetime
+import dateutil
 from scipy import stats
 from matplotlib import pyplot
 from gensim import corpora, models, similarities, matutils
@@ -48,8 +49,8 @@ def main():
     # header
     print("[Topic Modeller]")
     # testing
-    runProfileGeneratorTest()
-    #runModellingTest()
+    runModellingTest()
+    ##runProfileGeneratorTest()
 
 
 ########################
@@ -98,7 +99,14 @@ def runProfileGeneratorTest():
     print("\n - Resulting Time Factors:")
     for i in cleanedTimeFactors:
         # print data
-        print("    - TOPIC_" + str(i) + ": " + str(cleanedTimeFactors[i]))
+        print("    - TOPIC_" + str(i) + ": " + str(cleanedTimeFactors[i]), end="")
+        # print string version
+        print(" | [" , end = "")
+        for j in range(0, len(cleanedTimeFactors[i])):
+            print(timeFactorToTimeString(cleanedTimeFactors[i][j]), end="")
+            if j < len(cleanedTimeFactors[i]) - 1:
+                print(", ", end="")
+        print("]")
 
     #####################
     ## Save to profile ##
@@ -106,6 +114,25 @@ def runProfileGeneratorTest():
 
     print("\n - saving user profile to data/userProfile.txt...")
     createUserProfile(LDA_Model, cleanedTimeFactors)
+
+    ############################
+    ## Finding Relevant topic ##
+    ############################
+
+    print("\n - Please enter a time (H:M) or 'q' to quit:\n    > ", end="")
+    line = input()
+    while (line != "q"):
+        # process line
+        line = line.strip().split(':')
+        # make into a time factor
+        timestamp = datetime.datetime.now()
+        timestamp = datetime.datetime(timestamp.year, timestamp.month, timestamp.day, int(line[0]), int(line[1]), timestamp.second)
+        timeFactor = calculateTimeFactor(timestamp)
+        # find relevant topic
+        print("    = Relevant topic is TOPIC_" + str(findMostRelevantTopic(timeFactor, cleanedTimeFactors)))
+        # get a new line
+        print("\n - Please enter a time (H:M) or 'q' to quit:\n    > ", end="")
+        line = input()
 
     ##########
     ## Done ##
@@ -425,7 +452,31 @@ def findKLDivergenceDip(KL_Divergences):
 #########################
 
 def calculateTimeFactor(timestamp):
-    return abs(((timestamp.hour*60+timestamp.minute)-720)/720)
+    return abs((timestamp.hour*60+timestamp.minute)/1440)
+
+def calculateWeighting(timeFactor1, timeFactor2):
+    return 1 - min(abs(timeFactor1 - timeFactor2), 1 - abs(timeFactor1 - timeFactor2))
+
+def timeFactorToTimeString(timeFactor):
+    # extract parts
+    hour = int((timeFactor * 1440) / 60)
+    minute = int((timeFactor * 1440) % 60)
+    # make string
+    return str(hour) + ":" + str(minute)
+
+def findMostRelevantTopic(currentTimeFactor, modelTimeFactors):
+    # initialize
+    bestTopicID = -1
+    bestWeighting = -1
+    # find relevant topic
+    for topicID in modelTimeFactors:
+        for timeFactor in modelTimeFactors[topicID]:
+            weighting = calculateWeighting(currentTimeFactor, timeFactor)
+            if (weighting > bestWeighting):
+                bestTopicID = topicID
+                bestWeighting = weighting
+    # done
+    return bestTopicID
 
 def gatherTopicTimeFactors(LDA_Model, logData):
     # initialize
