@@ -28,16 +28,16 @@ from stop_words import get_stop_words
 ######################
 
 ## LDA Parameters
+LDA_SlidingWindow = 7                                           # How old the log is allowed to be in days
 LDA_Passes = 25
 LDA_Iterations = 100
 LDA_EvalEvery = None                                            # Don't evaluate model perplexity, takes too much time.
 LDA_Alpha = 0.01
 LDA_Eta = 0.01
-LDA_MaxTopics = 10
-LDA_MinimumTimeFactorDifference = 0.01
-LDA_SlidingWindow = 7                                            # How old the log is allowed to be in days
-LDA_TopicRuns = 10                                               # Number of times each topic KL_Divergence is evaluated, reduces noise
+LDA_MaxTopics = 8
+LDA_TopicRuns = 10                                              # Number of times each topic KL_Divergence is evaluated, reduces noise
 LDA_MaxThreads = 8
+LDA_MinimumTimeFactorDifference = 0.01                          # Used in combining similar time factors
 
 ## Tools
 fTokenizer = RegexpTokenizer(r'\w+')							# Regex for matching words made up of alphanumeric and underscore characters
@@ -137,11 +137,12 @@ def runBenchmark():
     topicCounts = []
     buildTimes = []
     # [PART 1/3] : settings
+    minParameter = 10
     maxParameter = 300
-    parameterSteps = 2
-    runs = 10
+    parameterSteps = 10
+    runs = 5
     # run Tests
-    for parameterValue in range(1, maxParameter, parameterSteps):
+    for parameterValue in range(minParameter, maxParameter, parameterSteps):
         # report
         print("\n*** parameter set to " + str(parameterValue) + " of " + str(maxParameter) + " (step=" + str(parameterSteps) + ") ***")
         # initialize
@@ -150,10 +151,10 @@ def runBenchmark():
         # average runs
         for j in range(1, runs+1):
             # [PART 2/3] : set parameter value
-            LDA_Iterations = parameterValue
+            LDA_Passes = parameterValue
             # build resulting optimal model
             timer = int(round(time.time() * 1000))
-            LDA_Model = generateLDAModelFromDocuments(documents)
+            LDA_Model = generateLDAModelFromPrimatives(corpus, dictionary)
             timer = (int(round(time.time() * 1000)) - timer) / 1000
             print("    - Took " + str(timer) + " seconds to do run " + str(j) + " of " + str(runs))
             # store values
@@ -165,8 +166,8 @@ def runBenchmark():
         parameterValues.append(parameterValue)
     # [PART 3/3] : graph results
     print("\n - Saving " + str(len(parameterValues)) + " data points in graph form...")
-    saveGeneralGraph(parameterValues, topicCounts, "LDA Iterations", "Topic Count", "LDA_Iterations_Main")
-    saveGeneralGraph(parameterValues, buildTimes, "LDA Iterations", "Build Time", "LDA_Iterations_Time")
+    saveGeneralGraph(parameterValues, topicCounts, "LDA Iterations", "Topic Count", "LDA_Iterations")
+    saveGeneralGraph(parameterValues, buildTimes, "LDA Iterations", "Build Time", "LDA_Iterations_Times")
 
 def runProfileGeneratorTest():
     '''
@@ -433,6 +434,16 @@ def generateLDAModelFromDocuments(documents):
     # build model
     return generateLDAModel(corpus, dictionary, optimalTopicCnt)
 
+def generateLDAModelFromPrimatives(corpus, dictionary):
+    # report
+    print("\n - Building Model...")
+    # determine optimal topic count
+    KL_Divergences = calculateKLDivergences(corpus, dictionary, max_topics=LDA_MaxTopics)
+    optimalTopicCnt = findKLDivergenceDip(KL_Divergences)
+    print("    - Optimal topic count is " + str(optimalTopicCnt) + ".")
+    # build model
+    return generateLDAModel(corpus, dictionary, optimalTopicCnt)
+
 #################################
 ## LDA Model Interface Methods ##
 #################################
@@ -517,7 +528,13 @@ def calculateKLDivergence(corpus, dictionary, number_of_topics):
     # calculate KL divergence
     return symmetric_kl_divergence(document_word_vector, document_topic_vector)
 
-def calculateKLDivergencesSingleThreaded(corpus, dictionary, max_topics=1):
+def calculateKLDivergences(corpus, dictionary, max_topics=1):
+    if (LDA_MaxThreads == 1):
+        return calculateKLDivergencesST(corpus, dictionary, max_topics)
+    else:
+        return calculateKLDivergencesMT(corpus, dictionary, max_topics)
+
+def calculateKLDivergencesST(corpus, dictionary, max_topics=1):
     """
     @info   Caluculates symmetric Kullback-Leibler divergence.
     @author Shingo OKAWA, Modified by Tashiv Sewpersad
@@ -533,7 +550,7 @@ def calculateKLDivergencesSingleThreaded(corpus, dictionary, max_topics=1):
     # initialize
     result =  [None] * max_topics
     # calculate KL divergence
-    print("    - Trying various topic counts: (max=" + str(max_topics) + ")")
+    print("    - Trying various topic counts: (max=" + str(max_topics) + ", SINGLE Thread Mode)")
     for i in range(0, max_topics, 1):
         # report
         print("       - Trying a topic count of " + str(i+1) + "...")
@@ -547,7 +564,7 @@ def calculateKLDivergencesSingleThreaded(corpus, dictionary, max_topics=1):
     # done
     return result
 
-def calculateKLDivergences(corpus, dictionary, max_topics=1):
+def calculateKLDivergencesMT(corpus, dictionary, max_topics=1):
     """
     @info   Caluculates symmetric Kullback-Leibler divergence.
     @author Shingo OKAWA, Modified by Tashiv Sewpersad
@@ -563,7 +580,7 @@ def calculateKLDivergences(corpus, dictionary, max_topics=1):
     # initialize
     result =  multiprocessing.Array(ctypes.c_double, max_topics)
     # calculate KL divergence
-    print("    - Trying various topic counts: (max=" + str(max_topics) + ")")
+    print("    - Trying various topic counts: (max=" + str(max_topics) + ", MULTI-Threads=" + str(LDA_MaxThreads) + ")")
     jobs = []
     for i in range(0, max_topics, 1):
         # Create new threads
@@ -591,10 +608,10 @@ def findKLDivergenceDip(KL_Divergences):
     elif len(KL_Divergences) == 2:
         return 1
     # initialize
-    iMin = KL_Divergences[1]
-    iMinID = 1
+    iMin = float('inf')
+    iMinID = 0
     # check
-    for i in range(2, len(KL_Divergences), 1):
+    for i in range(1, len(KL_Divergences), 1):
         # end case
         if i == len(KL_Divergences)-1:
             if (KL_Divergences[i] > KL_Divergences[i-1]):

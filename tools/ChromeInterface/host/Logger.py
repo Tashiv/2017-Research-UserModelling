@@ -41,13 +41,11 @@ def readMessage():
 def processInput():
 	# read in message data
 	messageDictionary = readMessage()
-	# process input (PLACEHOLDER)
+	# add to log
 	file = open("log.txt",'a')
-	file.write("[NEW-RUN]\n")
-	file.write(" - Stored:" + str(messageDictionary) + "\n")
+	for value in messageDictionary:	
+		file.write(str(messageDictionary[value]) + "\n")
 	file.close
-	# send response
-	sendMessage({"Some Important Numbers" : "1 2 3 0.5"})
 
 ###################
 ## Program Entry ##
