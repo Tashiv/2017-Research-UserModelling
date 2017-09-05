@@ -11,5 +11,5 @@
 # Java Coffee Example (3 topics with three keywords each):
 
 [0.08] [(0.6, Coffee), (0.6, drink)]
-[0.13, 0.23] [(0.6, Coffee), (0.6, Shop), (0.6, store), (0.2, Java)]
+[0.13, 0.15, 0.23] [(0.6, Coffee), (0.6, Shop), (0.6, store), (0.2, Java)]
 [0.6, 0.85] [(0.2, Programming), (0.6, Java), (0.6, Reference)]

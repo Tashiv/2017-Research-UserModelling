@@ -1,0 +1,4 @@
+[NEW-RUN]
+ - Stored:{'text': 'TEST'}
+[NEW-RUN]
+ - Stored:{'text': 'tashiv '}

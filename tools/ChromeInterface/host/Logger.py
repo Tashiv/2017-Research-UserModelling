@@ -42,7 +42,7 @@ def processInput():
 	# read in message data
 	messageDictionary = readMessage()
 	# process input (PLACEHOLDER)
-	file = open("TimeRank-log.txt",'a')
+	file = open("log.txt",'a')
 	file.write("[NEW-RUN]\n")
 	file.write(" - Stored:" + str(messageDictionary) + "\n")
 	file.close

@@ -46,7 +46,7 @@ function onDisconnected() {
 }
 
 function connect() {
-  var hostName = "com.google.chrome.example.echo";
+  var hostName = "com.timerank.chrome.logger";
   appendMessage("Connecting to native messaging host <b>" + hostName + "</b>")
   port = chrome.runtime.connectNative(hostName);
   port.onMessage.addListener(onNativeMessage);

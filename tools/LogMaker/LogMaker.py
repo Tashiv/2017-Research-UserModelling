@@ -1,9 +1,20 @@
+#########
+# Notes #
+#######################################################################
+#                                                                     #
+# Limitations:                                                        #
+#  [1] - Log items may have the same times which is unrealistic.      #
+#                                                                     #
+#######################################################################
+
 #############
 ## Imports ##
 #############
 
-import datetime
-import dateutil
+from dateutil.relativedelta import relativedelta
+from datetime import datetime
+import random
+import sys
 
 ###################
 ## Configuration ##
@@ -11,9 +22,146 @@ import dateutil
 
 fConfig = "config.txt"
 fLog = "log.txt"
-fStartDate = datetime.datetime.now()
-fEndDate = datetime.datetime.now()
+fDelimiter = " -- "
+
+######################
+## Global Variables ##
+######################
+
+fStartDate = datetime.now()
+fEndDate = datetime.now()
 fRules = []
+
+##########
+## Main ##
+##########
+
+def main():
+    # header
+    print("[Log Generator]")
+    # global Variables
+    global fConfig
+    # process parameters
+    if  len(sys.argv) == 3:
+        if sys.argv[1] == "-c":
+            fConfig = sys.argv[2]
+    # load config
+    loadConfig()
+    # report configuration
+    print("   - Log Range:",fStartDate,"->",fEndDate)
+    print("   - Number of Rules:", len(fRules))
+    # build Log
+    buildLog()
+    # done
+    print("[Exited]")
+
+#############
+## Methods ##
+#############
+
+def loadConfig():
+    # report
+    print(" - Loading '" + fConfig + "' configuration file...")
+    # global variables
+    global fStartDate
+    global fEndDate
+    # initialize
+    currentRule = None
+    # open file
+    file = open(fConfig, "r")
+    # read lines
+    for line in file:
+        # clean line
+        line = line.strip()
+        # process line
+        if line == "":
+            continue
+        elif line[0] == '#':
+            continue
+        elif line[0:6] == "start ":
+            # extract date
+            lineData = line.split(' ')
+            dateData = lineData[1].split('-')
+            timeData = lineData[2].split(':')
+            # set date
+            fStartDate = datetime(int(dateData[0]), int(dateData[1]), int(dateData[2]), int(timeData[0]), int(timeData[1]), int(timeData[2]))
+        elif line[0:4] == "end ":
+            # extract date
+            lineData = line.split(' ')
+            dateData = lineData[1].split('-')
+            timeData = lineData[2].split(':')
+            # set date
+            fEndDate = datetime(int(dateData[0]), int(dateData[1]), int(dateData[2]), int(timeData[0]), int(timeData[1]), int(timeData[2]))
+        elif line[0:3] == "-- ":
+            currentRule.data.append(line[3::])
+        else:
+            currentRule = LogBuildRule(line)
+            fRules.append(currentRule)
+    # close file
+    file.close()
+    # sanity check
+    if (fEndDate < fStartDate):
+        fStartDate, fEndDate = fEndDate, fStartDate
+
+def buildLog():
+    # report
+    print(" - Building Log...")
+    # initialize
+    logItems = []
+    ruleID = 0
+    # process each build rule
+    for buildRule in fRules:
+        # report rule
+        ruleID+=1
+        print("    - Processing rule " + str(ruleID) + '...')
+        # initialize
+        stopDate = fStartDate + relativedelta(seconds=buildRule.timeStop.second,
+                                            minutes=buildRule.timeStop.minute,
+                                            hours=buildRule.timeStop.hour,
+                                            days=buildRule.timeStop.day,
+                                            months=buildRule.timeStop.month,
+                                            years=buildRule.timeStop.year)
+        currentDate = fStartDate
+
+        # apply initial offset
+        currentDate += relativedelta(seconds=buildRule.timeStart.second,
+                                            minutes=buildRule.timeStart.minute,
+                                            hours=buildRule.timeStart.hour,
+                                            days=buildRule.timeStart.day,
+                                            months=buildRule.timeStart.month,
+                                            years=buildRule.timeStart.year)
+        # keep making log items until final date
+        while (currentDate < fEndDate) and (currentDate < stopDate):
+            # calculate probability of occuring
+            randomValue = random.random()
+            if randomValue < buildRule.sessionProbability:
+                # make N number of items to mimic a session
+                for i in range(0, random.randint(buildRule.minSessionOccurences, buildRule.maxSessionOccurences)):
+                    # apply variance to time
+                    variedDate = currentDate + relativedelta(seconds=random.randint(-1*buildRule.timeVariance.second,buildRule.timeVariance.second),
+                                                                minutes=random.randint(-1*buildRule.timeVariance.minute,buildRule.timeVariance.minute),
+                                                                hours=random.randint(-1*buildRule.timeVariance.hour,buildRule.timeVariance.hour),
+                                                                days=random.randint(-1*buildRule.timeVariance.day,buildRule.timeVariance.day),
+                                                                months=random.randint(-1*buildRule.timeVariance.month,buildRule.timeVariance.month),
+                                                                years=random.randint(-1*buildRule.timeVariance.year,buildRule.timeVariance.year))
+                    # make item
+                    logItems.append(LogItem(variedDate, buildRule.getRandomDataItem()))
+            # increment date
+            currentDate += relativedelta(seconds=buildRule.timeInterval.second,
+                                            minutes=buildRule.timeInterval.minute,
+                                            hours=buildRule.timeInterval.hour,
+                                            days=buildRule.timeInterval.day,
+                                            months=buildRule.timeInterval.month,
+                                            years=buildRule.timeInterval.year)
+    # sort log items
+    print("    - sorting " + str(len(logItems)) + " items...")
+    logItems.sort()
+    # output to file
+    print("    - saving to " + fLog + "...")
+    file = open(fLog, "w")
+    for item in logItems:
+        file.write(str(item) + '\n')
+    file.close()
 
 #############
 ## Classes ##
@@ -41,137 +189,57 @@ class TimeSet:
         self.year = int(timeData[5])
 
 class LogBuildRule:
-    ## variables ##
-    timeInterval = TimeSet("0,0,0,0,0,0")
-    timeOffset = TimeSet("0,0,0,0,0,0")
-    data = "<NONE>"
+    ## VARIABLES ##
+    timeStart = None
+    timeStop = None
+    timeInterval = None
+    timeVariance = None
+    sessionProbability = 0
+    minSessionOccurences = 0
+    maxSessionOccurences = 0
+    data = None
 
-    ## constructor ##
+    ## CONSTRUCTOR ##
     def __init__(self, logString):
         # process data
-        logData = logString.split(" -- ")
-        # assign data
-        self.timeOffset = TimeSet(logData[0])
-        self.timeInterval = TimeSet(logData[1])
-        self.data = logData[2]
+        logData = logString.split(fDelimiter)
+        # assign rule times
+        self.timeStart = TimeSet(logData[0])
+        self.timeStop = TimeSet(logData[1])
+        self.timeInterval = TimeSet(logData[2])
+        self.timeVariance = TimeSet(logData[3])
+        self.sessionProbability = float(logData[4])
+        self.minSessionOccurences = int(logData[5])
+        self.maxSessionOccurences = int(logData[6])
+        # store rule data items
+        self.data = []
+        for i in range(7, len(logData)):
+            self.data.append(logData[i])
+
+    ## METHODS ##
+    def getRandomDataItem(self):
+        # choose random item
+        index = random.randint(0, len(self.data)-1)
+        # provide it
+        return self.data[index]
 
 class LogItem:
-    ## variables ##
-    time = datetime.datetime.now
+    ## VARIABLES ##
+    time = datetime.now
     data = "<NONE>"
 
-    ## constructor ##
+    ## CONSTRUCTOR ##
     def __init__(self, time, data):
         # assign data
         self.time = time
         self.data = data
 
-    ## sorting interface ##
+    ## METHODS ##
     def __lt__(self, other):
          return self.time < other.time
 
-    ## output interface ##
     def __str__(self):
         return self.time.strftime("%Y,%m,%d,%H,%M,%S") + "_#_" + self.data
-
-#############
-## Methods ##
-#############
-
-def loadConfig():
-    # global variables
-    global fStartDate
-    global fEndDate
-    # initialize
-    iLogDays = 0
-    # open file
-    file = open(fConfig, "r")
-    # read lines
-    for line in file:
-        # clean line
-        line = line.strip()
-        # process line
-        if line == "":
-            continue
-        elif line[0] == '#':
-            continue
-        elif line[0:5] == "date ":
-            # extract date
-            lineData = line.split(' ')
-            dateData = lineData[1].split('-')
-            # set date
-            fStartDate = datetime.datetime(int(dateData[0]), int(dateData[1]), int(dateData[2]), fStartDate.hour, fStartDate.minute, fStartDate.second)
-        elif line[0:5] == "time ":
-            # extract time
-            lineData = line.split(' ')
-            timeData = lineData[1].split(':')
-            # set date
-            fStartDate = datetime.datetime(fStartDate.year, fStartDate.month, fStartDate.day, int(timeData[0]), int(timeData[1]), int(timeData[2]))
-        elif line[0:5] == "days ":
-            # store number of days
-            iLogDays = line.split(" ")[1]
-        else:
-            fRules.append(LogBuildRule(line))
-
-    # close file
-    file.close()
-    # set end date
-    fEndDate = fStartDate + datetime.timedelta(days=int(iLogDays))
-
-def buildLog():
-    # initialize
-    print(" - Building Log...")
-    logItems = []
-    iRuleCnt = 0
-    # process each build rule
-    for buildRule in fRules:
-        # initialize
-        fCurrentDate = fStartDate
-        iRuleCnt+=1
-        # apply offset
-        fCurrentDate += datetime.timedelta(seconds=buildRule.timeOffset.second,
-                                            minutes=buildRule.timeOffset.minute,
-                                            hours=buildRule.timeOffset.hour,
-                                            days=(buildRule.timeOffset.day + buildRule.timeOffset.month*30 + buildRule.timeOffset.year*356))
-        # keep making log items until final date
-        while fCurrentDate < fEndDate:
-            # make item
-            logItems.append(LogItem(fCurrentDate, buildRule.data))
-            # increment date
-            fCurrentDate += datetime.timedelta(seconds=buildRule.timeInterval.second,
-                                                minutes=buildRule.timeInterval.minute,
-                                                hours=buildRule.timeInterval.hour,
-                                                days=(buildRule.timeInterval.day + buildRule.timeInterval.month*30 + buildRule.timeInterval.year*356))
-        # report
-        print("    - processed rule", iRuleCnt, '.')
-
-    # sort log items
-    print("    - sorting " + str(len(logItems)) + " items...")
-    logItems.sort()
-    # output to file
-    print("    - saving to " + fLog + "...")
-    file = open(fLog, "w")
-    for item in logItems:
-        file.write(str(item) + '\n')
-    file.close()
-    # done
-    print("    - done.")
-
-##########
-## Main ##
-##########
-
-def main():
-    # load config
-    loadConfig()
-    # report range
-    print("[Log Generator]")
-    print(" - Log Range:",fStartDate,"->",fEndDate)
-    print(" - Number of Rules:", len(fRules))
-    # build Log
-    buildLog()
-    # done
-    print("[Exited]")
 
 #########################
 ## Program Entry Point ##

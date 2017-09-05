@@ -13,6 +13,9 @@ import numpy
 import sys
 import datetime
 import dateutil
+import time
+import multiprocessing
+import ctypes
 from scipy import stats
 from matplotlib import pyplot
 from gensim import corpora, models, similarities, matutils
@@ -25,21 +28,21 @@ from stop_words import get_stop_words
 ######################
 
 ## LDA Parameters
-LDA_Passes = 50
+LDA_Passes = 25
 LDA_Iterations = 100
 LDA_EvalEvery = None                                            # Don't evaluate model perplexity, takes too much time.
 LDA_Alpha = 0.01
 LDA_Eta = 0.01
-LDA_MaxTopcs = 40
+LDA_MaxTopics = 10
 LDA_MinimumTimeFactorDifference = 0.01
+LDA_SlidingWindow = 7                                            # How old the log is allowed to be in days
+LDA_TopicRuns = 10                                               # Number of times each topic KL_Divergence is evaluated, reduces noise
+LDA_MaxThreads = 8
 
 ## Tools
 fTokenizer = RegexpTokenizer(r'\w+')							# Regex for matching words made up of alphanumeric and underscore characters
 fStemmer = PorterStemmer()										# Tool for stemming tokens
 fStopWordsList = get_stop_words('en')							# English stop words list
-
-## Debugging
-fIsDebugging = True
 
 ##########
 ## Main ##
@@ -49,13 +52,121 @@ def main():
     # header
     print("[Topic Modeller]")
     # testing
-    runModellingTest()
-    ##runProfileGeneratorTest()
+    if len(sys.argv) != 2:
+        printArguments()
+    else:
+        if (sys.argv[1] == "-t1"):
+            runModellingTest()
+        elif (sys.argv[1] == "-t2"):
+            runProfileGeneratorTest()
+        elif (sys.argv[1] == "-b"):
+            runBenchmark()
+        else:
+            printArguments()
 
+def printArguments():
+    print("Arguments:")
+    print(" -t1 : Runs basic modelling test.")
+    print(" -t2 : Runs a profile generating test.")
+    print(" -b  : Tests the modeller on the local log.txt file.")
 
 ########################
 ## Modelling Routines ##
 ########################
+
+def runBenchmark():
+    '''
+    @info Benchmarks the modeller on a local log.txt file.
+    '''
+    ####################
+    ## Global Imports ##
+    ####################
+
+    ## LDA Parameters
+    global LDA_Passes
+    global LDA_Iterations
+    global LDA_EvalEvery
+    global LDA_Alpha
+    global LDA_Eta
+    global LDA_MaxTopics
+    global LDA_MinimumTimeFactorDifference
+    global LDA_SlidingWindow
+
+    ###################
+    ## Load Log Data ##
+    ###################
+
+    # load data
+    print("\n - Loading Log Data...")
+    logFile = "data/log.txt"
+    print("    - location: " + logFile)
+    logData = loadLogData(logFile, datetime.datetime(2017,1,31,23,59,59))
+    logItemCnt = len(logData)
+    print("    - items:", logItemCnt)
+
+    # initialize
+    print("\n - Preparing Documents...")
+    currentItem = 0
+    documents = []
+    # extract documents
+    for i in logData:
+        # load item
+        documents.append(i[1])
+        # report
+        currentItem += 1
+        if (currentItem % 250 == 0):
+            print("    - Processed " + str(currentItem) + " of " + str(logItemCnt))
+
+    # export divergence profile
+    print("\n - Saving KL Divergence Profile as graph...")
+    tokens = generateTokens(documents)
+    dictionary = generateDictionary(tokens, True)
+    corpus = generateCorpus(dictionary, tokens)
+    KL_Divergences = calculateKLDivergences(corpus, dictionary, max_topics=LDA_MaxTopics)
+    optimalTopicCnt = findKLDivergenceDip(KL_Divergences)
+    print("\n - Optimal number of topics:", optimalTopicCnt)
+    saveKLDivergencesGraph(KL_Divergences)
+    printKLDivergences(KL_Divergences)
+
+    #####################
+    ## Build LDA Model ##
+    #####################
+
+    # initialize
+    parameterValues = []
+    topicCounts = []
+    buildTimes = []
+    # [PART 1/3] : settings
+    maxParameter = 300
+    parameterSteps = 2
+    runs = 10
+    # run Tests
+    for parameterValue in range(1, maxParameter, parameterSteps):
+        # report
+        print("\n*** parameter set to " + str(parameterValue) + " of " + str(maxParameter) + " (step=" + str(parameterSteps) + ") ***")
+        # initialize
+        tempTopicCounts = []
+        tempBuildTimes = []
+        # average runs
+        for j in range(1, runs+1):
+            # [PART 2/3] : set parameter value
+            LDA_Iterations = parameterValue
+            # build resulting optimal model
+            timer = int(round(time.time() * 1000))
+            LDA_Model = generateLDAModelFromDocuments(documents)
+            timer = (int(round(time.time() * 1000)) - timer) / 1000
+            print("    - Took " + str(timer) + " seconds to do run " + str(j) + " of " + str(runs))
+            # store values
+            tempTopicCounts.append(len(LDA_Model.print_topics()))
+            tempBuildTimes.append(timer)
+        # log values
+        topicCounts.append(sum(tempTopicCounts) / len(tempTopicCounts))
+        buildTimes.append(sum(tempBuildTimes) / len(tempBuildTimes))
+        parameterValues.append(parameterValue)
+    # [PART 3/3] : graph results
+    print("\n - Saving " + str(len(parameterValues)) + " data points in graph form...")
+    saveGeneralGraph(parameterValues, topicCounts, "LDA Iterations", "Topic Count", "LDA_Iterations_Main")
+    saveGeneralGraph(parameterValues, buildTimes, "LDA Iterations", "Build Time", "LDA_Iterations_Time")
 
 def runProfileGeneratorTest():
     '''
@@ -69,7 +180,7 @@ def runProfileGeneratorTest():
     print("\n - Loading Log Data...")
     logFile = "data/testlog.txt"
     print("    - location: " + logFile)
-    logData = loadLogData("data/testlog.txt")
+    logData = loadLogData(logFile, datetime.datetime.now())
     print("    - items:", len(logData))
 
     # extract documents
@@ -87,6 +198,15 @@ def runProfileGeneratorTest():
     print("\n - Resulting LDA Topics:")
     for i in LDA_Model.print_topics():
         print("    - TOPIC_" + str(i[0]) + ": " + str(i[1]))
+
+    # calculate divergences
+    KL_Divergences = calculateKLDivergences(corpus, dictionary, max_topics=LDA_MaxTopics)
+    printKLDivergences(KL_Divergences)
+    saveKLDivergencesGraph(KL_Divergences)
+
+    # final optimal topic count
+    optimalTopicCnt = findKLDivergenceDip(KL_Divergences)
+    print("\n - Optimal number of topics:", optimalTopicCnt)
 
     #############################
     ## Topics Time Association ##
@@ -179,7 +299,8 @@ def runModellingTest():
     ###################################
 
     # Caluculates symmetric KL divergence.
-    KL_Divergences = calculateKLDivergences(corpus, dictionary, max_topics=LDA_MaxTopcs)
+    print("\n - Modelling data...")
+    KL_Divergences = calculateKLDivergences(corpus, dictionary, max_topics=LDA_MaxTopics)
     printKLDivergences(KL_Divergences)
     saveKLDivergencesGraph(KL_Divergences)
 
@@ -299,13 +420,16 @@ def generateLDAModel(corpus, dictionary, topicCount):
                                         alpha=LDA_Alpha, eta=LDA_Eta)
 
 def generateLDAModelFromDocuments(documents):
+    # report
+    print("\n - Building Model...")
     # prepare LDA primatives
     tokens = generateTokens(documents)
     dictionary = generateDictionary(tokens, True)
     corpus = generateCorpus(dictionary, tokens)
     # determine optimal topic count
-    KL_Divergences = calculateKLDivergences(corpus, dictionary, max_topics=LDA_MaxTopcs)
+    KL_Divergences = calculateKLDivergences(corpus, dictionary, max_topics=LDA_MaxTopics)
     optimalTopicCnt = findKLDivergenceDip(KL_Divergences)
+    print("    - Optimal topic count is " + str(optimalTopicCnt) + ".")
     # build model
     return generateLDAModel(corpus, dictionary, optimalTopicCnt)
 
@@ -357,7 +481,7 @@ def printKLDivergences(KL_Divergences):
     print("\n - Topic Symmetric KL Divergences:")
     # output
     for i in range(0, len(KL_Divergences)):
-        print("    - [TOPIC_" + str(i) + "] : " + str(KL_Divergences[i]))
+        print("    - [" + str(i+1) + "_TOPIC(S)] : " + str(KL_Divergences[i]))
 
 ###########################
 ## KL Divergence Methods ##
@@ -371,43 +495,90 @@ def symmetric_kl_divergence(p, q):
     '''
     return numpy.sum([stats.entropy(p, q), stats.entropy(q, p)])
 
-def calculateKLDivergences(corpus, dictionary, min_topics=1, max_topics=1, iteration=1):
+def calculateKLDivergence(corpus, dictionary, number_of_topics):
+    # Generates corpus length vectors.
+    corpus_length_vector = numpy.array([sum(frequency for _, frequency in document) for document in corpus])
+    # Instanciates LDA.
+    lda = generateLDAModel(corpus, dictionary, number_of_topics)
+    # Caluculates raw LDA matrix.
+    matrix = lda.expElogbeta
+    # Caluculates SVD for LDA matris.
+    U, document_word_vector, V = numpy.linalg.svd(matrix)
+    # Gets LDA topics.
+    lda_topics = lda[corpus]
+    # Caluculates document-topic matrix.
+    term_document_matrix = matutils.corpus2dense(
+        lda_topics, lda.num_topics
+    ).transpose()
+    document_topic_vector = corpus_length_vector.dot(term_document_matrix)
+    document_topic_vector = document_topic_vector
+    document_topic_norm   = numpy.linalg.norm(corpus_length_vector)
+    document_topic_vector = document_topic_vector / document_topic_norm
+    # calculate KL divergence
+    return symmetric_kl_divergence(document_word_vector, document_topic_vector)
+
+def calculateKLDivergencesSingleThreaded(corpus, dictionary, max_topics=1):
     """
     @info   Caluculates symmetric Kullback-Leibler divergence.
     @author Shingo OKAWA, Modified by Tashiv Sewpersad
     @source https://gist.github.com/shingoOKAWA/b8f92cc0f6f0183767dc
     """
-    # initialize
-    result = [];
-    # Generates corpus length vectors.
-    corpus_length_vector = numpy.array([sum(frequency for _, frequency in document) for document in corpus])
     # sanity check
     token_count = len(dictionary)
     if max_topics > token_count:
         # report
-        if (fIsDebugging):
-            print("\n*** Warning: Max_topics is more than number of tokens, using " + str(token_count) + " instead of " + str(max_topics) + " as max topics ***")
+        print("    - Warning: Max_topics is more than number of tokens, using " + str(token_count) + " instead of " + str(max_topics) + " as max topics.")
         # update
         max_topics = token_count
+    # initialize
+    result =  [None] * max_topics
     # calculate KL divergence
-    for i in range(min_topics, max_topics+1, iteration):
-        # Instanciates LDA.
-        lda = generateLDAModel(corpus, dictionary, i)
-        # Caluculates raw LDA matrix.
-        matrix = lda.expElogbeta
-        # Caluculates SVD for LDA matris.
-        U, document_word_vector, V = numpy.linalg.svd(matrix)
-        # Gets LDA topics.
-        lda_topics = lda[corpus]
-        # Caluculates document-topic matrix.
-        term_document_matrix = matutils.corpus2dense(
-            lda_topics, lda.num_topics
-        ).transpose()
-        document_topic_vector = corpus_length_vector.dot(term_document_matrix)
-        document_topic_vector = document_topic_vector + 0.0001
-        document_topic_norm   = numpy.linalg.norm(corpus_length_vector)
-        document_topic_vector = document_topic_vector / document_topic_norm
-        result.append(symmetric_kl_divergence(document_word_vector, document_topic_vector))
+    print("    - Trying various topic counts: (max=" + str(max_topics) + ")")
+    for i in range(0, max_topics, 1):
+        # report
+        print("       - Trying a topic count of " + str(i+1) + "...")
+        # average values
+        tempValues = []
+        for j in range(0, LDA_TopicRuns):
+            # calculate KL divergence
+            tempValues.append(calculateKLDivergence(corpus, dictionary, i+1))
+        # add smallest result
+        result[i] = min(tempValues)
+    # done
+    return result
+
+def calculateKLDivergences(corpus, dictionary, max_topics=1):
+    """
+    @info   Caluculates symmetric Kullback-Leibler divergence.
+    @author Shingo OKAWA, Modified by Tashiv Sewpersad
+    @source https://gist.github.com/shingoOKAWA/b8f92cc0f6f0183767dc
+    """
+    # sanity check
+    token_count = len(dictionary)
+    if max_topics > token_count:
+        # report
+        print("    - Warning: Max_topics is more than number of tokens, using " + str(token_count) + " instead of " + str(max_topics) + " as max topics.")
+        # update
+        max_topics = token_count
+    # initialize
+    result =  multiprocessing.Array(ctypes.c_double, max_topics)
+    # calculate KL divergence
+    print("    - Trying various topic counts: (max=" + str(max_topics) + ")")
+    jobs = []
+    for i in range(0, max_topics, 1):
+        # Create new threads
+        worker = multiprocessing.Process(target=KLWorker, args=(corpus, dictionary, i+1, result,))
+        worker.start()
+        jobs.append(worker)
+        # batch processing
+        if (len(jobs) >= LDA_MaxThreads):
+            for j in jobs:
+                j.join()
+            jobs = []
+    # wait for remaining threads to finish
+    for j in jobs:
+        j.join()
+    # done
     return result
 
 def findKLDivergenceDip(KL_Divergences):
@@ -529,18 +700,35 @@ def cleanTimeFactors(timeFactors):
 ## File i/o ##
 ##############
 
+def saveGeneralGraph(xValues, yValues, xAxisName, yAxisName, graphName):
+    '''
+    @info Saves a graph of values to disk.
+    '''
+    # setup graph
+    pyplot.close('all')
+    pyplot.plot(xValues, yValues, color="red")
+    pyplot.ylabel(yAxisName, color="black")
+    pyplot.xlabel(xAxisName, color="black")
+    # save graph
+    pyplot.savefig('data/' + graphName + '.png', facecolor='white', edgecolor='white', bbox_inches='tight')
+
 def saveKLDivergencesGraph(KL_Divergences):
     '''
     @info Saves a graph of KL Divergences to disk.
     '''
+    # generate x axis values
+    xAxisValues = []
+    for i in range(1, len(KL_Divergences)+1):
+        xAxisValues.append(i)
     # setup graph
-    pyplot.plot(KL_Divergences, color="red")
+    pyplot.close('all')
+    pyplot.plot(xAxisValues, KL_Divergences, color="red")
     pyplot.ylabel('Symmetric KL Divergence', color="black")
     pyplot.xlabel('Number of Topics', color="black")
     # save graph
     pyplot.savefig('data/KL_Divergences.png', facecolor='white', edgecolor='white', bbox_inches='tight')
 
-def loadLogData(filename):
+def loadLogData(filename, referenceDate):
     # initialize
     result = []
     # read from file
@@ -552,6 +740,10 @@ def loadLogData(filename):
         # process time part
         dateData = line[0].split(',')
         timestamp = datetime.datetime(int(dateData[0]), int(dateData[1]), int(dateData[2]), int(dateData[3]), int(dateData[4]), int(dateData[5]))
+        # determine age of item
+        if ((referenceDate - timestamp).days >= LDA_SlidingWindow):
+            continue
+        # determine time factor
         timeFactor = calculateTimeFactor(timestamp)
         # generate record
         logItem = [timeFactor, line[1]]
@@ -581,6 +773,21 @@ def createUserProfile(LDA_Model, timeFactors):
         file.write("]\n")
     # close file
     file.close()
+
+##########################
+## Multiprocess Workers ##
+##########################
+
+def KLWorker(corpus, dictionary, number_of_topics, result):
+    # report
+    print("       - Trying a topic count of " + str(number_of_topics) + "...")
+    # average values
+    tempValues = []
+    for j in range(0, LDA_TopicRuns):
+        # calculate KL divergence
+        tempValues.append(calculateKLDivergence(corpus, dictionary, number_of_topics))
+    # add smallest result
+    result[number_of_topics-1] = min(tempValues)
 
 #########################
 ## Program Entry Point ##
