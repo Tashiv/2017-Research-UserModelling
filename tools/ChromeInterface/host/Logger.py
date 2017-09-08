@@ -15,9 +15,9 @@ import subprocess
 ## Global Variables ##
 ######################
 
-counterFilename = "counter.txt"
-logFilename = "log.txt"
-errorLogFilename = "error-logger.txt"
+counterFilename = "file-counter.txt"
+logFilename = "file.txt"
+errorLogFilename = "file-error-logger.txt"
 
 ####################
 ## Chrome Methods ##
