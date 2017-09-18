@@ -1,0 +1,66 @@
+#############
+## Formats ##
+#############
+
+##[ Line Format ]
+# time_start -- time_stop -- time_interval -- time_variance -- session_probability -- min_session_occurrences -- max_session_occurrences -- primaryDataItem
+# -- alternateDataItem1
+# -- ...
+# -- alternateDataItemN
+
+##[ Time Format ]
+# S,M,H,D,M,Y
+
+#############
+## Configs ##
+#############
+
+##[ Start Date - Format: y-m-d h:m:s]
+start 2017-01-01 00:00:00
+
+##[ End Date - Format: y-m-d h:m:s]
+end 2017-01-31 23:59:59
+
+#######################
+## Log Builder Rules ##
+#######################
+
+##[ Basic Java Query Example ]
+# 0,0,08,0,0,0 -- 0,0,0,0,1,0 -- 0,0,0,1,0,0 -- 0,0,0,0,0,0 -- 0.8 -- 0 -- 5 -- Java Coffee
+# 0,0,20,0,0,0 -- 0,0,0,0,1,0 -- 0,0,0,1,0,0 -- 0,0,0,0,0,0 -- 0.8 -- 0 -- 5 -- Java Programming
+
+##[ Monthly Salary Example]
+#0,0,8,0,0,0 -- 0,0,0,0,3,0 -- 0,0,0,0,1,0 -- 0,60,0,0,0,0 -- 1.0 -- 1 -- 5 -- Salary
+#-- Bank
+#-- Deposits
+
+##[ Java Snippet Example]
+
+# Java Coffee 
+0,0,08,0,0,0 -- 0,0,0,0,0,1 -- 0,0,0,1,0,0 -- 60,60,4,0,0,0 -- 0.9 -- 0 -- 3
+-- Java House introduced coffee drinking and gourmet café culture to Kenya, Uganda, Rwanda and more. Click here for share the love.
+-- When Java started in 1999, Kenya's economy was struggling, there was no coffee drinking culture and there were no modern shopping malls.
+-- Our History. Java House founder Tara Cronbaugh first developed a passion for coffee, or more accurately, coffee house ambience, in 1990 during a visit to her ...
+-- Java House, east Africa's largest chain of coffee shops, is changing hands yet again. This time, the growth markets fund Abraaj Group is buying ...
+-- Java House, Gastonia, North Carolina. 725 likes · 20 talking about this · 284 were here. Coffee, fraps, lattes, Hershey's ice cream, snacks and...
+
+# Java Programming
+0,0,20,0,0,0 -- 0,0,0,0,0,1 -- 0,0,0,1,0,0 -- 60,60,4,0,0,0 -- 0.7 -- 3 -- 7
+-- Take your first step towards a career in software development with this introduction to Java—one of the most in-demand programming languages and the ...
+-- If you are new to programming in the Java language, have some experience with other languages, and are familiar with things like displaying text or graphics or ...
+-- Learn to program in the Java programming language. This course assumes no prior programming knowledge, just a desire to learn
+-- Get an introduction to the structure, syntax, and programming paradigm of the Java language and platform in this two-part tutorial. Learn the ...
+-- Java SE contains the core of the Java programming language libraries. ... the author of the bestselling Oracle Press book "Java: The Complete Reference", ...
+-- Appendix D: Java Programming Cheatsheet. This appendix summarizes the most commonly-used Java language features in the textbook.
+-- Java Programming Tutorial. Java Reference. This chapter provides the ... The entire list of operators in Java is summarized below: Assignment: = 
+-- Java: The Complete Reference, Ninth Edition [Herbert Schildt] on Amazon.com. *FREE* shipping on qualifying offers. The Definitive Java Programming Guide ...
+
+# Cats
+0,0,12,0,0,0 -- 0,0,0,0,0,1 -- 0,0,0,1,0,0 -- 60,60,1,0,0,0 -- 0.4 -- 1 -- 8
+-- The Award Winner. Why It Matters: Because perhaps the noblest quality of all the cat qualities is the ...... Via funny-pictures.picphotos.net*i* ...
+-- LOL Cats: 50 Awesomely Funny Cat Photos to Crack You Up
+-- Explore Marianne Thomson's board "FUNNY CATS" on Pinterest. | See more ideas about Funny cats, Animal funnies and Funny animal pictures.
+-- Find and save ideas about Funny cat pictures on Pinterest. | See more ideas about Funny cat quotes, Funny cat humor and Funny animal jokes.
+-- Collection of Top 125 Funniest Cats Pictures. You will find as many as 125 Funny Cat Pictures and Photos in this Funny Post. Cats are definitely able to make ...
+-- Here is a set of cute and funny cat pics to make your day delightful and spread smile on your face. These cat pics will make you force to bring a cat today.
+-- Cats in funny pictures with dialouge.
