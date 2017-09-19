@@ -48,7 +48,7 @@ def main():
     # load config
     loadConfig()
     # report configuration
-    print("   - Log Range:",fStartDate,"->",fEndDate)
+    print("   - Log Range:", fStartDate,"->", fEndDate)
     print("   - Number of Rules:", len(fRules))
     # build Log
     buildLog()
@@ -100,7 +100,7 @@ def loadConfig():
     # close file
     file.close()
     # sanity check
-    if (fEndDate < fStartDate):
+    if fEndDate < fStartDate:
         fStartDate, fEndDate = fEndDate, fStartDate
 
 def buildLog():
@@ -122,7 +122,6 @@ def buildLog():
                                             months=buildRule.timeStop.month,
                                             years=buildRule.timeStop.year)
         currentDate = fStartDate
-
         # apply initial offset
         currentDate += relativedelta(seconds=buildRule.timeStart.second,
                                             minutes=buildRule.timeStart.minute,
@@ -132,13 +131,14 @@ def buildLog():
                                             years=buildRule.timeStart.year)
         # keep making log items until final date
         while (currentDate < fEndDate) and (currentDate < stopDate):
-            # calculate probability of occuring
+            # calculate probability of occurring
             randomValue = random.random()
             if randomValue < buildRule.sessionProbability:
                 # make N number of items to mimic a session
-                for i in range(0, random.randint(buildRule.minSessionOccurences, buildRule.maxSessionOccurences)):
+                for i in range(0, random.randint(buildRule.minSessionOccurrences, buildRule.maxSessionOccurrences)):
                     # apply variance to time
-                    variedDate = currentDate + relativedelta(seconds=random.randint(-1*buildRule.timeVariance.second,buildRule.timeVariance.second),
+                    variedDate = currentDate
+                    variedDate += relativedelta(seconds=random.randint(-1*buildRule.timeVariance.second,buildRule.timeVariance.second),
                                                                 minutes=random.randint(-1*buildRule.timeVariance.minute,buildRule.timeVariance.minute),
                                                                 hours=random.randint(-1*buildRule.timeVariance.hour,buildRule.timeVariance.hour),
                                                                 days=random.randint(-1*buildRule.timeVariance.day,buildRule.timeVariance.day),
@@ -195,8 +195,8 @@ class LogBuildRule:
     timeInterval = None
     timeVariance = None
     sessionProbability = 0
-    minSessionOccurences = 0
-    maxSessionOccurences = 0
+    minSessionOccurrences = 0
+    maxSessionOccurrences = 0
     data = None
 
     ## CONSTRUCTOR ##
@@ -209,8 +209,8 @@ class LogBuildRule:
         self.timeInterval = TimeSet(logData[2])
         self.timeVariance = TimeSet(logData[3])
         self.sessionProbability = float(logData[4])
-        self.minSessionOccurences = int(logData[5])
-        self.maxSessionOccurences = int(logData[6])
+        self.minSessionOccurrences = int(logData[5])
+        self.maxSessionOccurrences = int(logData[6])
         # store rule data items
         self.data = []
         for i in range(7, len(logData)):
@@ -218,9 +218,7 @@ class LogBuildRule:
 
     ## METHODS ##
     def getRandomDataItem(self):
-        # choose random item
         index = random.randint(0, len(self.data)-1)
-        # provide it
         return self.data[index]
 
 class LogItem:
@@ -230,7 +228,6 @@ class LogItem:
 
     ## CONSTRUCTOR ##
     def __init__(self, time, data):
-        # assign data
         self.time = time
         self.data = data
 
