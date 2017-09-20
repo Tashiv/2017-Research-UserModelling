@@ -37,9 +37,10 @@ LDA_Eta = "quad_symmetric"
 LDA_Minimum_Probability = 0.01
 LDA_MaxTopics = 32
 LDA_TopicRuns = 1																										# Number of times each topic KL_Divergence is evaluated, reduces noise
-LDA_MaxThreads = 1
+LDA_MaxThreads = 8
 LDA_MinimumTimeFactorDifference = 0.01																					# Used in combining similar time factors
 LDA_MinKLDivergenceDifference = 0.05
+LDA_EffectiveZero = 0.00000001
 
 ## Tools
 fTokenizer = RegexpTokenizer(r'\w+')																					# Regex for matching words made up of alphanumeric and underscore characters
@@ -213,6 +214,14 @@ def testKLMeasure():
 	print("    - Symmetry Tests:")
 	print("       -", setD, "vs", setE, "->", kl_divergence(setD, setE))
 	print("       -", setE, "vs", setD, "->", kl_divergence(setE, setD))
+	# relative divergence
+	print("    - Comparative Tests:")
+	setE = [0.25, 0.25, 0.25, 0.25]
+	setF = [0.24, 0.26, 0.24, 0.26]
+	setG = [0.10, 0.10, 0.10, 0.10, 0.10, 0.10, 0.10, 0.10, 0.10, 0.10]
+	setH = [0.11, 0.09, 0.11, 0.09, 0.11, 0.09, 0.11, 0.09, 0.11, 0.09]
+	print("       -", setE, "vs", setF, "->", kl_divergence(setE, setF))
+	print("       -", setG, "vs", setH, "->", kl_divergence(setG, setH))
 
 def testSymmetricKLMeasure():
 	"""
@@ -309,6 +318,13 @@ def benchmarkJSMeasure():
 						  extractReadableTopicProbabilityDistributionFromModel(model, dictionary),
 						  "Topic Distributions (JSDiv=" + str(measures[i]) + ")",
 						  "JS_topicDistributionBenchmark_" + str(i+1))
+	# optimal
+	optimalTopicCnt = findOptimalJSTopicCount(measures)
+	print("\n - Optimal Topic Count", optimalTopicCnt )
+	saveGraphY(measures, "Number of Topics", "JS Measure",
+			   "JS Div (O=" + str(optimalTopicCnt ) + ")",
+			   "JS_topicDistributionBenchmark_")
+
 
 ##################################
 ## LDA Primitive Helper Methods ##
@@ -520,7 +536,6 @@ def symmetric_kl_divergence(p, q):
 	@source https://gist.github.com/shingoOKAWA/b8f92cc0f6f0183767dc
 	"""
 	if len(p) != len(q):
-		print(len(p),"vs",len(q))
 		return float("inf")
 	else:
 		return numpy.sum([stats.entropy(p, q), stats.entropy(q, p)])
@@ -550,7 +565,7 @@ def calculateKLDivergence(corpus, dictionary, number_of_topics, result):
 		# Calculates document-topic matrix.
 		term_document_matrix = matutils.corpus2dense(lda_topics, lda_model.num_topics).transpose()
 		document_topic_vector = corpus_length_vector.dot(term_document_matrix)
-		document_topic_vector = document_topic_vector + 0.00001
+		document_topic_vector = document_topic_vector + LDA_EffectiveZero
 		document_topic_norm = numpy.linalg.norm(corpus_length_vector)
 		document_topic_vector = document_topic_vector / document_topic_norm
 		# padding
@@ -558,7 +573,7 @@ def calculateKLDivergence(corpus, dictionary, number_of_topics, result):
 		for x in range(len(document_word_vector)):
 			padded_document_word_vector.append(document_word_vector[x])
 		for x in range(len(document_topic_vector) - len(document_word_vector)):
-			padded_document_word_vector.append(0.00001)
+			padded_document_word_vector.append(LDA_EffectiveZero)
 		# calculate KL divergence
 		tempValues.append(symmetric_kl_divergence(padded_document_word_vector, document_topic_vector))
 	# average result
@@ -732,16 +747,18 @@ def kl_divergence(p, q):
 	if len(p) != len(q):
 		return  float('inf')
 	# distribution check
-	if sum(p) < 0.99999 or sum(p) > 1.00001:
+	if sum(p) < 1-LDA_EffectiveZero or sum(p) > 1+LDA_EffectiveZero:
 		print(" * Warning: KL Probability of P does not add up to 1.0. Instead it is:", sum(p))
-	if sum(q) < 0.99999 or sum(q) > 1.00001:
+	if sum(q) < 1-LDA_EffectiveZero or sum(q) > 1+LDA_EffectiveZero:
 		print(" * Warning: KL Probability of Q does not add up to 1.0. Instead it is:", sum(q))
 	# calculate KL Divergence
 	result = 0
 	for i in range(0, len(p)):
 		# special case check
-		if q[i] == 0 or p[i] == 0:
-			continue
+		if q[i] == 0:
+			q[i] = LDA_EffectiveZero
+		if p[i] == 0:
+			p[i] = LDA_EffectiveZero
 		# add sum
 		result += p[i] * math.log(p[i] / q[i], 2)
 	# done
@@ -768,12 +785,12 @@ def calculatedJSDivergence(corpus, dictionary, number_of_topics, result):
 	# initialize
 	tempValues = []
 	# run multiple times for better accuracy
-	for j in range(0, LDA_TopicRuns):
+	for x in range(0, LDA_TopicRuns):
 		# initialize
 		lda_model = generateLDAModel(corpus, dictionary, number_of_topics)
 		k_factor = 1
 		if number_of_topics > 1:
-			k_factor = 1.0 / (number_of_topics * (number_of_topics - 1))
+			k_factor = 1.0 / (number_of_topics * (number_of_topics-1))
 		# build topics list
 		topics = extractTopicProbabilityDistributionFromModel(lda_model, dictionary)
 		# compare resulting topics
@@ -883,7 +900,7 @@ def timeFactorToTimeString(timeFactor):
 
 def gatherTopicTimeFactors(LDA_Model, logData):
 	"""
-	@info Returns the raw timefactors for all topics in a model.
+	@info Returns the raw time_factors for all topics in a model.
 	"""
 	# initialize
 	timeFactors = dict()
