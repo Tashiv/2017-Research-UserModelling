@@ -1,3 +1,10 @@
+##########
+## TODO ##
+##########
+#
+# #1 - Undo evaluation file restrictions for realistic / distinct
+#
+
 ######################################
 ## Fix: Windows Warning Suppression ##
 ######################################
@@ -27,7 +34,7 @@ from stop_words import get_stop_words
 ## Global Variables ##
 ######################
 
-## LDA Parameters
+## Topic Modelling Parameters
 LDA_SlidingWindow = 7																									# How old the log is allowed to be in days
 LDA_Passes = 100
 LDA_Iterations = 250
@@ -35,12 +42,18 @@ LDA_EvalEvery = None																									# Don't evaluate model perplexity, 
 LDA_Alpha = "quad_symmetric"
 LDA_Eta = "quad_symmetric"
 LDA_Minimum_Probability = 0.01
-LDA_MaxTopics = 32
-LDA_TopicRuns = 1																										# Number of times each topic KL_Divergence is evaluated, reduces noise
+LDA_MaxTopics = 8
+LDA_TopicRuns = 8																										# Number of times each topic KL_Divergence is evaluated, reduces noise
 LDA_MaxThreads = 8
-LDA_MinimumTimeFactorDifference = 0.01																					# Used in combining similar time factors
 LDA_MinKLDivergenceDifference = 0.05
 LDA_EffectiveZero = 0.00000001
+
+## Time Modelling Parameters
+LDA_MinimumTimeFactorDifference = 0.01																					# Used in combining similar time factors
+LDA_TimeScale = 2																										# 0 = day scale, 1 = 3 day scale, 2 = week scale
+
+## Evaluation Parameters
+EVAL_runs = 8
 
 ## Tools
 fTokenizer = RegexpTokenizer(r'\w+')																					# Regex for matching words made up of alphanumeric and underscore characters
@@ -61,13 +74,26 @@ def main():
 
 	#runUnitTests()
 	#benchmarkJSMeasure()
+	#benchmarkCDMeasure()
+	#benchmarkKLMeasure()
 
 	###################
 	# General Testing #
 	###################
 
 	#runModelAccuracyTest()
-	runOptimalTopicNumberTest()
+	#runOptimalTopicNumberTest()
+	#runModellingTest()
+
+	##############
+	# Evaluation #
+	##############
+
+	#evaluateMeasurePerformanceDistinct()
+	#evaluateMeasurePerformanceRealistic()
+	#evaluatePredictionCapabilityForDailyUser()
+	#evaluatePredictionCapabilityForWeeklyUser()
+	evaluatePredictionCapabilityForAllTimeScales()
 
 	# done
 	print("\n[DONE]")
@@ -76,6 +102,530 @@ def main():
 ## Evaluation Routines ##
 #########################
 
+def evaluatePredictionCapabilityForAllTimeScales():
+	'''
+	@info Tests prediction performance for all time scales.
+	'''
+
+	####################
+	## Initialization ##
+	####################
+
+	# global imports
+	global  LDA_TimeScale
+	originalTimeScale = LDA_TimeScale
+
+	#####################
+	## Run Evaluations ##
+	#####################
+
+	for i in range(3):
+		# choose scale
+		LDA_TimeScale = i
+		# run evaluation
+		evaluatePredictionCapabilityForDailyUser()
+		evaluatePredictionCapabilityForWeeklyUser()
+
+	#########################
+	## Undo Config Changes ##
+	#########################
+
+	LDA_TimeScale = originalTimeScale
+
+def evaluatePredictionCapabilityForDailyUser():
+	'''
+	@info Tests prediction performance for a single time scale.
+	'''
+
+	####################
+	## Initialization ##
+	####################
+
+	# initialize
+	scores = []
+
+	# load data
+	print("\n - Loading Log Data...")
+	logFile = "data/testlogs/log-user-daily.txt"
+	print("	- location: " + logFile)
+	FullLogData = loadLogData(logFile, datetime.datetime(2017, 1, 1, 0, 0, 0))
+	print("	- items:", len(FullLogData))
+
+	#####################
+	## Prediction LOOP ##
+	#####################
+
+	for documentID in range(0, len(FullLogData)):
+
+		############
+		## Report ##
+		############
+
+		print("\n=== (DAILY USER) Testing item " + str(documentID + 1) + " of " + str(len(FullLogData)) + " for " + getTimeScaleAsString() + " scale ===")
+
+		#########################
+		## Generate Primitives ##
+		#########################
+
+		# load log data
+		currentLogData = []
+		documents = []
+		for i in range(0, documentID):
+			currentLogData.append(FullLogData[i])
+			documents.append(FullLogData[i][1])
+
+		# primitives
+		tokens = generateTokens(documents)
+		dictionary = generateDictionary(tokens)
+		corpus = generateCorpus(dictionary, tokens)
+
+		#####################
+		## Build LDA Model ##
+		#####################
+
+		# final optimal topic count
+		print("\n - Resulting LDA Topics:")
+		measures = calculateJSDivergences(corpus, dictionary, max_topics=LDA_MaxTopics)
+		optimalTopicCnt = findOptimalJSTopicCount(measures)
+		print("\n - Optimal number of topics:", optimalTopicCnt)
+
+		# make model
+		LDA_Model = generateLDAModel(corpus, dictionary, optimalTopicCnt)
+		# print topics
+		for i in LDA_Model.print_topics():
+			print("	- TOPIC_" + str(i[0]) + ": " + str(i[1]))
+
+		#############################
+		## Topics Time Association ##
+		#############################
+
+		# generate time factor data
+		timeFactors = gatherTopicTimeFactors(LDA_Model, currentLogData)
+		cleanedTimeFactors = cleanTimeFactors(timeFactors)
+		# print time factors
+		print("\n - Resulting Time Factors:")
+		for i in cleanedTimeFactors:
+			# print data
+			print("	- TOPIC_" + str(i) + ": " + str(cleanedTimeFactors[i]), end="")
+			# print string version
+			print(" | [", end="")
+			for j in range(0, len(cleanedTimeFactors[i])):
+				print(timeFactorToTimeString(cleanedTimeFactors[i][j]), end="")
+				if j < len(cleanedTimeFactors[i]) - 1:
+					print(", ", end="")
+			print("]")
+
+		##############################
+		## Try to predict next item ##
+		##############################
+
+		# find relevant topic
+		print("\n - Trying to predict: " + FullLogData[documentID][1])
+		timeFactor = FullLogData[documentID][0]
+		relevantTopic = findMostRelevantTopic(timeFactor, cleanedTimeFactors)
+		print("	= Relevant Topic:", relevantTopic)
+		relevantTopicWords = getRelevantTopicKeyWords(LDA_Model, dictionary, relevantTopic)
+		print("	= Relevant Topic Words:", relevantTopicWords)
+
+		# initialize
+		areAllWordsMatching = True
+		targetDoc = (FullLogData[documentID][1]).lower()
+		# check score
+		for wordToken in relevantTopicWords:
+			if not wordToken in targetDoc:
+				areAllWordsMatching = False
+				break
+		# add score
+		if areAllWordsMatching and len(relevantTopicWords) > 0:
+			scores.append(1)
+			print(" = Score awarded.")
+		else:
+			scores.append(0)
+			print(" = NO Score awarded.")
+
+	##################
+	## Save Results ##
+	##################
+
+	# report
+	print("\n - Saving results...")
+	# graph form
+	saveGraphY(scores, "Document ID", "Cumulative Score", "Daily User Predication Performance, TimeScale=" + getTimeScaleAsString(), "graph_prediction_d_" + getTimeScaleAsString())
+	# file form
+	file = open("data/Evaluation_Results_Prediction_d_" + getTimeScaleAsString() + ".txt", "w")
+	file.write(getTimeScaleAsString() + ",")
+	for x in range(len(scores)):
+		file.write(str(scores[x]))
+		if x < len(scores) - 1:
+			file.write(",")
+	# done
+	file.close()
+
+def evaluatePredictionCapabilityForWeeklyUser():
+	'''
+	@info Tests prediction performance for a single time scale.
+	'''
+
+	####################
+	## Initialization ##
+	####################
+
+	# initialize
+	scores = []
+
+	# load data
+	print("\n - Loading Log Data...")
+	logFile = "data/testlogs/log-user-weekly.txt"
+	print("	- location: " + logFile)
+	FullLogData = loadLogData(logFile, datetime.datetime(2017, 1, 1, 0, 0, 0))
+	print("	- items:", len(FullLogData))
+
+	#####################
+	## Prediction LOOP ##
+	#####################
+
+	for documentID in range(0, len(FullLogData)):
+
+		############
+		## Report ##
+		############
+
+		print("\n=== (WEEKLY USER) Testing item " + str(documentID + 1) + " of " + str(len(FullLogData)) + " for " + getTimeScaleAsString() + " scale ===")
+
+		#########################
+		## Generate Primitives ##
+		#########################
+
+		# load log data
+		currentLogData = []
+		documents = []
+		for i in range(0, documentID):
+			currentLogData.append(FullLogData[i])
+			documents.append(FullLogData[i][1])
+
+		# primitives
+		tokens = generateTokens(documents)
+		dictionary = generateDictionary(tokens)
+		corpus = generateCorpus(dictionary, tokens)
+
+		#####################
+		## Build LDA Model ##
+		#####################
+
+		# final optimal topic count
+		print("\n - Resulting LDA Topics:")
+		measures = calculateJSDivergences(corpus, dictionary, max_topics=LDA_MaxTopics)
+		optimalTopicCnt = findOptimalJSTopicCount(measures)
+		print("\n - Optimal number of topics:", optimalTopicCnt)
+
+		# make model
+		LDA_Model = generateLDAModel(corpus, dictionary, optimalTopicCnt)
+		# print topics
+		for i in LDA_Model.print_topics():
+			print("	- TOPIC_" + str(i[0]) + ": " + str(i[1]))
+
+		#############################
+		## Topics Time Association ##
+		#############################
+
+		# generate time factor data
+		timeFactors = gatherTopicTimeFactors(LDA_Model, currentLogData)
+		cleanedTimeFactors = cleanTimeFactors(timeFactors)
+		# print time factors
+		print("\n - Resulting Time Factors:")
+		for i in cleanedTimeFactors:
+			# print data
+			print("	- TOPIC_" + str(i) + ": " + str(cleanedTimeFactors[i]), end="")
+			# print string version
+			print(" | [", end="")
+			for j in range(0, len(cleanedTimeFactors[i])):
+				print(timeFactorToTimeString(cleanedTimeFactors[i][j]), end="")
+				if j < len(cleanedTimeFactors[i]) - 1:
+					print(", ", end="")
+			print("]")
+
+		##############################
+		## Try to predict next item ##
+		##############################
+
+		# find relevant topic
+		print("\n - Trying to predict: " + FullLogData[documentID][1])
+		timeFactor = FullLogData[documentID][0]
+		relevantTopic = findMostRelevantTopic(timeFactor, cleanedTimeFactors)
+		print("	= Relevant Topic:", relevantTopic)
+		relevantTopicWords = getRelevantTopicKeyWords(LDA_Model, dictionary, relevantTopic)
+		print("	= Relevant Topic Words:", relevantTopicWords)
+
+		# initialize
+		areAllWordsMatching = True
+		targetDoc = (FullLogData[documentID][1]).lower()
+		# check score
+		for wordToken in relevantTopicWords:
+			if not wordToken in targetDoc:
+				areAllWordsMatching = False
+				break
+		# add score
+		if areAllWordsMatching and len(relevantTopicWords) > 0:
+			scores.append(1)
+			print(" = Score awarded.")
+		else:
+			scores.append(0)
+			print(" = NO Score awarded.")
+
+	##################
+	## Save Results ##
+	##################
+
+	# report
+	print("\n - Saving results...")
+	# graph form
+	saveGraphY(scores, "Document ID", "Cumulative Score", "Weekly User Predication Performance, TimeScale=" + getTimeScaleAsString(), "graph_prediction_w_" + getTimeScaleAsString())
+	# file form
+	file = open("data/Evaluation_Results_Prediction_w_" + getTimeScaleAsString() + ".txt", "w")
+	file.write(getTimeScaleAsString() + ",")
+	for x in range(len(scores)):
+		file.write(str(scores[x]))
+		if x < len(scores) - 1:
+			file.write(",")
+	# done
+	file.close()
+
+def evaluateMeasurePerformanceDistinct():
+
+	############
+	## Config ##
+	############
+
+	# imports
+	global LDA_MaxTopics
+
+	# initialize
+	logIDs =    [80]  #[2,  5,  10, 20, 40, 80]
+	maxTopics = [100] #[16, 24, 32, 48, 88, 100]
+	fileName = "data/Evaluation_Results_Distinct.txt"
+
+	# make file
+	file = open(fileName, "w")
+	file.close()
+
+	################
+	## Evaluation ##
+	################
+
+	for pos in range(len(logIDs)):
+
+		# setup
+		ID = logIDs[pos]
+		LDA_MaxTopics = maxTopics[pos]
+
+		###############
+		## load data ##
+		###############
+
+		logFile = "data/testlogs/log-t" + str(ID) + "-d.txt"
+		print("\n - Loading Log Data...")
+		print("	- location: " + logFile)
+		logData = loadLogData(logFile, datetime.datetime(2017, 2, 1, 0, 0, 0))
+		logItemCnt = len(logData)
+		print("	- items:", logItemCnt)
+
+		#########################
+		## Generate Primitives ##
+		#########################
+
+		# initialize
+		print("\n - Preparing Documents...")
+		currentItem = 0
+		documents = []
+		# extract documents
+		for i in logData:
+			# load item
+			documents.append(i[1])
+			# report
+			currentItem += 1
+			if currentItem % 250 == 0:
+				print("	- Processed " + str(currentItem) + " of " + str(logItemCnt))
+		# Generate Primitives
+		tokens = generateTokens(documents)
+		dictionary = generateDictionary(tokens)
+		corpus = generateCorpus(dictionary, tokens)
+
+		##################
+		## Test Measure ##
+		##################
+
+		# initialize
+		runs = EVAL_runs
+		optimalKLTopicsNN = []
+		optimalKLTopicsGen = []
+		optimalJSTopics = []
+		optimalCDTopics = []
+
+		# multiple runs
+		for x in range(1, runs+1):
+
+			# KL measures
+			print("\n - Testing KL topic ranges: (run " + str(x) + " of " + str(runs) + ", file: " + str(ID) + ")")
+
+			measuresKL = calculateKLDivergences(corpus, dictionary, LDA_MaxTopics)
+			optimalKLTopicsNN.append(findOptimalKLTopicCountNN(measuresKL))
+			optimalKLTopicsGen.append(findOptimalKLTopicCountGen(measuresKL))
+
+			# JS measure
+			print("\n - Testing JS topic ranges: (run " + str(x) + " of " + str(runs) + ", file: " + str(ID) + ")")
+			measuresJS = calculateJSDivergences(corpus, dictionary, LDA_MaxTopics)
+			optimalJSTopics.append(findOptimalJSTopicCount(measuresJS))
+
+			# CDist measure
+			print("\n - Testing CD topic ranges: (run " + str(x) + " of " + str(runs) + ", file: " + str(ID) + ")")
+			measuresCD = calculateCosineDistances(corpus, dictionary, LDA_MaxTopics)
+			optimalCDTopics.append(findOptimalCDTopicCount(measuresCD))
+
+		# output
+		file = open(fileName, "a")
+		# KL NN
+		file.write("KL_NN," + str(ID))
+		for i in range(runs):
+			file.write("," + str(optimalKLTopicsNN[i]))
+		file.write("\n")
+		# KL Gen
+		file.write("KL_BP," + str(ID))
+		for i in range(runs):
+			file.write("," + str(optimalKLTopicsGen[i]))
+		file.write("\n")
+		# JS
+		file.write("JS," + str(ID))
+		for i in range(runs):
+			file.write("," + str(optimalJSTopics[i]))
+		file.write("\n")
+		# CD
+		file.write("CD," + str(ID))
+		for i in range(runs):
+			file.write("," + str(optimalCDTopics[i]))
+		file.write("\n")
+		# done
+		file.close()
+
+def evaluateMeasurePerformanceRealistic():
+
+	############
+	## Config ##
+	############
+
+	# imports
+	global LDA_MaxTopics
+
+	# initialize
+	logIDs =    [40, 80]  #[2,  5,  10, 20, 40, 80]
+	maxTopics = [88, 100] #[16, 24, 32, 48, 88, 100]
+	fileName = "data/Evaluation_Results_Realistic.txt"
+
+	# make file
+	file = open(fileName, "w")
+	file.close()
+
+	################
+	## Evaluation ##
+	################
+
+	for pos in range(len(logIDs)):
+
+		# setup
+		ID = logIDs[pos]
+		LDA_MaxTopics = maxTopics[pos]
+
+		###############
+		## load data ##
+		###############
+
+		logFile = "data/testlogs/log-t" + str(ID) + ".txt"
+		print("\n - Loading Log Data...")
+		print("	- location: " + logFile)
+		logData = loadLogData(logFile, datetime.datetime(2017, 2, 1, 0, 0, 0))
+		logItemCnt = len(logData)
+		print("	- items:", logItemCnt)
+
+		#########################
+		## Generate Primitives ##
+		#########################
+
+		# initialize
+		print("\n - Preparing Documents...")
+		currentItem = 0
+		documents = []
+		# extract documents
+		for i in logData:
+			# load item
+			documents.append(i[1])
+			# report
+			currentItem += 1
+			if currentItem % 250 == 0:
+				print("	- Processed " + str(currentItem) + " of " + str(logItemCnt))
+		# Generate Primitives
+		tokens = generateTokens(documents)
+		dictionary = generateDictionary(tokens)
+		corpus = generateCorpus(dictionary, tokens)
+
+		##################
+		## Test Measure ##
+		##################
+
+		# initialize
+		runs = EVAL_runs
+		optimalKLTopicsNN = []
+		optimalKLTopicsGen = []
+		optimalJSTopics = []
+		optimalCDTopics = []
+
+		# multiple runs
+		for x in range(1, runs+1):
+
+			# KL measures
+			print("\n - Testing KL topic ranges: (run " + str(x) + " of " + str(runs) + ", file: " + str(ID) + ")")
+
+			measuresKL = calculateKLDivergences(corpus, dictionary, LDA_MaxTopics)
+			optimalKLTopicsNN.append(findOptimalKLTopicCountNN(measuresKL))
+			optimalKLTopicsGen.append(findOptimalKLTopicCountGen(measuresKL))
+
+			# JS measure
+			print("\n - Testing JS topic ranges: (run " + str(x) + " of " + str(runs) + ", file: " + str(ID) + ")")
+			measuresJS = calculateJSDivergences(corpus, dictionary, LDA_MaxTopics)
+			optimalJSTopics.append(findOptimalJSTopicCount(measuresJS))
+
+			# CDist measure
+			print("\n - Testing CD topic ranges: (run " + str(x) + " of " + str(runs) + ", file: " + str(ID) + ")")
+			measuresCD = calculateCosineDistances(corpus, dictionary, LDA_MaxTopics)
+			optimalCDTopics.append(findOptimalCDTopicCount(measuresCD))
+
+		# output
+		file = open(fileName, "a")
+		# KL NN
+		file.write("KL_NN," + str(ID))
+		for i in range(runs):
+			file.write("," + str(optimalKLTopicsNN[i]))
+		file.write("\n")
+		# KL Gen
+		file.write("KL_BP," + str(ID))
+		for i in range(runs):
+			file.write("," + str(optimalKLTopicsGen[i]))
+		file.write("\n")
+		# JS
+		file.write("JS," + str(ID))
+		for i in range(runs):
+			file.write("," + str(optimalJSTopics[i]))
+		file.write("\n")
+		# CD
+		file.write("CD," + str(ID))
+		for i in range(runs):
+			file.write("," + str(optimalCDTopics[i]))
+		file.write("\n")
+		# done
+		file.close()
+
+###################
+## Test Routines ##
+###################
+
 def runModelAccuracyTest():
 
 	###############
@@ -83,7 +633,7 @@ def runModelAccuracyTest():
 	###############
 
 	logFile = "data/testlogs/log-t10-d.txt"
-	optimalTopicCnt = 11
+	optimalTopicCnt = 10
 	print("\n - Loading Log Data...")
 	print("	- location: " + logFile)
 	logData = loadLogData(logFile, datetime.datetime(2017,2,1,0,0,0))
@@ -121,7 +671,7 @@ def runModelAccuracyTest():
 	printTopicDistributions(model, dictionary)
 	# visualize
 	saveGraphOfTopics(extractTopicProbabilityDistributionFromModel(model, dictionary),
-					  extractReadableTopicProbabilityDistributionFromModel(model, dictionary),
+					  extractTopicWordsFromModel(model, dictionary),
 					  "Topic Distributions",
 					  "topicDistribution_" + str(optimalTopicCnt))
 
@@ -175,6 +725,7 @@ def runOptimalTopicNumberTest():
 		saveGraphY(measuresKL, "Number of Topics", "KL Measure",
 				   "KL Div (ONN=" + str(optimalKLTopicsNN) + ", OGen=" + str(optimalKLTopicsGen) + ")",
 				   "Graph_" + str(x) + "_KL")
+
 		# JS Measures
 		print("\n - Testing JS topic ranges:")
 		measuresJS = calculateJSDivergences(corpus, dictionary, LDA_MaxTopics)
@@ -184,11 +735,108 @@ def runOptimalTopicNumberTest():
 			   		"JS Div (O=" + str(optimalJSTopics) + ")",
 			   		"Graph_" + str(x) + "_JS")
 
+def runModellingTest():
+	'''
+	@info Generates a trivial model and reports each stage for testing purposes.
+	'''
+	###############
+	## Test Data ##
+	###############
+
+	# initialize
+	documents = ["desk desk desk",
+					"cat cat cat",
+					"computer computer computer",
+					"desk desk desk",
+					"cat cat cat",
+					"computer computer computer"]
+	# report
+	printDocuments(documents)
+
+	############################
+	## Prepare LDA Primitives ##
+	############################
+
+	# convert documents to token set
+	tokens = generateTokens(documents)
+	printTokens(tokens)
+
+	# convert tokens to dictionary format (bow)
+	dictionary = generateDictionary(tokens)
+	printDictionary(dictionary)
+
+	# generate corpus
+	corpus = generateCorpus(dictionary, tokens)
+	printCorpus(corpus)
+
+	###################################
+	## Determine Optimal Topic Count ##
+	###################################
+
+	# Calculates symmetric KL divergence.
+	print("\n - Modelling data...")
+	KL_Divergences = calculateKLDivergences(corpus, dictionary, max_topics=LDA_MaxTopics)
+	printMeasures(KL_Divergences)
+
+	# final optimal topic count
+	optimalTopicCnt = findOptimalKLTopicCountGen(KL_Divergences)
+	print("\n - Optimal number of topics:", optimalTopicCnt)
+
+	####################
+	## LDA Model Test ##
+	####################
+
+	# build resulting optimal model
+	print("\n - Resulting LDA Topics")
+	LDA_Model = generateLDAModel(corpus, dictionary, optimalTopicCnt)
+	# print topics
+	for i in LDA_Model.print_topics():
+		print("	- TOPIC_" + str(i[0]) + ": " + str(i[1]))
+
+	# build actual optimal model
+	print("\n - Actual LDA Topics")
+	LDA_Model = generateLDAModel(corpus, dictionary, 3)
+	# print topics
+	for i in LDA_Model.print_topics():
+		print("	- TOPIC_" + str(i[0]) + ": " + str(i[1]))
+
+	#############################################
+	## Topic Distribution of New Document Test ##
+	#############################################
+
+	# seen pure document test
+	testDoc = "computer computer computer computer"
+	print("\n - Testing Unseen Document: '" + testDoc + "'")
+	# determine topic distribution
+	testDocTopics = classifyDocument(LDA_Model, testDoc)
+	print("	- Topic Distribution:")
+	for i in testDocTopics:
+		print("	   - TOPIC_" + str(i[0]) + " : " + str(i[1]))
+
+	# seen mixed document test
+	testDoc = "computer cat computer cat"
+	print("\n - Testing Unseen Document: '" + testDoc + "'")
+	# determine topic distribution
+	testDocTopics = classifyDocument(LDA_Model, testDoc)
+	print("	- Topic Distribution:")
+	for i in testDocTopics:
+		print("	   - TOPIC_" + str(i[0]) + " : " + str(i[1]))
+
+	# unseen document test
+	testDoc = "dog dog dog"
+	print("\n - Testing Unseen Document: '" + testDoc + "'")
+	# determine topic distribution
+	testDocTopics = classifyDocument(LDA_Model, testDoc)
+	print("	- Topic Distribution:")
+	for i in testDocTopics:
+		print("	   - TOPIC_" + str(i[0]) + " : " + str(i[1]))
+
 def runUnitTests():
 	# test measures
 	testKLMeasure()
 	testSymmetricKLMeasure()
 	testJSMeasure()
+	testCDMeasure()
 
 ################
 ## Unit Tests ##
@@ -205,23 +853,34 @@ def testKLMeasure():
 	setB = [0.1, 0.2, 0.4, 0.3]
 	setC = [0.4, 0.3, 0.2, 0.1]
 	setD = [0.3, 0.3, 0.3, 0.1]
-	setE = [0.4, 0.3, 0.2, 0.1]
+	setI = [0.4, 0.3, 0.2, 0.1]
 	# test cases
 	print("    - Accuracy Tests:")
 	print("       -", setA, "vs", setA, "->", kl_divergence(setA, setA))
 	print("       -", setA, "vs", setB, "->", kl_divergence(setA, setB))
 	print("       -", setA, "vs", setC, "->", kl_divergence(setA, setC))
 	print("    - Symmetry Tests:")
-	print("       -", setD, "vs", setE, "->", kl_divergence(setD, setE))
-	print("       -", setE, "vs", setD, "->", kl_divergence(setE, setD))
+	print("       -", setD, "vs", setI, "->", kl_divergence(setD, setI))
+	print("       -", setI, "vs", setD, "->", kl_divergence(setI, setD))
+	# behaviour tests
+	setF = [0.25, 0.25, 0.25, 0.25]
+	setG = [0.50, 0.50, 0.00, 0.00]
+	setH = [0.00, 0.00, 0.50, 0.50]
+	print("    - Range Tests:")
+	print("       -", setG, "vs", setG, "->", cosine_distance(setG, setG))
+	print("       -", setF, "vs", setF, "->", cosine_distance(setF, setF))
+	print("       -", setF, "vs", setG, "->", cosine_distance(setF, setG))
+	print("       -", setH, "vs", setG, "->", cosine_distance(setH, setG))
+	print("       -", setH, "vs", setF, "->", cosine_distance(setH, setF))
 	# relative divergence
 	print("    - Comparative Tests:")
-	setE = [0.25, 0.25, 0.25, 0.25]
-	setF = [0.24, 0.26, 0.24, 0.26]
-	setG = [0.10, 0.10, 0.10, 0.10, 0.10, 0.10, 0.10, 0.10, 0.10, 0.10]
-	setH = [0.11, 0.09, 0.11, 0.09, 0.11, 0.09, 0.11, 0.09, 0.11, 0.09]
-	print("       -", setE, "vs", setF, "->", kl_divergence(setE, setF))
-	print("       -", setG, "vs", setH, "->", kl_divergence(setG, setH))
+	setI = [0.25, 0.25, 0.25, 0.25]
+	setJ = [0.24, 0.26, 0.24, 0.26]
+	setK = [0.10, 0.10, 0.10, 0.10, 0.10, 0.10, 0.10, 0.10, 0.10, 0.10]
+	setL = [0.11, 0.09, 0.11, 0.09, 0.11, 0.09, 0.11, 0.09, 0.11, 0.09]
+	print("       -", setI, "vs", setJ, "->", kl_divergence(setI, setJ))
+	print("       -", setK, "vs", setL, "->", kl_divergence(setK, setL))
+
 
 def testSymmetricKLMeasure():
 	"""
@@ -243,6 +902,16 @@ def testSymmetricKLMeasure():
 	print("    - Symmetry Tests:")
 	print("       -", setD, "vs", setE, "->", symmetric_kl_divergence(setD, setE))
 	print("       -", setE, "vs", setD, "->", symmetric_kl_divergence(setE, setD))
+	# behaviour tests
+	setF = [0.25, 0.25, 0.25, 0.25]
+	setG = [0.50, 0.50, 0.00, 0.00]
+	setH = [0.00, 0.00, 0.50, 0.50]
+	print("    - Range Tests:")
+	print("       -", setG, "vs", setG, "->", cosine_distance(setG, setG))
+	print("       -", setF, "vs", setF, "->", cosine_distance(setF, setF))
+	print("       -", setF, "vs", setG, "->", cosine_distance(setF, setG))
+	print("       -", setH, "vs", setG, "->", cosine_distance(setH, setG))
+	print("       -", setH, "vs", setF, "->", cosine_distance(setH, setF))
 
 def testJSMeasure():
 	"""
@@ -264,6 +933,49 @@ def testJSMeasure():
 	print("    - Symmetry Tests:")
 	print("       -", setD, "vs", setE, "->", js_divergence(setD, setE))
 	print("       -", setE, "vs", setD, "->", js_divergence(setE, setD))
+	# behaviour tests
+	setF = [0.25, 0.25, 0.25, 0.25]
+	setG = [0.50, 0.50, 0.00, 0.00]
+	setH = [0.00, 0.00, 0.50, 0.50]
+	print("    - Range Tests:")
+	print("       -", setG, "vs", setG, "->", cosine_distance(setG, setG))
+	print("       -", setF, "vs", setF, "->", cosine_distance(setF, setF))
+	print("       -", setF, "vs", setG, "->", cosine_distance(setF, setG))
+	print("       -", setH, "vs", setG, "->", cosine_distance(setH, setG))
+	print("       -", setH, "vs", setF, "->", cosine_distance(setH, setF))
+
+
+def testCDMeasure():
+	"""
+	@info Unit test to check accuracy of Cosine Distance Measure.
+	"""
+	# report
+	print("\n - Testing CD Measure (Should Increase)")
+	# initialize
+	setA = [0.1, 0.2, 0.3, 0.4]
+	setB = [0.1, 0.2, 0.4, 0.3]
+	setC = [0.4, 0.3, 0.2, 0.1]
+	setD = [0.3, 0.3, 0.3, 0.1]
+	setE = [0.4, 0.3, 0.2, 0.1]
+	# test cases
+	print("    - Accuracy Tests:")
+	print("       -", setA, "vs", setA, "->", cosine_distance(setA, setA))
+	print("       -", setA, "vs", setB, "->", cosine_distance(setA, setB))
+	print("       -", setA, "vs", setC, "->", cosine_distance(setA, setC))
+	print("    - Symmetry Tests:")
+	print("       -", setD, "vs", setE, "->", cosine_distance(setD, setE))
+	print("       -", setE, "vs", setD, "->", cosine_distance(setE, setD))
+	# behaviour tests
+	setF = [0.25, 0.25, 0.25, 0.25]
+	setG = [0.50, 0.50, 0.00, 0.00]
+	setH = [0.00, 0.00, 0.50, 0.50]
+	print("    - Range Tests:")
+	print("       -", setG, "vs", setG, "->", cosine_distance(setG, setG))
+	print("       -", setF, "vs", setF, "->", cosine_distance(setF, setF))
+	print("       -", setF, "vs", setG, "->", cosine_distance(setF, setG))
+	print("       -", setH, "vs", setG, "->", cosine_distance(setH, setG))
+	print("       -", setH, "vs", setF, "->", cosine_distance(setH, setF))
+
 
 def benchmarkJSMeasure():
 
@@ -306,6 +1018,12 @@ def benchmarkJSMeasure():
 	# gather divergences
 	print("\n - Gathering JS Divergences...")
 	measures = calculateJSDivergences(corpus, dictionary, 15)
+	# optimal
+	optimalTopicCnt = findOptimalJSTopicCount(measures)
+	print("\n - Optimal Topic Count", optimalTopicCnt)
+	saveGraphY(measures, "Number of Topics", "JS Measure",
+			   "JS Div (O=" + str(optimalTopicCnt) + ")",
+			   "JS_topicDistributionBenchmark")
 	# graph difference distributions
 	print("\n - Graphing Distributions...")
 	for i in range(0, 15):
@@ -315,16 +1033,129 @@ def benchmarkJSMeasure():
 		printTopicDistributions(model, dictionary)
 		# visualize
 		saveGraphOfTopics(extractTopicProbabilityDistributionFromModel(model, dictionary),
-						  extractReadableTopicProbabilityDistributionFromModel(model, dictionary),
+						  extractTopicWordsFromModel(model, dictionary),
 						  "Topic Distributions (JSDiv=" + str(measures[i]) + ")",
 						  "JS_topicDistributionBenchmark_" + str(i+1))
-	# optimal
-	optimalTopicCnt = findOptimalJSTopicCount(measures)
-	print("\n - Optimal Topic Count", optimalTopicCnt )
-	saveGraphY(measures, "Number of Topics", "JS Measure",
-			   "JS Div (O=" + str(optimalTopicCnt ) + ")",
-			   "JS_topicDistributionBenchmark_")
 
+def benchmarkCDMeasure():
+
+	###############
+	## load data ##
+	###############
+
+	logFile = "data/testlogs/log-t10-d.txt"
+	print("\n - Loading Log Data...")
+	print("	- location: " + logFile)
+	logData = loadLogData(logFile, datetime.datetime(2017, 2, 1, 0, 0, 0))
+	logItemCnt = len(logData)
+	print("	- items:", logItemCnt)
+
+	#########################
+	## Generate Primitives ##
+	#########################
+
+	# initialize
+	print("\n - Preparing Documents...")
+	currentItem = 0
+	documents = []
+	# extract documents
+	for i in logData:
+		# load item
+		documents.append(i[1])
+		# report
+		currentItem += 1
+		if currentItem % 250 == 0:
+			print("	- Processed " + str(currentItem) + " of " + str(logItemCnt))
+	# Generate Primitives
+	tokens = generateTokens(documents)
+	dictionary = generateDictionary(tokens)
+	corpus = generateCorpus(dictionary, tokens)
+
+	###################
+	## Test Accuracy ##
+	###################
+
+	# gather divergences
+	print("\n - Gathering CD Divergences...")
+	measures = calculateCosineDistance(corpus, dictionary, 15)
+	# optimal
+	optimalTopicCnt = findOptimalCDTopicCount(measures)
+	print("\n - Optimal Topic Count", optimalTopicCnt)
+	saveGraphY(measures, "Number of Topics", "CD Measure",
+			   "Cosine Distance (O=" + str(optimalTopicCnt) + ")",
+			   "CS_topicDistributionBenchmark")
+	# graph difference distributions
+	print("\n - Graphing Distributions...")
+	for i in range(0, 15):
+		# test model
+		model = generateLDAModel(corpus, dictionary, i+1)
+		# print
+		printTopicDistributions(model, dictionary)
+		# visualize
+		saveGraphOfTopics(extractTopicProbabilityDistributionFromModel(model, dictionary),
+						  extractTopicWordsFromModel(model, dictionary),
+						  "Topic Distributions (CDis=" + str(measures[i]) + ")",
+						  "CD_topicDistributionBenchmark_" + str(i+1))
+
+def benchmarkKLMeasure():
+
+	###############
+	## load data ##
+	###############
+
+	logFile = "data/testlogs/log-t10.txt"
+	print("\n - Loading Log Data...")
+	print("	- location: " + logFile)
+	logData = loadLogData(logFile, datetime.datetime(2017, 2, 1, 0, 0, 0))
+	logItemCnt = len(logData)
+	print("	- items:", logItemCnt)
+
+	#########################
+	## Generate Primitives ##
+	#########################
+
+	# initialize
+	print("\n - Preparing Documents...")
+	currentItem = 0
+	documents = []
+	# extract documents
+	for i in logData:
+		# load item
+		documents.append(i[1])
+		# report
+		currentItem += 1
+		if currentItem % 250 == 0:
+			print("	- Processed " + str(currentItem) + " of " + str(logItemCnt))
+	# Generate Primitives
+	tokens = generateTokens(documents)
+	dictionary = generateDictionary(tokens)
+	corpus = generateCorpus(dictionary, tokens)
+
+	###################
+	## Test Accuracy ##
+	###################
+
+	# gather divergences
+	print("\n - Gathering KL Divergences...")
+	measures = calculateKLDivergences(corpus, dictionary, 15)
+	# optimal
+	optimalTopicCnt = findOptimalKLTopicCountGen(measures)
+	print("\n - Optimal Topic Count", optimalTopicCnt)
+	saveGraphY(measures, "Number of Topics", "KL (GEN) Measure",
+			   "KL Divergence (O=" + str(optimalTopicCnt) + ")",
+			   "KL_topicDistributionBenchmark")
+	# graph difference distributions
+	print("\n - Graphing Distributions...")
+	for i in range(0, 15):
+		# test model
+		model = generateLDAModel(corpus, dictionary, i+1)
+		# print
+		printTopicDistributions(model, dictionary)
+		# visualize
+		saveGraphOfTopics(extractTopicProbabilityDistributionFromModel(model, dictionary),
+						  extractTopicWordsFromModel(model, dictionary),
+						  "Topic Distributions (KLDiv=" + str(measures[i]) + ")",
+						  "KL_topicDistributionBenchmark_" + str(i+1))
 
 ##################################
 ## LDA Primitive Helper Methods ##
@@ -384,6 +1215,10 @@ def generateLDAModel(corpus, dictionary, topicCount):
 	"""
 	@info Generates an LDA model from primitives.
 	"""
+	# check for empty primitives
+	if len(corpus) == 0 or len(dictionary) == 0:
+		dictionary = { 0 : "NODATA"}
+		corpus = [[(0,1)]]
 	# custom parameters
 	if LDA_Alpha == "quad_symmetric":
 		temp_LDA_Alpha = 1 / math.pow(topicCount, 2)
@@ -457,12 +1292,15 @@ def printTopicDistributions(model, dictionary):
 	print("\n - Topic Distribution")
 	# output
 	topicNumber = 1
-	for topic in extractReadableTopicProbabilityDistributionFromModel(model, dictionary):
+	topicWords = extractTopicWordsFromModel(model, dictionary)
+	for topic in extractTopicProbabilityDistributionFromModel(model, dictionary):
 		# report topic number
 		print("    - " + str(topicNumber), end=": | ")
 		# format
+		wordNumber = 0
 		for topicItem in topic:
-			print(topicItem[0] + "=" + format(topicItem[1] * 100, ".1f").rjust(5) + "%", end=" | ")
+			print(topicWords[wordNumber] + "=" + format(topicItem * 100, ".1f").rjust(5) + "%", end=" | ")
+			wordNumber += 1
 		print()
 		# track topic
 		topicNumber += 1
@@ -481,7 +1319,7 @@ def classifyDocument(LDA_Model, document):
 	# determine topics
 	return LDA_Model.get_document_topics(bagOfWords, minimum_probability=0)
 
-def extractTopicProbabilityDistributionFromModel(lda_model, dictionary):
+def extractTopicProbabilityDistributionFromModel(lda_model, dictionary, mustFilter=False):
 	"""
 	@info Formats the topic distribution returned by Gensim.
 	"""
@@ -498,32 +1336,48 @@ def extractTopicProbabilityDistributionFromModel(lda_model, dictionary):
 		# format into list of just probabilities
 		topic = []
 		for item in items:
-			topic.append(item[1])
+			if mustFilter and (item[1] <= (1 / lda_model.num_topics) + LDA_EffectiveZero):
+				topic.append(LDA_EffectiveZero)
+			else:
+				topic.append(item[1])
 		topics.append(topic)
 	# done
 	return topics
 
-def extractReadableTopicProbabilityDistributionFromModel(lda_model, dictionary):
+def extractTopicWordsFromModel(lda_model, dictionary):
 	"""
-	@info Formats the topic distribution returned by Gensim.
+	@info Formats the topic distribution returned by Gensim with word names.
 	"""
-	# initialize
-	topics = []
 	# extract topics
-	for i in range(0, lda_model.num_topics):
-		# get topic distribution
-		items = []
-		for item in lda_model.show_topics(num_topics=-1, num_words=len(dictionary), formatted=False)[i][1]:
-			items.append(item)
-		# sort distribution
-		items.sort(key=lambda tup: tup[0])
-		# format into list of just probabilities
-		topic = []
-		for item in items:
-			topic.append(item[1])
-		topics.append(items)
+	items = []
+	for item in lda_model.show_topics(num_topics=-1, num_words=len(dictionary), formatted=False)[0][1]:
+		items.append(item)
+	# sort distribution
+	items.sort(key=lambda tup: tup[0])
+	# format into list of just probabilities
+	topicWords = []
+	for item in items:
+		topicWords.append(item[0])
 	# done
-	return topics
+	return topicWords
+
+def getRelevantTopicKeyWords(lda_model, dictionary, topic_ID):
+	# determine number of words
+	wordCount = max(len(dictionary), 1)
+	# initialize
+	topic = lda_model.print_topic(topic_ID, topn=100)
+	relevantWords = []
+	# extract words
+	for topicWord in topic.split(" + "):
+		# extract components
+		topicWordComponents = topicWord.split("*")
+		word_probability = float(topicWordComponents[0])
+		word_Value = topicWordComponents[1][1:-1]
+		# check if significant
+		if word_probability > (1.0 / wordCount) or word_probability >= 1.0 - LDA_EffectiveZero:
+			relevantWords.append(word_Value)
+	# done
+	return  relevantWords;
 
 ###########################
 ## KL Divergence Methods ##
@@ -584,10 +1438,22 @@ def calculateKLDivergences(corpus, dictionary, max_topics=1):
 	@info Calculates and returns KL Divergence values for topics counts from 1 to max_topics
 	"""
 	# use correct threading mode
+	result = []
 	if LDA_MaxThreads == 1:
-		return calculateKLDivergencesST(corpus, dictionary, max_topics)
+		result = calculateKLDivergencesST(corpus, dictionary, max_topics)
 	else:
-		return calculateKLDivergencesMT(corpus, dictionary, max_topics)
+		result = calculateKLDivergencesMT(corpus, dictionary, max_topics)
+	# find largest value
+	iLargestValue = 0
+	for i in result:
+		if not i == float('inf'):
+			iLargestValue = max(i, iLargestValue)
+	# bound values
+	for i in range(len(result)):
+		if result[i] == float('inf'):
+			result[i] = iLargestValue * (i+1)
+	# done
+	return result
 
 def calculateKLDivergencesST(corpus, dictionary, max_topics=1):
 	"""
@@ -674,8 +1540,8 @@ def findOptimalKLTopicCountGen(KL_Divergences):
 	@info Finds the optimal topic number by looking for the largest "dip" - i.e. considers more than immediate neighbours.
 	"""
 	# sanity check
-	if len(KL_Divergences) == 0:
-		return 0
+	if len(KL_Divergences) <= 1:
+		return 1
 	# initialize
 	signs = []
 	groupings = []
@@ -693,25 +1559,28 @@ def findOptimalKLTopicCountGen(KL_Divergences):
 			signs.append(currentSign)
 	# filter sign list
 	filtered_signs = []
-	for i in range(0, len(signs)):
+	for i in range(0, len(signs)-1):
 		# side offsets
-		if i < 2 or i == len(signs) - 1:
+		if i < 2 or i >= len(signs) - 2:
 			filtered_signs.append(signs[i])
 			continue
-		# compare [...,_,_,X,X,O,X,_,_,...]
-		if signs[i-2] == signs[i-1] and signs[i-1] == signs[i+1]:
-			filtered_signs.append(signs[i-2])
+		# compare [...,_,_,X,X,O,X,X,_,_,...]
+		if filtered_signs[i-2] == filtered_signs[i-1] and filtered_signs[i-1] == signs[i+1] and signs[i+1] == signs[i+2]:
+			filtered_signs.append(filtered_signs[i-2])
 		else:
 			filtered_signs.append(signs[i])
 	# fill groupings list
 	currentSign = filtered_signs[0]
-	groupings.append(1)
+	groupings.append(currentSign)
 	for i in range(1, len(filtered_signs)):
 		if filtered_signs[i] == currentSign or filtered_signs[i] == 0:
 			groupings[len(groupings)-1] += 1
 		else:
 			groupings.append(1)
 			currentSign = filtered_signs[i]
+	# special case
+	if len(groupings) == 1:
+		return 1
 	# fill scores
 	for i in range(0, len(groupings)-1):
 		scores.append(min(groupings[i], groupings[i+1]))
@@ -746,11 +1615,11 @@ def kl_divergence(p, q):
 	# sanity check
 	if len(p) != len(q):
 		return  float('inf')
-	# distribution check
-	if sum(p) < 1-LDA_EffectiveZero or sum(p) > 1+LDA_EffectiveZero:
-		print(" * Warning: KL Probability of P does not add up to 1.0. Instead it is:", sum(p))
-	if sum(q) < 1-LDA_EffectiveZero or sum(q) > 1+LDA_EffectiveZero:
-		print(" * Warning: KL Probability of Q does not add up to 1.0. Instead it is:", sum(q))
+	## distribution check
+	#if sum(p) < 1-LDA_EffectiveZero or sum(p) > 1+LDA_EffectiveZero:
+	#	print(" * Warning: KL Probability of P does not add up to 1.0. Instead it is:", sum(p))
+	#if sum(q) < 1-LDA_EffectiveZero or sum(q) > 1+LDA_EffectiveZero:
+	#	print(" * Warning: KL Probability of Q does not add up to 1.0. Instead it is:", sum(q))
 	# calculate KL Divergence
 	result = 0
 	for i in range(0, len(p)):
@@ -780,8 +1649,8 @@ def calculatedJSDivergence(corpus, dictionary, number_of_topics, result):
 	# report
 	print("	   - Trying a topic count of " + str(number_of_topics) + "...")
 	# degenerate case
-	if number_of_topics == 1:
-		return 1
+	if number_of_topics == 0 or number_of_topics == 1:
+		return 0
 	# initialize
 	tempValues = []
 	# run multiple times for better accuracy
@@ -795,13 +1664,9 @@ def calculatedJSDivergence(corpus, dictionary, number_of_topics, result):
 		topics = extractTopicProbabilityDistributionFromModel(lda_model, dictionary)
 		# compare resulting topics
 		k_sum = 0
-		for i in range(0, number_of_topics):
-			for j in range(0, number_of_topics):
-				if i >= j:
-					continue
-				m = topics[i]
-				n = topics[j]
-				k_sum += js_divergence(m, n)
+		for m in range(0, number_of_topics):
+			for n in range(0, number_of_topics):
+				k_sum += js_divergence(topics[m], topics[n])
 		# multiply factor
 		k_total = k_factor * k_sum
 		# done
@@ -872,15 +1737,155 @@ def findOptimalJSTopicCount(JS_Divergences):
 	# done
 	return maxDivID + 1
 
+#############################
+## Cosine Distance Measure ##
+#############################
+
+def cosine_distance(i, j):
+	"""
+	@info Calculates the Cosine Distance of two sets.
+	"""
+	# sanity check
+	if len(i) != len(j):
+		return float("inf")
+	# process sum part of measure
+	numerator = 0
+	sum_p_squared = LDA_EffectiveZero
+	sum_q_squared = LDA_EffectiveZero
+	for v in range(len(i)):
+		# accumulate numerator component
+		numerator += i[v] * j[v]
+		# accumulate denominator components
+		sum_p_squared += math.pow(i[v], 2)
+		sum_q_squared += math.pow(j[v], 2)
+	# combine components
+	return numerator / (math.pow(sum_p_squared, 0.5) * math.pow(sum_q_squared, 0.5))
+
+def calculateCosineDistance(corpus, dictionary, number_of_topics, result):
+	"""
+	@info Calculates the Cosine Distance of a LDA model built from a given corpus and dictionary.
+	"""
+	# report
+	print("	   - Trying a topic count of " + str(number_of_topics) + "...")
+	# degenerate case
+	if number_of_topics == 0 or number_of_topics == 1:
+		return 0
+	# initialize
+	tempValues = []
+	# run multiple times for better accuracy
+	for x in range(0, LDA_TopicRuns):
+		# initialize
+		lda_model = generateLDAModel(corpus, dictionary, number_of_topics)
+		# build topics list
+		topics = extractTopicProbabilityDistributionFromModel(lda_model, dictionary)
+		# sort
+		#for i in range(len(topics)):
+		#	topics[i] = sorted(topics[i])
+		# compare resulting topics
+		distance_denominator = (number_of_topics * (number_of_topics - 1)) * 0.5
+		distance_numerator = 0
+		for i in range(0, number_of_topics):
+			for j in range(i+1, number_of_topics):
+				distance_numerator += cosine_distance(topics[i], topics[j])
+		# determine distance
+		distance_total = distance_numerator / distance_denominator
+		# done
+		tempValues.append(distance_total)
+	# average result
+	result[number_of_topics - 1] = sum(tempValues) / len(tempValues)
+
+def calculateCosineDistances(corpus, dictionary, max_topics=1):
+	"""
+	@info Calculates and returns Cosine Distance values for topics counts from 1 to max_topics
+	"""
+	# use correct threading mode
+	if LDA_MaxThreads == 1:
+		return calculateCosineDistancesST(corpus, dictionary, max_topics)
+	else:
+		return calculateCosineDistancesMT(corpus, dictionary, max_topics)
+
+def calculateCosineDistancesST(corpus, dictionary, max_topics=1):
+	"""
+	@info Single Thread wrapper for calculateCosineDistance.
+	"""
+	# initialize
+	result =  [None] * max_topics
+	# calculate KL divergence
+	print("	- Trying various CD topic counts: (max=" + str(max_topics) + ", SINGLE Thread Mode)")
+	for i in range(0, max_topics, 1):
+		# calculate divergence
+		calculateCosineDistance(corpus, dictionary, i+1, result)
+	# done
+	return result
+
+def calculateCosineDistancesMT(corpus, dictionary, max_topics=1):
+	"""
+	@info Multi Thread wrapper for calculateCosineDistance.
+	"""
+	# initialize
+	result =  multiprocessing.Array(ctypes.c_double, max_topics)
+	# calculate KL divergence
+	print("	- Trying various CD topic counts: (max=" + str(max_topics) + ", MULTI-Threads=" + str(LDA_MaxThreads) + ")")
+	jobs = []
+	for i in range(0, max_topics, 1):
+		# Create new threads
+		worker = multiprocessing.Process(target=calculateCosineDistance, args=(corpus, dictionary, i+1, result,))
+		worker.start()
+		jobs.append(worker)
+		# batch processing
+		if len(jobs) >= LDA_MaxThreads:
+			for j in jobs:
+				j.join()
+			jobs = []
+	# wait for remaining threads to finish
+	for j in jobs:
+		j.join()
+	# done
+	return result
+
+def findOptimalCDTopicCount(CDistances):
+	"""
+	@info Finds optimal number of topics based on Cosine Distance.
+	"""
+	# degenerate cases
+	if len(CDistances) == 1:
+		return 1
+	# find maximum
+	minDivID = 1
+	minDiv = CDistances[1]
+	for i in range(2, len(CDistances)):
+		if CDistances[i] < minDiv:
+			minDiv = CDistances[i]
+			minDivID = i
+	# done
+	return minDivID + 1
+
 #########################
 ## Time Factor Methods ##
 #########################
+
+def getTimeScaleAsString():
+	if LDA_TimeScale == 0:
+		return "1DAY"
+	elif LDA_TimeScale == 1:
+		return "3DAY"
+	elif LDA_TimeScale == 2:
+		return "WEEK"
+	else:
+		return "UNKNOWN"
 
 def calculateTimeFactor(timestamp):
 	"""
 	@info Returns the timefactor representation for a given time.
 	"""
-	return abs((timestamp.hour*60+timestamp.minute)/1440)
+	if LDA_TimeScale == 0:
+		return abs((timestamp.hour*60+timestamp.minute)/1440)
+	elif LDA_TimeScale == 1:
+		return abs(((timestamp.weekday()%3)*1440+ timestamp.hour*60+timestamp.minute)/4320)
+	elif LDA_TimeScale == 2:
+		return abs((timestamp.weekday()*1440+timestamp.hour*60+timestamp.minute)/10080)
+	else:
+		return -1
 
 def calculateWeighting(timeFactor1, timeFactor2):
 	"""
@@ -915,12 +1920,12 @@ def gatherTopicTimeFactors(LDA_Model, logData):
 		# process distribution info
 		for topicDistribution in topicDistributions:
 			# check if significant probability
-			if topicDistribution[1] > minimumProbability:
+			if topicDistribution[1] > minimumProbability or topicDistribution[1] >= 1.0 - LDA_EffectiveZero:
 				# store time factor
 				if timeFactors[topicDistribution[0]] == [-1]:
-					timeFactors[topicDistribution[0]].append(i[0])
-				else:
 					timeFactors[topicDistribution[0]] = [i[0]]
+				else:
+					timeFactors[topicDistribution[0]].append(i[0])
 	# done
 	return timeFactors
 
@@ -1001,7 +2006,7 @@ def saveGraphY(yValues, xAxisName, yAxisName, graphTitle, filename):
 	# plot graph
 	saveGraphXY(xValues, yValues, xAxisName, yAxisName, graphTitle, filename)
 
-def saveGraphOfTopics(rawTopicDistribution, topicDistributionsWithNames, graphTitle, filename ):
+def saveGraphOfTopics(rawTopicDistribution, topicWords, graphTitle, filename):
 	"""
 	@info Based on the code from https://github.com/minillinim/stackedBarGraph
 	"""
@@ -1015,7 +2020,7 @@ def saveGraphOfTopics(rawTopicDistribution, topicDistributionsWithNames, graphTi
 	# generate plot
 	fig = pyplot.figure()
 	ax = fig.add_subplot(111)
-	plots = SBG.stackedBarPlot(ax, d, d_colors, xLabels=d_labels, yTicks=len(rawTopicDistribution), widths=d_widths, scale=True)
+	plots = SBG.stackedBarPlot(ax, d, d_colors, xLabels=d_labels, yTicks=len(rawTopicDistribution), widths=d_widths, scale=False)
 	# add plot titles
 	pyplot.title(graphTitle)
 	pyplot.ylabel("Probability")
@@ -1027,10 +2032,10 @@ def saveGraphOfTopics(rawTopicDistribution, topicDistributionsWithNames, graphTi
 	ax.set_position([box.x0, box.y0, box.width * 0.8, box.height])
 	# add legend
 	pyplot.legend([p[0] for p in reversed(plots)],
-				 	[i[0] for i in reversed(topicDistributionsWithNames[0])],
-				 	bbox_to_anchor=(1.0, 1.0),
-				  	fancybox=True,
-				  	shadow=True)
+				  [i for i in reversed(topicWords)],
+				  bbox_to_anchor=(1.0, 1.0),
+				  fancybox=True,
+				  shadow=True)
 	# save
 	pyplot.savefig('data/' + filename + '.png', facecolor='white', edgecolor='white', bbox_inches='tight')
 

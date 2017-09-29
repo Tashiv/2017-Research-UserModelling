@@ -1,0 +1,268 @@
+#############
+## Formats ##
+#############
+
+##[ Line Format ]
+#date_start -- date_stop -- time_pattern -- time_variance -- session_probability -- min_occurrences -- max_occurrences[ -- primaryDataItem]
+#-- altDataItem1
+#-- ...
+#-- altDataItemN
+
+##[ Time Format ]
+# S,M,H,D,M,Y
+
+#############
+## Configs ##
+#############
+
+##[ Start Date - Format: y-m-d h:m:s]
+start 2017-01-01 00:00:00
+
+##[ End Date - Format: y-m-d h:m:s]
+end 2017-01-31 23:59:59
+
+#######################
+## Log Builder Rules ##
+#######################
+
+##[ 80 Complex Topics ]
+0,0,02,0,0,0 -- 0,0,0,0,1,0 -- 0,0,0,1,0,0 -- 59,59,1,0,0,0 -- 0.9 -- 0 -- 2 -- Anteater
+-- scary Anteater
+-- Anteater animal
+0,0,02,0,0,0 -- 0,0,0,0,1,0 -- 0,0,0,1,0,0 -- 59,59,1,0,0,0 -- 0.8 -- 0 -- 2 -- Antarctic
+-- Antarctic animals
+-- location Antarctic
+0,0,02,0,0,0 -- 0,0,0,0,1,0 -- 0,0,0,1,0,0 -- 59,59,1,0,0,0 -- 0.7 -- 1 -- 3 -- Beaver
+-- Beaver dams
+-- furry Beaver
+0,0,02,0,0,0 -- 0,0,0,0,1,0 -- 0,0,0,1,0,0 -- 59,59,1,0,0,0 -- 0.6 -- 1 -- 3 -- Bridge
+-- Bridge construction
+-- pictures of Bridges
+0,0,04,0,0,0 -- 0,0,0,0,1,0 -- 0,0,0,1,0,0 -- 59,59,1,0,0,0 -- 0.5 -- 2 -- 4 -- Cub
+-- Cubs in the wild
+-- lion Cubs
+0,0,04,0,0,0 -- 0,0,0,0,1,0 -- 0,0,0,1,0,0 -- 59,59,1,0,0,0 -- 0.4 -- 2 -- 4 -- Cat
+-- Cat pictures
+-- funny cats
+0,0,04,0,0,0 -- 0,0,0,0,1,0 -- 0,0,0,1,0,0 -- 59,59,1,0,0,0 -- 0.5 -- 3 -- 5 -- Dog
+-- Dog fights
+-- Caring for a Dog
+0,0,04,0,0,0 -- 0,0,0,0,1,0 -- 0,0,0,1,0,0 -- 59,59,1,0,0,0 -- 0.6 -- 3 -- 5 -- Delta
+-- Delta force
+-- Change in size Delta
+0,0,06,0,0,0 -- 0,0,0,0,1,0 -- 0,0,0,1,0,0 -- 59,59,1,0,0,0 -- 0.7 -- 0 -- 2 -- Elephant
+-- Elephant parks
+-- circus of Elephants
+0,0,06,0,0,0 -- 0,0,0,0,1,0 -- 0,0,0,1,0,0 -- 59,59,1,0,0,0 -- 0.8 -- 0 -- 2 -- Expert
+-- Running Expert
+-- exercise Expert
+0,0,06,0,0,0 -- 0,0,0,0,1,0 -- 0,0,0,1,0,0 -- 59,59,1,0,0,0 -- 0.9 -- 1 -- 3 -- Frog
+-- Frog babies
+-- biology of Frogs
+0,0,06,0,0,0 -- 0,0,0,0,1,0 -- 0,0,0,1,0,0 -- 59,59,1,0,0,0 -- 0.8 -- 1 -- 3 -- Fire
+-- Fire kits
+-- Fire starter
+0,0,08,0,0,0 -- 0,0,0,0,1,0 -- 0,0,0,1,0,0 -- 59,59,1,0,0,0 -- 0.7 -- 2 -- 4 -- Green
+-- Green plants
+-- Green energy
+0,0,08,0,0,0 -- 0,0,0,0,1,0 -- 0,0,0,1,0,0 -- 59,59,1,0,0,0 -- 0.6 -- 2 -- 4 -- Gecko
+-- Gecko lizard
+-- Climbing gecko
+0,0,08,0,0,0 -- 0,0,0,0,1,0 -- 0,0,0,1,0,0 -- 59,59,1,0,0,0 -- 0.5 -- 3 -- 5 -- House
+-- House auctions
+-- places to buy houses
+0,0,08,0,0,0 -- 0,0,0,0,1,0 -- 0,0,0,1,0,0 -- 59,59,1,0,0,0 -- 0.4 -- 3 -- 5 -- Hyphen
+-- Hyphen punctuation
+-- Usage of the Hyphen
+0,0,10,0,0,0 -- 0,0,0,0,1,0 -- 0,0,0,1,0,0 -- 59,59,1,0,0,0 -- 0.5 -- 0 -- 2 -- Internet
+-- Internet usage
+-- how to connect to the internet
+0,0,10,0,0,0 -- 0,0,0,0,1,0 -- 0,0,0,1,0,0 -- 59,59,1,0,0,0 -- 0.6 -- 0 -- 2 -- Igloo
+-- Igloo life
+-- building an Igloo
+0,0,10,0,0,0 -- 0,0,0,0,1,0 -- 0,0,0,1,0,0 -- 59,59,1,0,0,0 -- 0.7 -- 1 -- 3 -- Jackal
+-- Jackal hunting habits
+-- Jackal animal
+0,0,10,0,0,0 -- 0,0,0,0,1,0 -- 0,0,0,1,0,0 -- 59,59,1,0,0,0 -- 0.8 -- 1 -- 3 -- Java
+-- Java coding
+-- jobs for Java developers
+0,0,12,0,0,0 -- 0,0,0,0,1,0 -- 0,0,0,1,0,0 -- 59,59,1,0,0,0 -- 0.9 -- 2 -- 4 -- Kangaroo
+-- Kangaroo park
+-- petting a Kangaroo
+0,0,12,0,0,0 -- 0,0,0,0,1,0 -- 0,0,0,1,0,0 -- 59,59,1,0,0,0 -- 0.8 -- 2 -- 4 -- Kittens
+-- Kittens for sale
+-- how to play with a Kitthen
+0,0,12,0,0,0 -- 0,0,0,0,1,0 -- 0,0,0,1,0,0 -- 59,59,1,0,0,0 -- 0.7 -- 3 -- 5 -- Lighthouse
+-- Lighthouse power
+-- ships and lighthouses
+0,0,12,0,0,0 -- 0,0,0,0,1,0 -- 0,0,0,1,0,0 -- 59,59,1,0,0,0 -- 0.6 -- 3 -- 5 -- Line
+-- Line graphs
+-- rendering a Line
+0,0,14,0,0,0 -- 0,0,0,0,1,0 -- 0,0,0,1,0,0 -- 59,59,1,0,0,0 -- 0.5 -- 0 -- 2 -- Moon
+-- Moon distance
+-- lunar Moon dust
+0,0,14,0,0,0 -- 0,0,0,0,1,0 -- 0,0,0,1,0,0 -- 59,59,1,0,0,0 -- 0.4 -- 0 -- 2 -- Machine
+-- Machine learning
+-- powering the machines of the future
+0,0,14,0,0,0 -- 0,0,0,0,1,0 -- 0,0,0,1,0,0 -- 59,59,1,0,0,0 -- 0.5 -- 1 -- 3 -- Nitrogen
+-- Nitrogen gas
+-- is nitrogen dangerous
+0,0,14,0,0,0 -- 0,0,0,0,1,0 -- 0,0,0,1,0,0 -- 59,59,1,0,0,0 -- 0.6 -- 1 -- 3 -- Nine
+-- nine ten
+-- why is nine after eight
+0,0,16,0,0,0 -- 0,0,0,0,1,0 -- 0,0,0,1,0,0 -- 59,59,1,0,0,0 -- 0.7 -- 2 -- 4 -- Octopus
+-- Octopus aquarium
+-- tenticles of an Octopus
+0,0,16,0,0,0 -- 0,0,0,0,1,0 -- 0,0,0,1,0,0 -- 59,59,1,0,0,0 -- 0.8 -- 2 -- 4 -- Orange
+-- Orange peel
+-- how healthy is an Orange
+0,0,16,0,0,0 -- 0,0,0,0,1,0 -- 0,0,0,1,0,0 -- 59,59,1,0,0,0 -- 0.9 -- 3 -- 5 -- Programming
+-- Programming environment
+-- playing with programs
+0,0,16,0,0,0 -- 0,0,0,0,1,0 -- 0,0,0,1,0,0 -- 59,59,1,0,0,0 -- 0.8 -- 3 -- 5 -- Penguin
+-- Penguin documentaries
+-- pictures of Penguins
+0,0,18,0,0,0 -- 0,0,0,0,1,0 -- 0,0,0,1,0,0 -- 59,59,1,0,0,0 -- 0.7 -- 0 -- 2 -- Quality
+-- Quality control
+-- Quality versus quantity
+0,0,18,0,0,0 -- 0,0,0,0,1,0 -- 0,0,0,1,0,0 -- 59,59,1,0,0,0 -- 0.6 -- 0 -- 2 -- Rhino
+-- Rhino parks
+-- how many Rhinos are left
+0,0,18,0,0,0 -- 0,0,0,0,1,0 -- 0,0,0,1,0,0 -- 59,59,1,0,0,0 -- 0.5 -- 1 -- 3 -- Swan
+-- Swan lake
+-- black Swan
+0,0,18,0,0,0 -- 0,0,0,0,1,0 -- 0,0,0,1,0,0 -- 59,59,1,0,0,0 -- 0.4 -- 1 -- 3 -- Transformers
+-- Transformers movie
+-- soundtrack of Transformers movie
+0,0,20,0,0,0 -- 0,0,0,0,1,0 -- 0,0,0,1,0,0 -- 59,59,1,0,0,0 -- 0.5 -- 2 -- 4 -- Umbrella
+-- Umbrella for rain
+-- how big is an Umbrella
+0,0,20,0,0,0 -- 0,0,0,0,1,0 -- 0,0,0,1,0,0 -- 59,59,1,0,0,0 -- 0.6 -- 2 -- 4 -- Vaccine
+-- flu Vaccine
+-- dangers of Vaccines
+0,0,20,0,0,0 -- 0,0,0,0,1,0 -- 0,0,0,1,0,0 -- 59,59,1,0,0,0 -- 0.7 -- 3 -- 5 -- Whale
+-- Whale watchers
+-- season of Whales
+0,0,20,0,0,0 -- 0,0,0,0,1,0 -- 0,0,0,1,0,0 -- 59,59,1,0,0,0 -- 0.8 -- 3 -- 5 -- Zebra
+-- Zebra park
+-- animals like Zebra
+0,0,22,0,0,0 -- 0,0,0,0,1,0 -- 0,0,0,1,0,0 -- 59,59,1,0,0,0 -- 0.9 -- 0 -- 2 -- Airplane
+-- Airplane bookings
+-- flight path of Airplane
+0,0,22,0,0,0 -- 0,0,0,0,1,0 -- 0,0,0,1,0,0 -- 59,59,1,0,0,0 -- 0.8 -- 0 -- 2 -- Avocado
+-- Avocado recipes
+-- how to grow an avocado
+0,0,22,0,0,0 -- 0,0,0,0,1,0 -- 0,0,0,1,0,0 -- 59,59,1,0,0,0 -- 0.7 -- 1 -- 3 -- Bike
+-- Bike routes
+-- how to ride a Bike
+0,0,22,0,0,0 -- 0,0,0,0,1,0 -- 0,0,0,1,0,0 -- 59,59,1,0,0,0 -- 0.6 -- 1 -- 3 -- Bread
+-- Bread and butter
+-- Bread tax bracket
+0,0,00,0,0,0 -- 0,0,0,0,1,0 -- 0,0,0,1,0,0 -- 59,59,1,0,0,0 -- 0.5 -- 2 -- 4 -- Computer
+-- Computer lessons
+-- how to turn of a Computer
+0,0,00,0,0,0 -- 0,0,0,0,1,0 -- 0,0,0,1,0,0 -- 59,59,1,0,0,0 -- 0.4 -- 2 -- 4 -- Calculator
+-- Calculator prices
+-- how to reset a Calculator
+0,0,00,0,0,0 -- 0,0,0,0,1,0 -- 0,0,0,1,0,0 -- 59,59,1,0,0,0 -- 0.5 -- 3 -- 5 -- Dinosaur
+-- Dinosaur bones
+-- where are the Dinosaurs
+0,0,00,0,0,0 -- 0,0,0,0,1,0 -- 0,0,0,1,0,0 -- 59,59,1,0,0,0 -- 0.6 -- 3 -- 5 -- Digging
+-- Digging for gold
+-- where to start Digging
+0,0,02,0,0,0 -- 0,0,0,0,1,0 -- 0,0,0,1,0,0 -- 59,59,1,0,0,0 -- 0.7 -- 0 -- 2 -- Egg
+-- Egg laying for pros
+-- Egg or chicken
+0,0,02,0,0,0 -- 0,0,0,0,1,0 -- 0,0,0,1,0,0 -- 59,59,1,0,0,0 -- 0.8 -- 0 -- 2 -- Elementary
+-- Elementary school
+-- Elementary my dear Wattson
+0,0,02,0,0,0 -- 0,0,0,0,1,0 -- 0,0,0,1,0,0 -- 59,59,1,0,0,0 -- 0.9 -- 1 -- 3 -- Falcon
+-- Falcon parks
+-- why do Falcon fly
+0,0,02,0,0,0 -- 0,0,0,0,1,0 -- 0,0,0,1,0,0 -- 59,59,1,0,0,0 -- 0.8 -- 1 -- 3 -- Fairy
+-- Fairy land
+-- what is a Fairy
+0,0,04,0,0,0 -- 0,0,0,0,1,0 -- 0,0,0,1,0,0 -- 59,59,1,0,0,0 -- 0.7 -- 2 -- 4 -- Guy
+-- Guy faux
+-- what is up Guy
+0,0,04,0,0,0 -- 0,0,0,0,1,0 -- 0,0,0,1,0,0 -- 59,59,1,0,0,0 -- 0.6 -- 2 -- 4 -- Girl
+-- Girl power
+-- what is up Girl
+0,0,04,0,0,0 -- 0,0,0,0,1,0 -- 0,0,0,1,0,0 -- 59,59,1,0,0,0 -- 0.5 -- 3 -- 5 -- Hen
+-- Hen chicken
+-- can Hens fly
+0,0,04,0,0,0 -- 0,0,0,0,1,0 -- 0,0,0,1,0,0 -- 59,59,1,0,0,0 -- 0.4 -- 3 -- 5 -- Hitchhiker
+-- Hitchhikers guide to the galaxy
+-- Hitchhikers are dangerous
+0,0,06,0,0,0 -- 0,0,0,0,1,0 -- 0,0,0,1,0,0 -- 59,59,1,0,0,0 -- 0.5 -- 0 -- 2 -- Isolated
+-- Isolated power supplies
+-- Isolating power sources
+0,0,06,0,0,0 -- 0,0,0,0,1,0 -- 0,0,0,1,0,0 -- 59,59,1,0,0,0 -- 0.6 -- 0 -- 2 -- IceTower
+-- IceTower game
+-- defence of the IceTower
+0,0,06,0,0,0 -- 0,0,0,0,1,0 -- 0,0,0,1,0,0 -- 59,59,1,0,0,0 -- 0.7 -- 1 -- 3 -- Jade
+-- Jade stone
+-- is Jade precious
+0,0,06,0,0,0 -- 0,0,0,0,1,0 -- 0,0,0,1,0,0 -- 59,59,1,0,0,0 -- 0.8 -- 1 -- 3 -- Jackson
+-- Jackson five
+-- musical family Jackson
+0,0,08,0,0,0 -- 0,0,0,0,1,0 -- 0,0,0,1,0,0 -- 59,59,1,0,0,0 -- 0.9 -- 2 -- 4 -- Kite
+-- Kite flying
+-- how to build a Kite
+0,0,08,0,0,0 -- 0,0,0,0,1,0 -- 0,0,0,1,0,0 -- 59,59,1,0,0,0 -- 0.8 -- 2 -- 4 -- Kingdom
+-- Kingdom war game
+-- strategy game of Kingdoms
+0,0,08,0,0,0 -- 0,0,0,0,1,0 -- 0,0,0,1,0,0 -- 59,59,1,0,0,0 -- 0.7 -- 3 -- 5 -- Liquid
+-- Liquid oxygen
+-- team Liquid
+0,0,08,0,0,0 -- 0,0,0,0,1,0 -- 0,0,0,1,0,0 -- 59,59,1,0,0,0 -- 0.6 -- 3 -- 5 -- Lamp
+-- camping Lamp
+-- lighting a Lamp
+0,0,10,0,0,0 -- 0,0,0,0,1,0 -- 0,0,0,1,0,0 -- 59,59,1,0,0,0 -- 0.5 -- 0 -- 2 -- Mixed
+-- Mixed up
+-- top Mixed songs
+0,0,10,0,0,0 -- 0,0,0,0,1,0 -- 0,0,0,1,0,0 -- 59,59,1,0,0,0 -- 0.4 -- 0 -- 2 -- Middle
+-- man in the Middle attack
+-- Middle ware issues
+0,0,10,0,0,0 -- 0,0,0,0,1,0 -- 0,0,0,1,0,0 -- 59,59,1,0,0,0 -- 0.5 -- 1 -- 3 -- Nike
+-- Nike running shoes
+-- sports company Nike
+0,0,10,0,0,0 -- 0,0,0,0,1,0 -- 0,0,0,1,0,0 -- 59,59,1,0,0,0 -- 0.6 -- 1 -- 3 -- Naught
+-- is zero Naught
+-- invention of Naught
+0,0,12,0,0,0 -- 0,0,0,0,1,0 -- 0,0,0,1,0,0 -- 59,59,1,0,0,0 -- 0.7 -- 2 -- 4 -- Octogon
+-- Octogon shape
+-- how many sides in an Octogon
+0,0,12,0,0,0 -- 0,0,0,0,1,0 -- 0,0,0,1,0,0 -- 59,59,1,0,0,0 -- 0.8 -- 2 -- 4 -- Object
+-- Object detections
+-- Object orientation
+0,0,12,0,0,0 -- 0,0,0,0,1,0 -- 0,0,0,1,0,0 -- 59,59,1,0,0,0 -- 0.9 -- 3 -- 5 -- Pistol
+-- Pistol retailer
+-- how to clean a Pistol
+0,0,12,0,0,0 -- 0,0,0,0,1,0 -- 0,0,0,1,0,0 -- 59,59,1,0,0,0 -- 0.8 -- 3 -- 5 -- Pentagon
+-- Pentagon budget
+-- news about the Pentagon
+0,0,14,0,0,0 -- 0,0,0,0,1,0 -- 0,0,0,1,0,0 -- 59,59,1,0,0,0 -- 0.7 -- 0 -- 2 -- Quail
+-- is a Quail a bird
+-- Quail pudding
+0,0,14,0,0,0 -- 0,0,0,0,1,0 -- 0,0,0,1,0,0 -- 59,59,1,0,0,0 -- 0.6 -- 0 -- 2 -- Rigged
+-- Rigged elections
+-- can elections be Rigged
+0,0,14,0,0,0 -- 0,0,0,0,1,0 -- 0,0,0,1,0,0 -- 59,59,1,0,0,0 -- 0.5 -- 1 -- 3 -- SwissArmy
+-- SwissArmy knife
+-- is the SwissArmy the best
+0,0,14,0,0,0 -- 0,0,0,0,1,0 -- 0,0,0,1,0,0 -- 59,59,1,0,0,0 -- 0.4 -- 1 -- 3 -- Tracker
+-- animal Tracker
+-- progress Tracker for work
+0,0,16,0,0,0 -- 0,0,0,0,1,0 -- 0,0,0,1,0,0 -- 59,59,1,0,0,0 -- 0.5 -- 2 -- 4 -- Utopia
+-- is Earth a Utopia
+-- what is a Utopia
+0,0,16,0,0,0 -- 0,0,0,0,1,0 -- 0,0,0,1,0,0 -- 59,59,1,0,0,0 -- 0.6 -- 2 -- 4 -- Vulture
+-- Vultures birds of prey
+-- height of a Vulture
+0,0,16,0,0,0 -- 0,0,0,0,1,0 -- 0,0,0,1,0,0 -- 59,59,1,0,0,0 -- 0.7 -- 3 -- 5 -- Wings
+-- Wings of glory
+-- fighter pilot Wings
+0,0,16,0,0,0 -- 0,0,0,0,1,0 -- 0,0,0,1,0,0 -- 59,59,1,0,0,0 -- 0.8 -- 3 -- 5 -- Zoo
+-- Zoo opening times
+-- animals in a Zoo
