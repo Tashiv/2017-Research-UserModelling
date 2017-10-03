@@ -1,0 +1,143 @@
+2017,01,01,06,57,41_#_fast cars and their technical performance
+2017,01,01,09,42,47_#_tuning a car to have good technical performance
+2017,01,01,12,06,34_#_planet are bigger than stars in astronomy
+2017,01,01,19,38,18_#_programming computer java contest for experts
+2017,01,01,20,20,49_#_java tutorial computer and reference guides
+2017,01,02,21,01,05_#_programming computer java contest for experts
+2017,01,02,21,34,57_#_computer programming reference java online guide
+2017,01,03,06,36,49_#_tuning a car to have good technical performance
+2017,01,03,08,11,53_#_cars technical performance video online
+2017,01,03,08,44,48_#_fast cars and their technical performance
+2017,01,03,13,04,43_#_astronomy outside earth planet stars planet
+2017,01,03,14,58,58_#_astronomy outside earth planet stars planet
+2017,01,03,15,07,35_#_planet are bigger than stars in astronomy
+2017,01,03,22,36,14_#_programming computer java contest for experts
+2017,01,04,06,14,18_#_fast cars and their technical performance
+2017,01,04,08,36,01_#_fast cars and their technical performance
+2017,01,04,08,50,19_#_tuning a car to have good technical performance
+2017,01,04,13,59,17_#_stars planet theory video astronomy
+2017,01,04,14,18,59_#_planet are bigger than stars in astronomy
+2017,01,04,14,43,06_#_stars planet theory video astronomy
+2017,01,04,19,37,17_#_java tutorial computer and reference guides
+2017,01,05,07,11,40_#_fast cars and their technical performance
+2017,01,05,09,48,14_#_tuning a car to have good technical performance
+2017,01,05,12,38,07_#_stars planet theory video astronomy
+2017,01,05,14,12,25_#_stars planet theory video astronomy
+2017,01,05,14,53,31_#_planet are bigger than stars in astronomy
+2017,01,05,22,27,22_#_computer programming reference java online guide
+2017,01,06,06,37,24_#_cars technical performance video online
+2017,01,06,07,13,40_#_fast cars and their technical performance
+2017,01,06,13,12,39_#_planet are bigger than stars in astronomy
+2017,01,06,15,32,46_#_planet are bigger than stars in astronomy
+2017,01,06,20,25,35_#_java tutorial computer and reference guides
+2017,01,07,13,23,29_#_planet are bigger than stars in astronomy
+2017,01,07,13,59,57_#_astronomy outside earth planet stars planet
+2017,01,07,15,37,41_#_planet are bigger than stars in astronomy
+2017,01,07,20,28,31_#_computer programming reference java online guide
+2017,01,07,21,13,55_#_java tutorial computer and reference guides
+2017,01,08,06,47,43_#_tuning a car to have good technical performance
+2017,01,08,07,32,23_#_tuning a car to have good technical performance
+2017,01,08,08,04,58_#_tuning a car to have good technical performance
+2017,01,08,14,46,03_#_planet are bigger than stars in astronomy
+2017,01,08,20,36,06_#_programming computer java contest for experts
+2017,01,09,06,08,21_#_cars technical performance video online
+2017,01,09,12,16,03_#_astronomy outside earth planet stars planet
+2017,01,10,08,38,10_#_cars technical performance video online
+2017,01,10,09,45,25_#_tuning a car to have good technical performance
+2017,01,10,12,37,06_#_planet are bigger than stars in astronomy
+2017,01,10,15,07,29_#_astronomy outside earth planet stars planet
+2017,01,10,21,09,50_#_computer programming reference java online guide
+2017,01,11,08,30,32_#_cars technical performance video online
+2017,01,11,08,48,33_#_fast cars and their technical performance
+2017,01,11,20,22,15_#_computer programming reference java online guide
+2017,01,11,20,50,53_#_computer programming reference java online guide
+2017,01,12,13,53,37_#_stars planet theory video astronomy
+2017,01,12,14,13,10_#_astronomy outside earth planet stars planet
+2017,01,12,22,43,33_#_java tutorial computer and reference guides
+2017,01,13,07,52,02_#_fast cars and their technical performance
+2017,01,13,20,03,43_#_programming computer java contest for experts
+2017,01,13,21,21,50_#_computer programming reference java online guide
+2017,01,14,07,35,39_#_cars technical performance video online
+2017,01,14,08,42,49_#_tuning a car to have good technical performance
+2017,01,14,21,29,02_#_programming computer java contest for experts
+2017,01,14,21,31,45_#_programming computer java contest for experts
+2017,01,15,07,28,35_#_tuning a car to have good technical performance
+2017,01,15,08,29,42_#_cars technical performance video online
+2017,01,15,14,44,30_#_astronomy outside earth planet stars planet
+2017,01,15,20,34,26_#_computer programming reference java online guide
+2017,01,15,21,26,37_#_java tutorial computer and reference guides
+2017,01,16,08,16,49_#_tuning a car to have good technical performance
+2017,01,16,08,56,11_#_tuning a car to have good technical performance
+2017,01,16,14,54,14_#_stars planet theory video astronomy
+2017,01,16,21,49,41_#_java tutorial computer and reference guides
+2017,01,17,06,09,08_#_cars technical performance video online
+2017,01,17,07,09,49_#_tuning a car to have good technical performance
+2017,01,17,09,07,48_#_fast cars and their technical performance
+2017,01,17,15,02,21_#_astronomy outside earth planet stars planet
+2017,01,17,15,26,26_#_stars planet theory video astronomy
+2017,01,18,20,07,29_#_computer programming reference java online guide
+2017,01,19,06,06,55_#_cars technical performance video online
+2017,01,19,07,26,24_#_fast cars and their technical performance
+2017,01,19,08,20,23_#_tuning a car to have good technical performance
+2017,01,19,14,08,15_#_astronomy outside earth planet stars planet
+2017,01,19,21,17,08_#_programming computer java contest for experts
+2017,01,19,21,45,08_#_computer programming reference java online guide
+2017,01,20,07,04,34_#_tuning a car to have good technical performance
+2017,01,20,07,11,29_#_cars technical performance video online
+2017,01,20,08,03,45_#_cars technical performance video online
+2017,01,20,14,25,20_#_astronomy outside earth planet stars planet
+2017,01,20,15,15,15_#_planet are bigger than stars in astronomy
+2017,01,20,19,30,10_#_java tutorial computer and reference guides
+2017,01,20,20,17,30_#_programming computer java contest for experts
+2017,01,21,07,13,54_#_fast cars and their technical performance
+2017,01,21,07,40,43_#_cars technical performance video online
+2017,01,21,09,00,47_#_cars technical performance video online
+2017,01,21,21,30,13_#_java tutorial computer and reference guides
+2017,01,21,22,15,57_#_computer programming reference java online guide
+2017,01,22,12,04,24_#_astronomy outside earth planet stars planet
+2017,01,22,13,42,27_#_planet are bigger than stars in astronomy
+2017,01,22,15,13,49_#_astronomy outside earth planet stars planet
+2017,01,22,20,11,35_#_computer programming reference java online guide
+2017,01,22,22,39,00_#_programming computer java contest for experts
+2017,01,23,06,30,58_#_fast cars and their technical performance
+2017,01,23,09,43,13_#_fast cars and their technical performance
+2017,01,23,13,21,16_#_planet are bigger than stars in astronomy
+2017,01,23,15,36,51_#_planet are bigger than stars in astronomy
+2017,01,23,20,06,06_#_programming computer java contest for experts
+2017,01,23,21,09,08_#_computer programming reference java online guide
+2017,01,24,07,33,12_#_tuning a car to have good technical performance
+2017,01,24,07,40,42_#_fast cars and their technical performance
+2017,01,24,13,13,49_#_planet are bigger than stars in astronomy
+2017,01,24,14,15,41_#_stars planet theory video astronomy
+2017,01,24,14,33,32_#_astronomy outside earth planet stars planet
+2017,01,24,22,43,39_#_java tutorial computer and reference guides
+2017,01,25,07,41,11_#_cars technical performance video online
+2017,01,25,20,53,06_#_programming computer java contest for experts
+2017,01,26,13,17,16_#_planet are bigger than stars in astronomy
+2017,01,26,14,47,26_#_stars planet theory video astronomy
+2017,01,26,21,26,32_#_java tutorial computer and reference guides
+2017,01,26,21,36,56_#_programming computer java contest for experts
+2017,01,27,14,52,15_#_planet are bigger than stars in astronomy
+2017,01,27,15,00,44_#_astronomy outside earth planet stars planet
+2017,01,27,15,38,33_#_astronomy outside earth planet stars planet
+2017,01,28,13,05,12_#_planet are bigger than stars in astronomy
+2017,01,28,19,39,39_#_programming computer java contest for experts
+2017,01,28,21,44,25_#_java tutorial computer and reference guides
+2017,01,29,08,05,53_#_fast cars and their technical performance
+2017,01,29,08,38,26_#_fast cars and their technical performance
+2017,01,29,12,35,10_#_astronomy outside earth planet stars planet
+2017,01,29,12,35,28_#_astronomy outside earth planet stars planet
+2017,01,29,14,02,31_#_astronomy outside earth planet stars planet
+2017,01,29,21,26,53_#_java tutorial computer and reference guides
+2017,01,29,22,59,15_#_programming computer java contest for experts
+2017,01,30,07,02,54_#_tuning a car to have good technical performance
+2017,01,30,08,48,56_#_fast cars and their technical performance
+2017,01,30,08,54,56_#_cars technical performance video online
+2017,01,30,13,03,41_#_astronomy outside earth planet stars planet
+2017,01,30,13,20,09_#_astronomy outside earth planet stars planet
+2017,01,31,06,07,44_#_tuning a car to have good technical performance
+2017,01,31,07,32,31_#_tuning a car to have good technical performance
+2017,01,31,09,34,25_#_cars technical performance video online
+2017,01,31,13,03,10_#_planet are bigger than stars in astronomy
+2017,01,31,14,58,41_#_astronomy outside earth planet stars planet
+2017,01,31,22,18,19_#_computer programming reference java online guide

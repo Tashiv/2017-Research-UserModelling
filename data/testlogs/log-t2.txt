@@ -1,0 +1,60 @@
+2017,01,01,00,12,52_#_Antarctic animals
+2017,01,01,02,46,27_#_Antarctic
+2017,01,02,00,42,13_#_Antarctic
+2017,01,02,01,28,56_#_Anteater animal
+2017,01,02,03,09,48_#_Antarctic
+2017,01,03,00,07,12_#_Antarctic animals
+2017,01,03,02,07,26_#_Anteater
+2017,01,03,02,07,46_#_Antarctic animals
+2017,01,04,00,12,41_#_scary Anteater
+2017,01,04,02,21,32_#_Anteater animal
+2017,01,05,01,48,51_#_Anteater animal
+2017,01,05,02,47,49_#_location Antarctic
+2017,01,05,02,52,42_#_location Antarctic
+2017,01,06,02,11,36_#_location Antarctic
+2017,01,06,02,50,13_#_Anteater
+2017,01,07,01,58,08_#_scary Anteater
+2017,01,07,02,13,47_#_Antarctic animals
+2017,01,07,02,49,31_#_location Antarctic
+2017,01,08,01,51,52_#_Anteater
+2017,01,09,00,42,47_#_location Antarctic
+2017,01,10,01,20,15_#_Antarctic animals
+2017,01,10,02,16,15_#_Antarctic
+2017,01,10,02,26,13_#_Anteater animal
+2017,01,11,03,16,23_#_location Antarctic
+2017,01,11,03,50,22_#_Antarctic
+2017,01,12,02,13,51_#_Anteater animal
+2017,01,14,02,37,31_#_location Antarctic
+2017,01,15,02,42,31_#_Anteater
+2017,01,15,03,30,06_#_Antarctic animals
+2017,01,16,02,41,18_#_scary Anteater
+2017,01,17,01,09,19_#_location Antarctic
+2017,01,17,02,34,48_#_scary Anteater
+2017,01,18,01,43,33_#_Anteater
+2017,01,18,03,06,29_#_Anteater animal
+2017,01,19,00,07,02_#_Anteater animal
+2017,01,19,01,06,20_#_Anteater
+2017,01,19,01,17,16_#_Antarctic animals
+2017,01,19,01,26,40_#_location Antarctic
+2017,01,23,00,10,41_#_Antarctic
+2017,01,23,02,35,31_#_scary Anteater
+2017,01,23,03,56,58_#_scary Anteater
+2017,01,25,02,07,03_#_scary Anteater
+2017,01,25,02,45,29_#_Anteater
+2017,01,25,03,09,14_#_Antarctic
+2017,01,25,03,51,16_#_location Antarctic
+2017,01,26,00,36,18_#_location Antarctic
+2017,01,26,02,04,38_#_location Antarctic
+2017,01,27,02,12,53_#_location Antarctic
+2017,01,27,02,19,00_#_location Antarctic
+2017,01,27,02,41,04_#_Anteater
+2017,01,27,02,50,52_#_scary Anteater
+2017,01,28,00,23,47_#_location Antarctic
+2017,01,28,00,48,18_#_scary Anteater
+2017,01,28,02,13,53_#_scary Anteater
+2017,01,29,01,09,57_#_Anteater animal
+2017,01,30,02,40,44_#_Anteater animal
+2017,01,31,01,13,05_#_Antarctic
+2017,01,31,01,45,10_#_scary Anteater
+2017,01,31,01,53,03_#_Anteater
+2017,01,31,02,00,42_#_Antarctic

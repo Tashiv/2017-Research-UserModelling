@@ -1,0 +1,166 @@
+2017,01,01,00,08,14_#_Antarctic
+2017,01,01,02,53,49_#_location Antarctic
+2017,01,01,03,04,57_#_Cub
+2017,01,01,03,14,52_#_lion Cubs
+2017,01,01,03,37,43_#_Cub
+2017,01,01,05,43,34_#_lion Cubs
+2017,01,02,00,25,38_#_Beaver dams
+2017,01,02,02,56,28_#_Bridge
+2017,01,02,03,24,56_#_Anteater
+2017,01,02,03,46,49_#_Anteater
+2017,01,04,00,37,10_#_scary Anteater
+2017,01,04,01,22,38_#_scary Anteater
+2017,01,04,02,38,32_#_pictures of Bridges
+2017,01,05,01,25,34_#_Anteater animal
+2017,01,05,02,22,02_#_Beaver
+2017,01,05,02,23,53_#_Beaver dams
+2017,01,05,02,43,05_#_Bridge construction
+2017,01,05,02,45,07_#_Beaver
+2017,01,05,03,29,45_#_pictures of Bridges
+2017,01,06,00,08,04_#_pictures of Bridges
+2017,01,06,00,16,33_#_Beaver
+2017,01,07,01,17,51_#_Antarctic
+2017,01,07,03,38,22_#_Antarctic
+2017,01,08,01,15,26_#_Beaver dams
+2017,01,08,01,44,26_#_scary Anteater
+2017,01,08,02,05,41_#_scary Anteater
+2017,01,08,02,11,46_#_Bridge
+2017,01,08,04,10,09_#_lion Cubs
+2017,01,08,04,43,46_#_lion Cubs
+2017,01,08,05,32,49_#_lion Cubs
+2017,01,09,00,17,23_#_Antarctic animals
+2017,01,09,01,05,02_#_Bridge construction
+2017,01,09,01,48,20_#_Anteater
+2017,01,09,02,16,40_#_Bridge
+2017,01,09,02,28,28_#_Anteater
+2017,01,09,02,37,14_#_location Antarctic
+2017,01,10,02,41,55_#_Beaver dams
+2017,01,10,03,38,25_#_furry Beaver
+2017,01,11,02,39,35_#_Anteater
+2017,01,11,02,59,28_#_location Antarctic
+2017,01,11,03,21,09_#_scary Anteater
+2017,01,11,03,49,14_#_Beaver dams
+2017,01,12,01,05,44_#_Antarctic animals
+2017,01,12,01,50,22_#_Beaver dams
+2017,01,12,02,00,59_#_Beaver
+2017,01,12,02,50,29_#_furry Beaver
+2017,01,12,02,53,29_#_location Antarctic
+2017,01,14,00,25,08_#_scary Anteater
+2017,01,14,01,02,50_#_location Antarctic
+2017,01,14,01,25,14_#_furry Beaver
+2017,01,14,01,26,28_#_furry Beaver
+2017,01,14,01,57,45_#_Antarctic
+2017,01,14,02,34,22_#_scary Anteater
+2017,01,14,03,49,07_#_Bridge
+2017,01,15,00,26,05_#_Bridge construction
+2017,01,15,01,51,26_#_Bridge construction
+2017,01,15,01,57,14_#_Antarctic
+2017,01,15,02,11,56_#_Anteater
+2017,01,16,00,44,03_#_Anteater
+2017,01,16,00,50,23_#_pictures of Bridges
+2017,01,16,02,06,09_#_Bridge
+2017,01,16,02,51,23_#_furry Beaver
+2017,01,17,01,15,42_#_pictures of Bridges
+2017,01,17,01,44,44_#_furry Beaver
+2017,01,17,02,24,09_#_Bridge
+2017,01,17,03,17,47_#_Anteater animal
+2017,01,17,03,39,19_#_Beaver
+2017,01,18,01,03,35_#_furry Beaver
+2017,01,18,01,58,08_#_Bridge
+2017,01,18,02,26,20_#_scary Anteater
+2017,01,18,02,51,30_#_Bridge construction
+2017,01,19,00,04,02_#_Beaver
+2017,01,19,01,48,04_#_Bridge
+2017,01,19,02,14,13_#_Cub
+2017,01,19,02,33,09_#_Antarctic animals
+2017,01,19,02,38,11_#_Beaver
+2017,01,19,02,58,47_#_Anteater
+2017,01,19,03,22,38_#_Anteater
+2017,01,19,03,44,41_#_Cubs in the wild
+2017,01,19,05,40,19_#_Cubs in the wild
+2017,01,20,01,08,06_#_Antarctic
+2017,01,20,02,06,13_#_pictures of Bridges
+2017,01,20,02,22,21_#_location Antarctic
+2017,01,20,03,04,02_#_Cub
+2017,01,20,03,22,32_#_lion Cubs
+2017,01,20,03,39,39_#_Cubs in the wild
+2017,01,20,03,56,35_#_Anteater
+2017,01,20,05,55,05_#_Cub
+2017,01,21,01,16,08_#_location Antarctic
+2017,01,21,02,39,39_#_Antarctic
+2017,01,21,02,54,38_#_furry Beaver
+2017,01,21,02,55,37_#_Anteater
+2017,01,21,03,22,02_#_Anteater
+2017,01,21,03,45,13_#_furry Beaver
+2017,01,22,00,40,43_#_furry Beaver
+2017,01,22,01,52,06_#_Bridge
+2017,01,22,02,16,59_#_Anteater
+2017,01,22,02,56,19_#_Anteater
+2017,01,22,03,24,51_#_Cub
+2017,01,22,04,18,12_#_Cubs in the wild
+2017,01,22,04,29,41_#_lion Cubs
+2017,01,22,04,53,25_#_Cub
+2017,01,23,01,16,36_#_pictures of Bridges
+2017,01,23,01,52,13_#_Beaver dams
+2017,01,23,02,20,59_#_location Antarctic
+2017,01,23,02,26,37_#_Bridge
+2017,01,23,02,27,18_#_Cubs in the wild
+2017,01,23,02,42,06_#_furry Beaver
+2017,01,23,03,15,24_#_pictures of Bridges
+2017,01,23,03,40,39_#_Beaver
+2017,01,23,03,58,38_#_Cubs in the wild
+2017,01,23,04,08,44_#_Cub
+2017,01,23,04,47,25_#_Cub
+2017,01,24,03,47,41_#_lion Cubs
+2017,01,24,05,42,55_#_lion Cubs
+2017,01,25,00,54,33_#_furry Beaver
+2017,01,25,01,42,58_#_scary Anteater
+2017,01,25,02,16,01_#_Cubs in the wild
+2017,01,25,02,21,32_#_location Antarctic
+2017,01,25,02,24,38_#_Beaver
+2017,01,25,02,53,42_#_Bridge construction
+2017,01,25,03,05,38_#_lion Cubs
+2017,01,25,03,16,15_#_Cubs in the wild
+2017,01,25,03,43,01_#_Beaver
+2017,01,25,05,50,15_#_Cub
+2017,01,26,01,55,06_#_Beaver
+2017,01,26,02,50,28_#_furry Beaver
+2017,01,26,03,11,52_#_furry Beaver
+2017,01,26,03,16,24_#_location Antarctic
+2017,01,26,03,29,09_#_Cub
+2017,01,26,04,03,53_#_Cubs in the wild
+2017,01,26,05,33,03_#_Cubs in the wild
+2017,01,26,05,56,00_#_Cubs in the wild
+2017,01,27,00,09,55_#_Antarctic
+2017,01,27,01,24,45_#_scary Anteater
+2017,01,27,02,52,05_#_Anteater animal
+2017,01,27,03,00,05_#_lion Cubs
+2017,01,27,04,39,44_#_lion Cubs
+2017,01,27,04,51,33_#_Cubs in the wild
+2017,01,27,05,44,26_#_Cubs in the wild
+2017,01,28,01,01,03_#_furry Beaver
+2017,01,28,01,10,25_#_Beaver dams
+2017,01,28,01,44,37_#_pictures of Bridges
+2017,01,28,02,23,40_#_furry Beaver
+2017,01,28,02,33,51_#_Bridge
+2017,01,28,02,54,39_#_Cubs in the wild
+2017,01,28,03,06,07_#_Antarctic animals
+2017,01,28,04,24,51_#_Cub
+2017,01,28,04,36,11_#_Cubs in the wild
+2017,01,28,05,24,18_#_Cub
+2017,01,29,02,10,03_#_Cubs in the wild
+2017,01,29,04,22,34_#_Cubs in the wild
+2017,01,30,01,06,44_#_Bridge construction
+2017,01,30,02,08,08_#_Antarctic
+2017,01,30,02,35,59_#_furry Beaver
+2017,01,30,03,09,12_#_pictures of Bridges
+2017,01,30,04,02,31_#_Cub
+2017,01,30,04,31,10_#_Cubs in the wild
+2017,01,30,04,39,08_#_lion Cubs
+2017,01,31,01,09,02_#_Bridge
+2017,01,31,01,55,36_#_Bridge
+2017,01,31,02,08,20_#_pictures of Bridges
+2017,01,31,03,33,34_#_Cub
+2017,01,31,04,17,48_#_Cubs in the wild
+2017,01,31,04,26,42_#_lion Cubs
+2017,01,31,05,51,17_#_lion Cubs

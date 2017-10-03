@@ -1,0 +1,407 @@
+2017,01,01,01,17,53_#_Bridge construction
+2017,01,01,02,29,12_#_Beaver
+2017,01,01,02,57,21_#_Bridge construction
+2017,01,01,03,06,52_#_lion Cubs
+2017,01,01,03,23,09_#_Change in size Delta
+2017,01,01,03,34,30_#_Delta force
+2017,01,01,03,34,49_#_Delta
+2017,01,01,03,38,01_#_Change in size Delta
+2017,01,01,04,41,22_#_Cubs in the wild
+2017,01,02,00,47,24_#_Beaver dams
+2017,01,02,01,01,48_#_Antarctic
+2017,01,02,01,02,12_#_pictures of Bridges
+2017,01,02,01,09,53_#_Beaver
+2017,01,02,01,10,36_#_Beaver dams
+2017,01,02,01,19,18_#_Antarctic animals
+2017,01,02,02,14,12_#_Bridge construction
+2017,01,02,02,31,39_#_Change in size Delta
+2017,01,02,02,38,14_#_Delta force
+2017,01,02,02,55,31_#_Change in size Delta
+2017,01,02,04,22,35_#_Cubs in the wild
+2017,01,02,04,40,48_#_Delta force
+2017,01,02,05,48,35_#_Change in size Delta
+2017,01,02,05,53,57_#_Cubs in the wild
+2017,01,03,00,26,02_#_Anteater
+2017,01,03,01,23,06_#_furry Beaver
+2017,01,03,01,32,08_#_pictures of Bridges
+2017,01,03,02,42,27_#_Antarctic
+2017,01,03,03,05,05_#_Anteater animal
+2017,01,03,03,08,44_#_Beaver dams
+2017,01,03,03,13,34_#_Delta
+2017,01,03,03,35,27_#_Antarctic
+2017,01,03,03,42,09_#_Change in size Delta
+2017,01,03,03,51,37_#_Cubs in the wild
+2017,01,03,04,01,41_#_Cubs in the wild
+2017,01,03,04,07,31_#_lion Cubs
+2017,01,03,04,24,33_#_Cub
+2017,01,03,04,53,10_#_Delta force
+2017,01,03,05,05,18_#_Change in size Delta
+2017,01,03,05,26,58_#_circus of Elephants
+2017,01,03,05,57,11_#_Delta
+2017,01,03,06,35,42_#_circus of Elephants
+2017,01,04,01,36,19_#_Beaver dams
+2017,01,04,02,19,44_#_Antarctic animals
+2017,01,04,02,23,39_#_Cat
+2017,01,04,02,24,29_#_Delta
+2017,01,04,02,32,28_#_Delta force
+2017,01,04,03,00,25_#_Anteater
+2017,01,04,03,26,43_#_Anteater
+2017,01,04,03,27,40_#_Dog fights
+2017,01,04,03,27,59_#_Dog fights
+2017,01,04,03,41,48_#_Beaver
+2017,01,04,03,44,19_#_Cub
+2017,01,04,04,16,58_#_Dog fights
+2017,01,04,04,28,21_#_Dog
+2017,01,04,04,36,09_#_Change in size Delta
+2017,01,04,04,47,00_#_Cub
+2017,01,04,04,58,14_#_Cat
+2017,01,04,05,16,01_#_Delta
+2017,01,04,07,34,04_#_Running Expert
+2017,01,04,07,48,06_#_Elephant parks
+2017,01,05,01,06,16_#_Beaver
+2017,01,05,02,27,25_#_Beaver dams
+2017,01,05,02,54,28_#_Caring for a Dog
+2017,01,05,03,20,14_#_Beaver dams
+2017,01,05,03,20,28_#_Cat
+2017,01,05,03,21,27_#_Delta
+2017,01,05,03,22,46_#_funny cats
+2017,01,05,03,37,09_#_scary Anteater
+2017,01,05,03,44,13_#_Dog
+2017,01,05,04,07,33_#_Dog
+2017,01,05,04,16,07_#_Cat pictures
+2017,01,05,04,29,43_#_Cat pictures
+2017,01,05,04,48,20_#_Delta
+2017,01,05,04,49,22_#_Delta force
+2017,01,05,05,05,43_#_Dog fights
+2017,01,05,05,42,28_#_Delta
+2017,01,05,07,54,15_#_exercise Expert
+2017,01,06,01,25,21_#_pictures of Bridges
+2017,01,06,02,10,42_#_Delta
+2017,01,06,02,47,05_#_Delta
+2017,01,06,03,16,53_#_furry Beaver
+2017,01,06,03,21,53_#_Dog fights
+2017,01,06,03,26,56_#_Dog fights
+2017,01,06,03,32,23_#_pictures of Bridges
+2017,01,06,03,43,38_#_Caring for a Dog
+2017,01,06,04,28,25_#_Delta
+2017,01,06,04,57,57_#_Delta
+2017,01,06,05,03,12_#_Dog
+2017,01,06,07,18,07_#_Elephant
+2017,01,07,01,14,28_#_Anteater
+2017,01,07,02,14,24_#_Caring for a Dog
+2017,01,07,02,45,04_#_Cubs in the wild
+2017,01,07,03,05,52_#_Delta
+2017,01,07,03,10,04_#_Change in size Delta
+2017,01,07,03,30,40_#_Cubs in the wild
+2017,01,07,03,46,12_#_Caring for a Dog
+2017,01,07,04,02,57_#_Dog
+2017,01,07,04,08,31_#_Dog
+2017,01,07,04,12,23_#_Caring for a Dog
+2017,01,07,04,23,58_#_Delta force
+2017,01,07,04,36,17_#_Delta force
+2017,01,08,00,05,39_#_Beaver
+2017,01,08,00,36,07_#_location Antarctic
+2017,01,08,01,05,40_#_pictures of Bridges
+2017,01,08,02,49,58_#_Anteater
+2017,01,08,03,04,15_#_Delta force
+2017,01,08,03,09,21_#_pictures of Bridges
+2017,01,08,03,25,13_#_Delta
+2017,01,08,03,38,15_#_Delta force
+2017,01,08,05,06,12_#_exercise Expert
+2017,01,08,06,55,16_#_Elephant
+2017,01,08,07,15,44_#_Elephant parks
+2017,01,09,00,53,04_#_scary Anteater
+2017,01,09,02,52,06_#_Anteater
+2017,01,09,03,23,50_#_funny cats
+2017,01,09,03,47,22_#_Delta force
+2017,01,09,04,15,20_#_funny cats
+2017,01,09,04,24,58_#_Delta force
+2017,01,09,04,49,52_#_Cat pictures
+2017,01,09,04,53,44_#_Delta force
+2017,01,09,05,05,11_#_Delta
+2017,01,09,06,37,42_#_circus of Elephants
+2017,01,10,02,11,22_#_Anteater
+2017,01,10,02,21,25_#_furry Beaver
+2017,01,10,02,27,10_#_Beaver dams
+2017,01,10,02,59,57_#_Beaver
+2017,01,10,03,10,03_#_scary Anteater
+2017,01,10,03,13,51_#_Delta force
+2017,01,10,03,22,44_#_Delta force
+2017,01,10,04,22,57_#_Elephant parks
+2017,01,10,05,46,40_#_Change in size Delta
+2017,01,10,05,57,38_#_Elephant
+2017,01,11,01,24,49_#_Bridge construction
+2017,01,11,01,35,25_#_Anteater animal
+2017,01,11,01,51,30_#_Anteater
+2017,01,11,02,44,15_#_pictures of Bridges
+2017,01,11,03,03,12_#_pictures of Bridges
+2017,01,11,03,09,24_#_Cat
+2017,01,11,03,16,49_#_Delta
+2017,01,11,03,22,10_#_Delta force
+2017,01,11,03,24,50_#_Cat
+2017,01,11,03,40,44_#_Delta
+2017,01,11,04,49,55_#_Expert
+2017,01,11,05,19,21_#_circus of Elephants
+2017,01,11,05,22,44_#_Cat
+2017,01,11,05,33,41_#_Change in size Delta
+2017,01,11,05,46,53_#_Elephant parks
+2017,01,11,07,30,07_#_exercise Expert
+2017,01,12,00,35,29_#_Antarctic animals
+2017,01,12,00,54,13_#_Bridge
+2017,01,12,01,56,35_#_Bridge construction
+2017,01,12,02,24,31_#_Antarctic animals
+2017,01,12,02,36,27_#_Anteater animal
+2017,01,12,02,38,10_#_Anteater animal
+2017,01,12,03,27,32_#_Beaver dams
+2017,01,12,03,41,19_#_Dog fights
+2017,01,12,04,05,52_#_exercise Expert
+2017,01,12,04,06,06_#_Caring for a Dog
+2017,01,12,04,55,29_#_Caring for a Dog
+2017,01,12,04,58,34_#_Dog fights
+2017,01,12,05,24,10_#_Running Expert
+2017,01,13,02,26,34_#_Cubs in the wild
+2017,01,13,02,33,23_#_Cat
+2017,01,13,03,05,31_#_funny cats
+2017,01,13,03,29,22_#_Delta
+2017,01,13,03,31,58_#_Delta
+2017,01,13,03,33,27_#_Cub
+2017,01,13,03,53,04_#_Cub
+2017,01,13,03,55,58_#_Delta
+2017,01,13,04,18,05_#_Dog
+2017,01,13,04,23,13_#_Dog
+2017,01,13,04,53,19_#_Dog fights
+2017,01,13,05,29,15_#_Caring for a Dog
+2017,01,13,05,38,32_#_Elephant
+2017,01,13,05,48,35_#_Expert
+2017,01,14,01,03,20_#_scary Anteater
+2017,01,14,01,45,31_#_Antarctic animals
+2017,01,14,02,14,40_#_Cat
+2017,01,14,02,20,54_#_Cubs in the wild
+2017,01,14,02,27,20_#_Cubs in the wild
+2017,01,14,03,36,46_#_Dog fights
+2017,01,14,03,47,47_#_Cubs in the wild
+2017,01,14,03,53,14_#_Dog fights
+2017,01,14,04,26,41_#_Caring for a Dog
+2017,01,14,04,30,31_#_Expert
+2017,01,14,04,41,58_#_funny cats
+2017,01,14,05,23,02_#_Cat
+2017,01,14,05,48,28_#_lion Cubs
+2017,01,14,06,54,46_#_Running Expert
+2017,01,15,00,29,27_#_scary Anteater
+2017,01,15,02,05,05_#_Change in size Delta
+2017,01,15,02,18,03_#_Delta
+2017,01,15,02,35,47_#_Cat pictures
+2017,01,15,02,49,47_#_funny cats
+2017,01,15,03,07,46_#_Cub
+2017,01,15,03,15,53_#_Cubs in the wild
+2017,01,15,03,39,57_#_Change in size Delta
+2017,01,15,03,48,59_#_funny cats
+2017,01,15,04,11,09_#_funny cats
+2017,01,15,04,23,34_#_Change in size Delta
+2017,01,15,04,36,08_#_Cubs in the wild
+2017,01,15,04,52,29_#_Cubs in the wild
+2017,01,15,05,01,45_#_Delta
+2017,01,15,05,08,27_#_Expert
+2017,01,15,06,24,19_#_exercise Expert
+2017,01,16,00,10,30_#_Anteater animal
+2017,01,16,01,39,44_#_Anteater
+2017,01,16,02,10,06_#_Delta force
+2017,01,16,02,13,04_#_Cat
+2017,01,16,02,54,33_#_lion Cubs
+2017,01,16,02,57,29_#_Change in size Delta
+2017,01,16,03,04,21_#_Cat pictures
+2017,01,16,03,05,17_#_Cat
+2017,01,16,03,23,59_#_Dog fights
+2017,01,16,03,25,29_#_Delta
+2017,01,16,03,26,59_#_Cub
+2017,01,16,03,35,41_#_Caring for a Dog
+2017,01,16,03,39,50_#_Dog
+2017,01,16,04,22,45_#_Delta force
+2017,01,16,04,44,12_#_Cat pictures
+2017,01,16,04,56,17_#_lion Cubs
+2017,01,16,05,15,18_#_Caring for a Dog
+2017,01,17,00,09,17_#_pictures of Bridges
+2017,01,17,01,20,12_#_Beaver dams
+2017,01,17,01,31,27_#_pictures of Bridges
+2017,01,17,02,30,09_#_Antarctic animals
+2017,01,17,03,00,56_#_furry Beaver
+2017,01,17,03,07,12_#_Delta force
+2017,01,17,03,09,39_#_Dog fights
+2017,01,17,03,54,13_#_Delta force
+2017,01,17,03,59,44_#_Bridge
+2017,01,17,04,06,15_#_Cat
+2017,01,17,04,21,24_#_Change in size Delta
+2017,01,17,04,32,24_#_Dog fights
+2017,01,17,04,57,42_#_Delta force
+2017,01,17,05,31,15_#_exercise Expert
+2017,01,17,05,41,38_#_Caring for a Dog
+2017,01,17,05,41,53_#_funny cats
+2017,01,17,05,44,22_#_Delta force
+2017,01,17,05,53,54_#_Cat pictures
+2017,01,17,06,34,22_#_Expert
+2017,01,18,01,04,33_#_Beaver
+2017,01,18,02,30,27_#_Beaver
+2017,01,18,02,56,31_#_Delta force
+2017,01,18,03,05,10_#_Change in size Delta
+2017,01,18,03,12,51_#_furry Beaver
+2017,01,18,03,18,35_#_Anteater
+2017,01,18,03,31,57_#_scary Anteater
+2017,01,18,03,32,20_#_Delta force
+2017,01,18,03,46,53_#_Delta force
+2017,01,18,04,14,59_#_Delta force
+2017,01,18,05,53,56_#_Elephant
+2017,01,18,07,47,08_#_Running Expert
+2017,01,19,00,16,03_#_Bridge
+2017,01,19,00,49,05_#_Beaver dams
+2017,01,19,01,37,19_#_location Antarctic
+2017,01,19,02,00,42_#_Bridge
+2017,01,19,02,15,45_#_pictures of Bridges
+2017,01,19,03,06,33_#_Antarctic animals
+2017,01,19,03,34,45_#_Delta force
+2017,01,19,03,35,20_#_Cub
+2017,01,19,03,48,22_#_Delta force
+2017,01,19,03,49,01_#_scary Anteater
+2017,01,19,04,08,44_#_Cubs in the wild
+2017,01,19,04,19,30_#_Cub
+2017,01,19,04,23,58_#_Delta
+2017,01,19,05,24,30_#_exercise Expert
+2017,01,20,00,46,55_#_Anteater animal
+2017,01,20,00,55,02_#_Bridge
+2017,01,20,01,04,42_#_Bridge construction
+2017,01,20,01,40,04_#_Beaver dams
+2017,01,20,01,56,40_#_Bridge
+2017,01,20,02,05,16_#_Dog
+2017,01,20,02,37,36_#_furry Beaver
+2017,01,20,03,09,06_#_Anteater animal
+2017,01,20,04,07,31_#_Caring for a Dog
+2017,01,20,04,15,15_#_funny cats
+2017,01,20,04,37,51_#_Dog
+2017,01,20,04,56,14_#_funny cats
+2017,01,21,01,01,11_#_scary Anteater
+2017,01,21,01,40,42_#_furry Beaver
+2017,01,21,01,58,19_#_Beaver dams
+2017,01,21,02,10,30_#_scary Anteater
+2017,01,21,02,36,37_#_Cat pictures
+2017,01,21,02,54,33_#_furry Beaver
+2017,01,21,03,04,34_#_Change in size Delta
+2017,01,21,03,06,36_#_Change in size Delta
+2017,01,21,03,23,42_#_funny cats
+2017,01,21,03,36,02_#_Cat
+2017,01,21,05,06,11_#_Expert
+2017,01,21,05,21,04_#_Elephant
+2017,01,21,05,59,56_#_Delta
+2017,01,21,06,16,01_#_Expert
+2017,01,21,07,38,54_#_Elephant
+2017,01,22,00,20,44_#_Antarctic
+2017,01,22,00,25,42_#_Bridge construction
+2017,01,22,00,57,18_#_pictures of Bridges
+2017,01,22,01,55,55_#_pictures of Bridges
+2017,01,22,02,01,48_#_Change in size Delta
+2017,01,22,02,24,08_#_Cat pictures
+2017,01,22,03,06,32_#_Delta
+2017,01,22,03,20,29_#_lion Cubs
+2017,01,22,04,02,31_#_Delta force
+2017,01,22,04,22,37_#_funny cats
+2017,01,22,04,49,55_#_Cub
+2017,01,22,05,02,12_#_Delta force
+2017,01,22,05,32,42_#_Delta force
+2017,01,22,06,00,20_#_Running Expert
+2017,01,22,07,14,57_#_Expert
+2017,01,23,01,30,04_#_furry Beaver
+2017,01,23,02,18,27_#_Change in size Delta
+2017,01,23,03,22,48_#_Bridge
+2017,01,23,03,56,38_#_Change in size Delta
+2017,01,23,04,02,02_#_Delta
+2017,01,23,04,14,23_#_Elephant
+2017,01,23,04,44,38_#_Change in size Delta
+2017,01,23,05,42,02_#_Delta force
+2017,01,24,00,47,33_#_Bridge
+2017,01,24,02,54,20_#_pictures of Bridges
+2017,01,24,02,57,49_#_Cat pictures
+2017,01,24,03,09,08_#_Beaver dams
+2017,01,24,03,38,00_#_Bridge
+2017,01,24,03,53,38_#_Cat pictures
+2017,01,24,04,09,21_#_Cat pictures
+2017,01,24,05,19,06_#_Elephant parks
+2017,01,24,05,58,29_#_Running Expert
+2017,01,24,06,03,08_#_Elephant
+2017,01,25,00,41,58_#_Anteater
+2017,01,25,01,07,01_#_Bridge
+2017,01,25,01,58,03_#_pictures of Bridges
+2017,01,25,01,59,41_#_Bridge construction
+2017,01,25,03,04,06_#_Delta force
+2017,01,25,03,04,41_#_Delta force
+2017,01,25,03,15,47_#_Cub
+2017,01,25,03,58,21_#_Cubs in the wild
+2017,01,25,04,04,19_#_Cubs in the wild
+2017,01,25,04,20,32_#_Elephant
+2017,01,25,04,31,19_#_Delta
+2017,01,25,05,37,32_#_Delta
+2017,01,26,00,21,43_#_scary Anteater
+2017,01,26,02,27,50_#_Beaver
+2017,01,26,03,04,29_#_furry Beaver
+2017,01,26,03,06,35_#_Cubs in the wild
+2017,01,26,03,16,22_#_lion Cubs
+2017,01,26,03,32,44_#_Cub
+2017,01,26,03,56,31_#_lion Cubs
+2017,01,26,04,52,08_#_exercise Expert
+2017,01,26,05,09,48_#_circus of Elephants
+2017,01,27,01,06,39_#_Bridge
+2017,01,27,01,59,35_#_furry Beaver
+2017,01,27,02,13,07_#_Antarctic animals
+2017,01,27,02,27,05_#_pictures of Bridges
+2017,01,27,02,28,52_#_Beaver
+2017,01,27,04,05,23_#_Cubs in the wild
+2017,01,27,04,33,44_#_Cub
+2017,01,27,06,12,16_#_Elephant parks
+2017,01,27,07,36,23_#_circus of Elephants
+2017,01,28,01,04,34_#_Anteater animal
+2017,01,28,06,40,41_#_Elephant
+2017,01,28,07,21,04_#_exercise Expert
+2017,01,28,07,56,31_#_Running Expert
+2017,01,29,01,57,44_#_pictures of Bridges
+2017,01,29,02,06,38_#_Dog
+2017,01,29,02,20,09_#_Bridge
+2017,01,29,03,24,08_#_Dog
+2017,01,29,03,50,53_#_Anteater
+2017,01,29,04,08,37_#_Dog
+2017,01,29,05,26,04_#_Dog
+2017,01,29,07,49,28_#_Elephant parks
+2017,01,30,01,13,39_#_Anteater
+2017,01,30,02,22,38_#_Beaver
+2017,01,30,02,43,46_#_Beaver dams
+2017,01,30,02,44,24_#_Dog fights
+2017,01,30,02,48,03_#_Delta
+2017,01,30,02,53,38_#_lion Cubs
+2017,01,30,03,06,21_#_Change in size Delta
+2017,01,30,03,12,42_#_Dog
+2017,01,30,03,15,39_#_Antarctic
+2017,01,30,03,34,01_#_Delta force
+2017,01,30,04,01,52_#_lion Cubs
+2017,01,30,04,44,14_#_Delta force
+2017,01,30,04,47,21_#_lion Cubs
+2017,01,30,04,59,33_#_Delta
+2017,01,30,05,11,18_#_Dog fights
+2017,01,30,05,24,38_#_Elephant
+2017,01,30,05,45,52_#_Running Expert
+2017,01,30,05,57,59_#_Cub
+2017,01,30,06,14,48_#_Elephant parks
+2017,01,31,01,54,47_#_scary Anteater
+2017,01,31,01,57,04_#_Antarctic
+2017,01,31,02,17,18_#_Change in size Delta
+2017,01,31,02,46,43_#_Cub
+2017,01,31,03,16,22_#_Cat
+2017,01,31,03,18,28_#_Dog fights
+2017,01,31,03,19,37_#_Beaver dams
+2017,01,31,03,32,24_#_Dog
+2017,01,31,03,33,43_#_lion Cubs
+2017,01,31,03,49,56_#_Anteater animal
+2017,01,31,04,46,05_#_Change in size Delta
+2017,01,31,05,18,34_#_Cat
+2017,01,31,05,21,23_#_Running Expert
+2017,01,31,05,45,28_#_lion Cubs
+2017,01,31,05,51,07_#_Caring for a Dog
+2017,01,31,05,54,25_#_Cat
+2017,01,31,05,58,30_#_Change in size Delta
+2017,01,31,06,37,07_#_circus of Elephants
+2017,01,31,07,23,54_#_Running Expert

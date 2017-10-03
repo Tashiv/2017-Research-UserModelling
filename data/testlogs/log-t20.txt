@@ -1,0 +1,878 @@
+2017,01,01,00,32,03_#_Anteater
+2017,01,01,01,30,51_#_location Antarctic
+2017,01,01,02,49,38_#_Cat
+2017,01,01,03,01,36_#_Delta force
+2017,01,01,03,14,40_#_Anteater
+2017,01,01,03,27,33_#_Delta force
+2017,01,01,03,28,48_#_Delta force
+2017,01,01,04,09,03_#_Frog babies
+2017,01,01,04,12,48_#_Cat pictures
+2017,01,01,04,23,17_#_funny cats
+2017,01,01,05,17,56_#_Delta force
+2017,01,01,05,18,37_#_exercise Expert
+2017,01,01,05,24,24_#_biology of Frogs
+2017,01,01,06,15,37_#_Fire starter
+2017,01,01,06,19,48_#_Green plants
+2017,01,01,06,23,11_#_Fire kits
+2017,01,01,06,48,48_#_Hyphen punctuation
+2017,01,01,06,59,24_#_Frog
+2017,01,01,07,19,59_#_Hyphen
+2017,01,01,07,21,02_#_Green plants
+2017,01,01,07,37,46_#_Green plants
+2017,01,01,08,31,06_#_Hyphen punctuation
+2017,01,01,08,39,46_#_Usage of the Hyphen
+2017,01,01,09,05,15_#_Jackal
+2017,01,01,10,32,44_#_Jackal hunting habits
+2017,01,02,02,17,19_#_pictures of Bridges
+2017,01,02,02,38,15_#_Antarctic animals
+2017,01,02,03,08,34_#_Bridge construction
+2017,01,02,03,26,41_#_funny cats
+2017,01,02,03,42,43_#_Delta
+2017,01,02,04,05,46_#_Delta force
+2017,01,02,04,08,10_#_Delta force
+2017,01,02,04,11,49_#_Frog babies
+2017,01,02,04,25,12_#_funny cats
+2017,01,02,05,21,19_#_Frog babies
+2017,01,02,05,38,46_#_Fire starter
+2017,01,02,05,51,36_#_Expert
+2017,01,02,05,54,07_#_Fire starter
+2017,01,02,05,57,53_#_exercise Expert
+2017,01,02,06,48,02_#_Fire
+2017,01,02,06,59,51_#_biology of Frogs
+2017,01,02,07,32,40_#_Green energy
+2017,01,02,08,20,17_#_Green energy
+2017,01,02,08,37,41_#_Green
+2017,01,02,09,23,00_#_Jackal
+2017,01,02,09,24,31_#_Igloo life
+2017,01,02,09,39,19_#_Java coding
+2017,01,02,10,30,12_#_Jackal animal
+2017,01,02,11,36,46_#_Jackal hunting habits
+2017,01,03,02,11,49_#_Beaver dams
+2017,01,03,02,12,42_#_Beaver dams
+2017,01,03,02,34,11_#_Change in size Delta
+2017,01,03,02,56,46_#_Beaver
+2017,01,03,03,15,57_#_Cub
+2017,01,03,03,44,32_#_Delta force
+2017,01,03,04,17,43_#_Delta
+2017,01,03,04,20,14_#_Cubs in the wild
+2017,01,03,04,21,51_#_Delta
+2017,01,03,04,30,48_#_lion Cubs
+2017,01,03,04,54,10_#_Cub
+2017,01,03,05,10,19_#_Frog
+2017,01,03,05,46,34_#_Frog babies
+2017,01,03,06,33,32_#_Expert
+2017,01,03,06,50,22_#_Frog
+2017,01,03,07,04,28_#_Usage of the Hyphen
+2017,01,03,07,13,52_#_Green energy
+2017,01,03,07,16,38_#_Usage of the Hyphen
+2017,01,03,07,29,11_#_Running Expert
+2017,01,03,08,09,24_#_Hyphen punctuation
+2017,01,03,08,24,34_#_Green energy
+2017,01,03,08,32,36_#_Hyphen punctuation
+2017,01,03,08,39,04_#_Green
+2017,01,03,08,39,11_#_Igloo life
+2017,01,03,08,55,23_#_Green energy
+2017,01,03,09,18,38_#_Jackal hunting habits
+2017,01,03,09,36,28_#_Java
+2017,01,03,10,24,40_#_jobs for Java developers
+2017,01,03,10,33,01_#_Igloo
+2017,01,03,10,48,05_#_Java coding
+2017,01,03,10,55,56_#_Jackal hunting habits
+2017,01,04,00,42,36_#_Antarctic animals
+2017,01,04,01,50,57_#_Antarctic
+2017,01,04,02,02,11_#_Dog fights
+2017,01,04,02,46,18_#_Anteater
+2017,01,04,02,56,02_#_Dog
+2017,01,04,03,32,29_#_funny cats
+2017,01,04,03,58,54_#_Caring for a Dog
+2017,01,04,04,12,06_#_Caring for a Dog
+2017,01,04,04,30,17_#_Cat pictures
+2017,01,04,04,32,50_#_Dog
+2017,01,04,05,08,12_#_Fire kits
+2017,01,04,06,07,10_#_circus of Elephants
+2017,01,04,06,18,11_#_Frog
+2017,01,04,07,02,01_#_Gecko
+2017,01,04,07,13,54_#_Fire
+2017,01,04,07,16,38_#_Green energy
+2017,01,04,07,16,51_#_Frog
+2017,01,04,07,21,59_#_Fire
+2017,01,04,07,24,17_#_circus of Elephants
+2017,01,04,07,41,32_#_Gecko
+2017,01,04,08,25,24_#_Jackal
+2017,01,04,08,51,58_#_Green energy
+2017,01,04,08,54,37_#_Climbing gecko
+2017,01,04,09,28,04_#_Gecko
+2017,01,04,10,44,39_#_Java
+2017,01,04,10,54,47_#_Internet usage
+2017,01,04,11,27,23_#_Java
+2017,01,05,01,08,14_#_Bridge construction
+2017,01,05,01,19,51_#_furry Beaver
+2017,01,05,01,47,23_#_furry Beaver
+2017,01,05,02,15,41_#_Bridge
+2017,01,05,02,43,39_#_Delta
+2017,01,05,02,50,43_#_Anteater animal
+2017,01,05,03,03,18_#_Change in size Delta
+2017,01,05,03,17,23_#_lion Cubs
+2017,01,05,03,34,41_#_Dog fights
+2017,01,05,03,37,21_#_Cubs in the wild
+2017,01,05,03,49,03_#_Delta force
+2017,01,05,04,03,14_#_Cubs in the wild
+2017,01,05,04,06,45_#_Change in size Delta
+2017,01,05,04,12,56_#_Dog fights
+2017,01,05,04,55,20_#_Cub
+2017,01,05,05,12,55_#_Frog
+2017,01,05,05,14,55_#_Caring for a Dog
+2017,01,05,05,48,01_#_Delta force
+2017,01,05,05,50,05_#_Dog fights
+2017,01,05,06,07,49_#_Frog
+2017,01,05,06,17,10_#_Gecko
+2017,01,05,06,50,29_#_biology of Frogs
+2017,01,05,06,50,51_#_Elephant parks
+2017,01,05,06,53,16_#_Fire kits
+2017,01,05,06,54,43_#_Climbing gecko
+2017,01,05,07,04,00_#_Fire kits
+2017,01,05,07,18,18_#_Green plants
+2017,01,05,07,35,03_#_Green
+2017,01,05,07,38,57_#_House auctions
+2017,01,05,08,11,09_#_Gecko
+2017,01,05,08,17,56_#_House auctions
+2017,01,05,08,39,49_#_Climbing gecko
+2017,01,05,09,00,27_#_House
+2017,01,05,09,10,55_#_Jackal
+2017,01,05,09,40,14_#_Java
+2017,01,05,09,58,13_#_House
+2017,01,05,09,58,42_#_Green energy
+2017,01,05,10,11,33_#_jobs for Java developers
+2017,01,05,10,24,44_#_Jackal animal
+2017,01,05,10,37,36_#_Jackal animal
+2017,01,05,10,57,36_#_Java
+2017,01,05,11,06,56_#_Igloo life
+2017,01,05,11,57,16_#_building an Igloo
+2017,01,06,01,11,07_#_Beaver dams
+2017,01,06,01,26,32_#_furry Beaver
+2017,01,06,01,39,53_#_Antarctic animals
+2017,01,06,01,50,31_#_Anteater animal
+2017,01,06,02,26,15_#_furry Beaver
+2017,01,06,02,32,56_#_Cat
+2017,01,06,02,48,16_#_Bridge construction
+2017,01,06,03,02,55_#_Cub
+2017,01,06,03,11,32_#_Cat
+2017,01,06,03,21,12_#_Cub
+2017,01,06,03,29,53_#_lion Cubs
+2017,01,06,03,47,42_#_Caring for a Dog
+2017,01,06,03,47,55_#_Dog
+2017,01,06,04,01,28_#_Fire kits
+2017,01,06,04,03,52_#_Fire starter
+2017,01,06,04,26,42_#_Cat pictures
+2017,01,06,04,36,56_#_Caring for a Dog
+2017,01,06,05,40,07_#_Dog fights
+2017,01,06,06,00,39_#_Frog babies
+2017,01,06,06,35,19_#_Fire kits
+2017,01,06,06,45,03_#_Green energy
+2017,01,06,07,05,04_#_House
+2017,01,06,08,08,03_#_places to buy houses
+2017,01,06,08,09,00_#_Jackal
+2017,01,06,08,43,56_#_House
+2017,01,06,08,46,27_#_Green plants
+2017,01,06,08,52,44_#_House auctions
+2017,01,06,09,16,34_#_Jackal animal
+2017,01,06,09,28,12_#_Jackal
+2017,01,06,10,04,07_#_jobs for Java developers
+2017,01,07,00,23,55_#_Beaver dams
+2017,01,07,00,43,25_#_Bridge
+2017,01,07,01,15,32_#_Anteater
+2017,01,07,02,02,40_#_furry Beaver
+2017,01,07,03,09,39_#_Delta
+2017,01,07,03,18,01_#_Anteater
+2017,01,07,04,01,26_#_Change in size Delta
+2017,01,07,04,12,54_#_Fire starter
+2017,01,07,04,17,13_#_Change in size Delta
+2017,01,07,04,30,06_#_Change in size Delta
+2017,01,07,04,44,43_#_Fire
+2017,01,07,04,58,38_#_Frog
+2017,01,07,05,58,18_#_Change in size Delta
+2017,01,07,06,04,07_#_Hyphen punctuation
+2017,01,07,06,06,26_#_Fire kits
+2017,01,07,06,23,03_#_Green energy
+2017,01,07,06,28,20_#_Frog
+2017,01,07,06,33,14_#_Green
+2017,01,07,06,45,58_#_Hyphen punctuation
+2017,01,07,07,09,47_#_Green
+2017,01,07,07,18,21_#_Hyphen punctuation
+2017,01,07,07,46,44_#_Hyphen
+2017,01,07,08,05,02_#_House auctions
+2017,01,07,08,08,39_#_Jackal
+2017,01,07,08,10,23_#_Java coding
+2017,01,07,08,42,16_#_House auctions
+2017,01,07,08,49,29_#_places to buy houses
+2017,01,07,09,46,29_#_House auctions
+2017,01,07,09,49,48_#_Igloo life
+2017,01,07,10,03,42_#_Jackal animal
+2017,01,07,10,27,18_#_Igloo
+2017,01,07,10,35,15_#_Jackal
+2017,01,08,00,22,24_#_furry Beaver
+2017,01,08,01,28,17_#_Beaver dams
+2017,01,08,01,35,49_#_pictures of Bridges
+2017,01,08,01,41,29_#_Antarctic animals
+2017,01,08,02,01,05_#_Dog fights
+2017,01,08,02,02,26_#_Cat
+2017,01,08,02,43,16_#_Dog fights
+2017,01,08,02,44,28_#_Beaver
+2017,01,08,02,46,34_#_Antarctic animals
+2017,01,08,02,54,58_#_Cat
+2017,01,08,03,30,01_#_Delta
+2017,01,08,03,38,04_#_Caring for a Dog
+2017,01,08,03,58,17_#_Caring for a Dog
+2017,01,08,04,08,07_#_funny cats
+2017,01,08,04,23,16_#_Fire
+2017,01,08,04,38,50_#_Frog
+2017,01,08,05,00,43_#_biology of Frogs
+2017,01,08,05,19,53_#_Fire
+2017,01,08,05,34,03_#_Delta force
+2017,01,08,05,42,53_#_Fire
+2017,01,08,05,44,59_#_Dog
+2017,01,08,05,45,45_#_Change in size Delta
+2017,01,08,06,39,11_#_Green plants
+2017,01,08,07,26,21_#_House
+2017,01,08,07,28,16_#_Green plants
+2017,01,08,07,55,58_#_Green energy
+2017,01,08,08,11,24_#_places to buy houses
+2017,01,08,08,44,26_#_places to buy houses
+2017,01,08,09,02,26_#_House
+2017,01,08,09,13,52_#_Jackal
+2017,01,08,09,37,30_#_House
+2017,01,08,09,48,19_#_Java coding
+2017,01,08,10,20,58_#_Igloo life
+2017,01,08,11,17,09_#_Jackal hunting habits
+2017,01,08,11,31,09_#_Jackal animal
+2017,01,08,11,41,47_#_building an Igloo
+2017,01,09,01,00,22_#_Anteater
+2017,01,09,01,02,48_#_Beaver dams
+2017,01,09,01,06,26_#_Beaver
+2017,01,09,02,36,40_#_Anteater
+2017,01,09,02,46,38_#_Cat pictures
+2017,01,09,03,00,35_#_lion Cubs
+2017,01,09,03,06,40_#_Caring for a Dog
+2017,01,09,03,18,46_#_Cat
+2017,01,09,03,29,18_#_Caring for a Dog
+2017,01,09,04,06,37_#_Caring for a Dog
+2017,01,09,04,07,54_#_lion Cubs
+2017,01,09,04,37,06_#_Cubs in the wild
+2017,01,09,04,52,06_#_Cat pictures
+2017,01,09,04,55,12_#_Cat
+2017,01,09,05,02,18_#_Dog
+2017,01,09,05,10,01_#_lion Cubs
+2017,01,09,05,14,55_#_Fire kits
+2017,01,09,05,40,43_#_biology of Frogs
+2017,01,09,05,47,29_#_Elephant parks
+2017,01,09,07,27,19_#_Gecko
+2017,01,09,08,42,21_#_Gecko
+2017,01,09,09,02,10_#_how to connect to the internet
+2017,01,09,09,10,38_#_how to connect to the internet
+2017,01,09,09,14,11_#_Climbing gecko
+2017,01,09,09,25,17_#_jobs for Java developers
+2017,01,09,09,39,06_#_jobs for Java developers
+2017,01,09,09,57,14_#_Climbing gecko
+2017,01,09,10,10,56_#_Jackal
+2017,01,09,10,37,57_#_Jackal animal
+2017,01,09,11,12,17_#_Java coding
+2017,01,09,11,50,54_#_Jackal hunting habits
+2017,01,10,01,50,50_#_Beaver
+2017,01,10,02,26,42_#_Cub
+2017,01,10,03,07,22_#_lion Cubs
+2017,01,10,03,19,23_#_location Antarctic
+2017,01,10,03,58,01_#_lion Cubs
+2017,01,10,05,15,19_#_Fire kits
+2017,01,10,05,32,40_#_Fire
+2017,01,10,05,32,42_#_Frog babies
+2017,01,10,06,01,59_#_Gecko lizard
+2017,01,10,06,50,26_#_Green
+2017,01,10,06,51,58_#_Frog
+2017,01,10,07,24,18_#_places to buy houses
+2017,01,10,07,35,10_#_Gecko
+2017,01,10,07,37,26_#_places to buy houses
+2017,01,10,07,50,29_#_Green
+2017,01,10,07,53,44_#_Green energy
+2017,01,10,08,22,03_#_places to buy houses
+2017,01,10,08,24,20_#_Gecko
+2017,01,10,09,01,05_#_House auctions
+2017,01,10,09,49,10_#_places to buy houses
+2017,01,10,09,53,36_#_Gecko lizard
+2017,01,10,10,11,35_#_Jackal animal
+2017,01,10,10,47,12_#_Igloo life
+2017,01,10,10,55,03_#_Igloo life
+2017,01,11,00,54,07_#_Bridge construction
+2017,01,11,01,18,47_#_location Antarctic
+2017,01,11,01,31,24_#_Bridge
+2017,01,11,02,02,51_#_lion Cubs
+2017,01,11,02,09,31_#_Bridge
+2017,01,11,02,20,54_#_Dog fights
+2017,01,11,02,34,13_#_Dog fights
+2017,01,11,02,35,43_#_Cub
+2017,01,11,02,36,52_#_Change in size Delta
+2017,01,11,02,55,58_#_Anteater animal
+2017,01,11,02,57,26_#_Delta
+2017,01,11,03,13,12_#_Caring for a Dog
+2017,01,11,03,21,34_#_lion Cubs
+2017,01,11,04,09,51_#_Delta
+2017,01,11,04,23,51_#_Running Expert
+2017,01,11,04,33,39_#_Delta
+2017,01,11,05,03,31_#_lion Cubs
+2017,01,11,05,04,20_#_exercise Expert
+2017,01,11,05,19,30_#_circus of Elephants
+2017,01,11,06,13,10_#_Fire
+2017,01,11,06,15,01_#_Frog babies
+2017,01,11,06,15,02_#_Frog babies
+2017,01,11,10,00,23_#_Jackal hunting habits
+2017,01,12,00,33,55_#_Anteater animal
+2017,01,12,01,59,17_#_location Antarctic
+2017,01,12,02,26,00_#_Caring for a Dog
+2017,01,12,02,50,08_#_Delta force
+2017,01,12,03,01,53_#_Delta
+2017,01,12,03,03,23_#_Beaver dams
+2017,01,12,03,09,24_#_Cat pictures
+2017,01,12,03,11,04_#_Caring for a Dog
+2017,01,12,03,23,07_#_Antarctic
+2017,01,12,03,30,53_#_Delta
+2017,01,12,03,44,42_#_Delta force
+2017,01,12,03,45,56_#_funny cats
+2017,01,12,04,22,51_#_Frog babies
+2017,01,12,04,47,11_#_Cat
+2017,01,12,05,29,22_#_Delta force
+2017,01,12,05,30,51_#_Frog babies
+2017,01,12,05,57,28_#_Dog
+2017,01,12,05,59,47_#_circus of Elephants
+2017,01,12,06,31,05_#_Frog babies
+2017,01,12,06,38,03_#_Climbing gecko
+2017,01,12,07,04,48_#_Hyphen
+2017,01,12,07,12,35_#_Running Expert
+2017,01,12,07,43,32_#_Green
+2017,01,12,07,51,46_#_Running Expert
+2017,01,12,08,13,08_#_Green energy
+2017,01,12,08,19,39_#_Hyphen punctuation
+2017,01,12,08,20,09_#_Green plants
+2017,01,12,08,26,29_#_Hyphen
+2017,01,12,08,41,22_#_Gecko
+2017,01,12,09,45,01_#_Green
+2017,01,12,10,01,59_#_Jackal hunting habits
+2017,01,12,10,04,31_#_Java
+2017,01,12,10,06,00_#_building an Igloo
+2017,01,12,10,09,19_#_Java
+2017,01,12,10,14,26_#_Jackal
+2017,01,12,11,04,10_#_jobs for Java developers
+2017,01,12,11,22,50_#_Igloo
+2017,01,13,02,51,33_#_Delta
+2017,01,13,03,19,24_#_Delta force
+2017,01,13,03,28,47_#_Bridge
+2017,01,13,03,46,00_#_Bridge
+2017,01,13,04,23,36_#_Delta force
+2017,01,13,04,41,29_#_Delta
+2017,01,13,04,45,58_#_Change in size Delta
+2017,01,13,04,54,00_#_Cubs in the wild
+2017,01,13,05,08,17_#_lion Cubs
+2017,01,13,05,10,50_#_Frog
+2017,01,13,05,24,12_#_Cubs in the wild
+2017,01,13,05,53,32_#_biology of Frogs
+2017,01,13,06,14,25_#_Gecko lizard
+2017,01,13,06,37,23_#_Fire
+2017,01,13,07,00,03_#_Fire kits
+2017,01,13,07,21,10_#_Usage of the Hyphen
+2017,01,13,07,43,58_#_Fire kits
+2017,01,13,07,52,20_#_Green energy
+2017,01,13,08,08,36_#_Hyphen punctuation
+2017,01,13,08,09,24_#_Green energy
+2017,01,13,08,28,11_#_Green plants
+2017,01,13,08,36,30_#_Hyphen
+2017,01,13,08,49,03_#_Green
+2017,01,13,09,00,04_#_Hyphen punctuation
+2017,01,13,09,34,35_#_Java coding
+2017,01,13,09,42,29_#_Java coding
+2017,01,13,09,50,32_#_Climbing gecko
+2017,01,13,10,10,44_#_Jackal animal
+2017,01,13,10,30,45_#_Jackal hunting habits
+2017,01,13,10,32,16_#_Jackal animal
+2017,01,13,11,52,36_#_Java coding
+2017,01,14,01,10,08_#_Anteater
+2017,01,14,02,02,14_#_Beaver dams
+2017,01,14,02,29,30_#_Delta force
+2017,01,14,02,39,43_#_pictures of Bridges
+2017,01,14,02,48,26_#_furry Beaver
+2017,01,14,03,00,22_#_Beaver dams
+2017,01,14,03,34,42_#_Change in size Delta
+2017,01,14,04,10,48_#_Dog
+2017,01,14,04,39,34_#_Dog fights
+2017,01,14,04,54,39_#_Change in size Delta
+2017,01,14,05,07,57_#_Dog
+2017,01,14,05,26,57_#_Fire
+2017,01,14,05,47,08_#_Frog babies
+2017,01,14,05,51,29_#_Elephant parks
+2017,01,14,05,57,30_#_Delta force
+2017,01,14,06,01,39_#_Gecko
+2017,01,14,06,12,26_#_Hyphen
+2017,01,14,06,19,50_#_Fire kits
+2017,01,14,06,24,17_#_Frog babies
+2017,01,14,07,14,02_#_biology of Frogs
+2017,01,14,07,30,24_#_Elephant parks
+2017,01,14,07,36,42_#_Usage of the Hyphen
+2017,01,14,07,49,31_#_Usage of the Hyphen
+2017,01,14,07,57,54_#_Gecko lizard
+2017,01,14,08,10,37_#_House
+2017,01,14,08,16,09_#_Internet usage
+2017,01,14,08,26,57_#_House
+2017,01,14,08,52,59_#_Internet
+2017,01,14,09,12,20_#_House
+2017,01,14,09,41,20_#_Hyphen punctuation
+2017,01,14,09,57,29_#_Igloo life
+2017,01,14,10,04,52_#_Jackal
+2017,01,14,11,27,29_#_building an Igloo
+2017,01,14,11,41,32_#_Jackal
+2017,01,14,11,57,19_#_jobs for Java developers
+2017,01,15,00,07,17_#_Bridge construction
+2017,01,15,01,21,50_#_Beaver dams
+2017,01,15,01,47,10_#_Anteater
+2017,01,15,02,06,16_#_Dog fights
+2017,01,15,02,39,35_#_Beaver dams
+2017,01,15,02,46,25_#_Delta force
+2017,01,15,02,55,20_#_furry Beaver
+2017,01,15,02,57,04_#_Anteater
+2017,01,15,03,26,29_#_Change in size Delta
+2017,01,15,03,29,11_#_Dog fights
+2017,01,15,03,46,51_#_Dog
+2017,01,15,03,59,21_#_Delta
+2017,01,15,04,00,32_#_Cubs in the wild
+2017,01,15,04,31,21_#_Frog babies
+2017,01,15,04,36,58_#_Cubs in the wild
+2017,01,15,04,43,02_#_Delta
+2017,01,15,05,22,32_#_Fire
+2017,01,15,05,24,44_#_lion Cubs
+2017,01,15,05,47,58_#_Delta
+2017,01,15,06,21,02_#_places to buy houses
+2017,01,15,06,24,01_#_Green energy
+2017,01,15,06,31,52_#_Frog
+2017,01,15,07,22,27_#_biology of Frogs
+2017,01,15,08,12,52_#_Hyphen punctuation
+2017,01,15,08,26,17_#_Green plants
+2017,01,15,08,31,16_#_House
+2017,01,15,08,36,19_#_Hyphen punctuation
+2017,01,15,08,44,34_#_House
+2017,01,15,08,48,52_#_House auctions
+2017,01,15,08,49,10_#_Hyphen punctuation
+2017,01,15,08,57,02_#_Java
+2017,01,15,09,07,59_#_Jackal
+2017,01,15,09,28,15_#_Jackal hunting habits
+2017,01,15,09,31,25_#_Java coding
+2017,01,15,09,33,50_#_Internet
+2017,01,15,09,37,20_#_Igloo
+2017,01,15,09,40,39_#_Hyphen punctuation
+2017,01,15,10,28,14_#_Jackal hunting habits
+2017,01,15,11,11,53_#_Internet
+2017,01,15,11,30,07_#_Igloo life
+2017,01,16,01,10,20_#_Antarctic animals
+2017,01,16,01,19,14_#_Anteater
+2017,01,16,01,21,36_#_Antarctic
+2017,01,16,01,27,29_#_Beaver dams
+2017,01,16,02,44,56_#_Change in size Delta
+2017,01,16,02,46,27_#_furry Beaver
+2017,01,16,03,23,48_#_Delta
+2017,01,16,04,12,56_#_circus of Elephants
+2017,01,16,04,42,36_#_Delta force
+2017,01,16,05,02,20_#_Delta force
+2017,01,16,05,31,08_#_biology of Frogs
+2017,01,16,05,34,12_#_Fire kits
+2017,01,16,06,05,39_#_Expert
+2017,01,16,06,15,20_#_Fire kits
+2017,01,16,06,41,17_#_Climbing gecko
+2017,01,16,06,44,00_#_Gecko
+2017,01,16,06,54,03_#_Hyphen punctuation
+2017,01,16,07,04,01_#_House
+2017,01,16,07,11,12_#_Fire kits
+2017,01,16,07,27,05_#_places to buy houses
+2017,01,16,07,28,25_#_Green energy
+2017,01,16,07,34,30_#_Hyphen
+2017,01,16,08,07,41_#_Hyphen
+2017,01,16,08,08,16_#_Gecko lizard
+2017,01,16,08,36,55_#_Hyphen
+2017,01,16,08,56,19_#_Green plants
+2017,01,16,09,20,01_#_Internet usage
+2017,01,16,09,45,28_#_Green
+2017,01,16,09,54,42_#_places to buy houses
+2017,01,17,00,16,43_#_pictures of Bridges
+2017,01,17,00,46,10_#_pictures of Bridges
+2017,01,17,01,04,12_#_Antarctic animals
+2017,01,17,01,29,58_#_Beaver
+2017,01,17,02,10,03_#_furry Beaver
+2017,01,17,02,11,52_#_Cubs in the wild
+2017,01,17,02,15,18_#_scary Anteater
+2017,01,17,02,16,59_#_Change in size Delta
+2017,01,17,02,18,07_#_Cub
+2017,01,17,02,35,06_#_Delta
+2017,01,17,02,45,50_#_location Antarctic
+2017,01,17,03,02,21_#_Beaver dams
+2017,01,17,03,17,05_#_Bridge
+2017,01,17,03,20,03_#_Delta force
+2017,01,17,03,35,57_#_scary Anteater
+2017,01,17,04,01,12_#_lion Cubs
+2017,01,17,05,14,21_#_Delta force
+2017,01,17,05,32,36_#_Change in size Delta
+2017,01,17,06,29,25_#_places to buy houses
+2017,01,17,06,33,27_#_Fire
+2017,01,17,08,56,58_#_places to buy houses
+2017,01,17,09,40,18_#_places to buy houses
+2017,01,17,10,21,31_#_Igloo
+2017,01,18,01,00,48_#_Anteater
+2017,01,18,01,32,52_#_Anteater animal
+2017,01,18,02,27,02_#_Dog
+2017,01,18,02,44,26_#_Change in size Delta
+2017,01,18,03,31,06_#_Change in size Delta
+2017,01,18,03,39,44_#_Dog
+2017,01,18,04,13,58_#_Change in size Delta
+2017,01,18,04,23,17_#_Running Expert
+2017,01,18,04,23,49_#_Change in size Delta
+2017,01,18,04,42,42_#_Delta force
+2017,01,18,04,53,33_#_Caring for a Dog
+2017,01,18,05,27,57_#_biology of Frogs
+2017,01,18,06,06,07_#_Hyphen
+2017,01,18,06,06,59_#_Fire starter
+2017,01,18,06,07,13_#_Hyphen punctuation
+2017,01,18,06,15,57_#_biology of Frogs
+2017,01,18,06,36,46_#_Green plants
+2017,01,18,06,55,53_#_biology of Frogs
+2017,01,18,07,40,13_#_Fire starter
+2017,01,18,07,50,11_#_Gecko
+2017,01,18,08,21,26_#_Climbing gecko
+2017,01,18,08,21,52_#_Usage of the Hyphen
+2017,01,18,08,26,42_#_Green
+2017,01,18,08,30,00_#_places to buy houses
+2017,01,18,08,37,22_#_places to buy houses
+2017,01,18,08,50,53_#_House
+2017,01,18,08,56,32_#_Hyphen punctuation
+2017,01,18,09,03,43_#_Green
+2017,01,18,09,12,47_#_Java coding
+2017,01,18,09,41,43_#_Green
+2017,01,19,01,30,22_#_Antarctic
+2017,01,19,01,44,18_#_scary Anteater
+2017,01,19,02,12,53_#_Beaver dams
+2017,01,19,02,30,23_#_Delta force
+2017,01,19,02,37,46_#_Change in size Delta
+2017,01,19,02,57,57_#_Antarctic animals
+2017,01,19,03,05,22_#_Change in size Delta
+2017,01,19,03,23,30_#_Bridge
+2017,01,19,04,32,49_#_Delta force
+2017,01,19,04,38,27_#_Delta
+2017,01,19,04,46,57_#_Expert
+2017,01,19,05,13,03_#_Frog
+2017,01,19,05,14,38_#_Fire kits
+2017,01,19,06,52,05_#_Green plants
+2017,01,19,07,12,56_#_Frog babies
+2017,01,19,07,14,18_#_Green energy
+2017,01,19,07,44,57_#_Green plants
+2017,01,19,07,56,30_#_Green plants
+2017,01,19,07,59,06_#_Hyphen punctuation
+2017,01,19,08,07,31_#_Usage of the Hyphen
+2017,01,19,09,01,37_#_Hyphen
+2017,01,19,09,20,59_#_Jackal hunting habits
+2017,01,19,09,35,21_#_jobs for Java developers
+2017,01,19,09,43,16_#_jobs for Java developers
+2017,01,19,10,00,14_#_jobs for Java developers
+2017,01,19,10,10,09_#_Jackal hunting habits
+2017,01,19,11,55,41_#_Jackal hunting habits
+2017,01,20,00,32,40_#_Bridge construction
+2017,01,20,00,46,31_#_Antarctic animals
+2017,01,20,01,08,04_#_furry Beaver
+2017,01,20,01,31,56_#_Anteater
+2017,01,20,01,43,13_#_Bridge
+2017,01,20,02,13,24_#_Change in size Delta
+2017,01,20,02,26,02_#_Beaver dams
+2017,01,20,02,31,33_#_Beaver
+2017,01,20,03,17,08_#_Change in size Delta
+2017,01,20,03,29,37_#_Delta force
+2017,01,20,03,57,39_#_Cub
+2017,01,20,04,08,27_#_Fire kits
+2017,01,20,04,36,23_#_Delta
+2017,01,20,05,00,34_#_lion Cubs
+2017,01,20,05,06,19_#_Elephant
+2017,01,20,05,16,18_#_Delta force
+2017,01,20,05,41,21_#_Fire kits
+2017,01,20,06,24,54_#_Fire kits
+2017,01,20,06,32,40_#_Hyphen
+2017,01,20,06,41,14_#_Frog babies
+2017,01,20,07,39,57_#_Green energy
+2017,01,20,07,44,08_#_Usage of the Hyphen
+2017,01,20,07,45,16_#_Usage of the Hyphen
+2017,01,20,08,36,01_#_Green plants
+2017,01,20,08,54,49_#_Green plants
+2017,01,20,09,07,23_#_Green
+2017,01,20,10,03,45_#_Jackal
+2017,01,20,10,03,56_#_Jackal animal
+2017,01,20,10,04,29_#_Internet
+2017,01,20,10,25,56_#_Jackal
+2017,01,20,10,57,38_#_Internet usage
+2017,01,21,00,05,31_#_furry Beaver
+2017,01,21,00,19,48_#_location Antarctic
+2017,01,21,00,37,10_#_Beaver
+2017,01,21,01,20,18_#_Antarctic animals
+2017,01,21,02,26,25_#_Cub
+2017,01,21,03,57,51_#_lion Cubs
+2017,01,21,05,05,56_#_Fire
+2017,01,21,05,16,34_#_biology of Frogs
+2017,01,21,06,03,24_#_Fire starter
+2017,01,21,06,49,39_#_Frog
+2017,01,21,10,04,34_#_Java coding
+2017,01,21,10,21,37_#_Java coding
+2017,01,21,10,35,23_#_Igloo life
+2017,01,21,11,41,19_#_Jackal hunting habits
+2017,01,21,11,56,15_#_Jackal animal
+2017,01,22,01,03,20_#_Bridge
+2017,01,22,01,05,43_#_Bridge
+2017,01,22,01,15,09_#_Beaver
+2017,01,22,01,27,16_#_location Antarctic
+2017,01,22,02,14,27_#_Bridge construction
+2017,01,22,02,45,39_#_Caring for a Dog
+2017,01,22,02,55,52_#_Beaver
+2017,01,22,03,37,22_#_Delta force
+2017,01,22,03,55,56_#_Cubs in the wild
+2017,01,22,03,57,56_#_Dog
+2017,01,22,04,25,42_#_Caring for a Dog
+2017,01,22,04,29,49_#_Delta force
+2017,01,22,04,34,37_#_Dog fights
+2017,01,22,04,35,23_#_Elephant parks
+2017,01,22,04,43,32_#_Cub
+2017,01,22,04,57,32_#_Dog
+2017,01,22,04,58,33_#_Fire
+2017,01,22,05,20,57_#_Delta
+2017,01,22,05,23,56_#_Frog
+2017,01,22,05,53,57_#_Delta
+2017,01,22,06,13,54_#_Fire
+2017,01,22,06,38,49_#_Frog babies
+2017,01,22,08,41,26_#_Gecko lizard
+2017,01,22,09,14,38_#_Gecko lizard
+2017,01,22,09,51,22_#_Java
+2017,01,22,09,55,49_#_Gecko lizard
+2017,01,22,10,54,05_#_Jackal
+2017,01,22,11,19,04_#_Java
+2017,01,23,00,18,09_#_furry Beaver
+2017,01,23,00,59,39_#_furry Beaver
+2017,01,23,01,40,35_#_Anteater animal
+2017,01,23,01,48,51_#_Antarctic
+2017,01,23,02,06,34_#_location Antarctic
+2017,01,23,02,10,40_#_Delta
+2017,01,23,03,20,23_#_Dog fights
+2017,01,23,03,33,51_#_Delta
+2017,01,23,03,38,55_#_Cubs in the wild
+2017,01,23,03,44,18_#_Cubs in the wild
+2017,01,23,04,33,46_#_Change in size Delta
+2017,01,23,04,46,33_#_Change in size Delta
+2017,01,23,04,50,34_#_Caring for a Dog
+2017,01,23,04,59,35_#_exercise Expert
+2017,01,23,05,10,52_#_Frog babies
+2017,01,23,05,26,32_#_Frog
+2017,01,23,05,37,56_#_Dog
+2017,01,23,07,51,31_#_Climbing gecko
+2017,01,23,08,05,43_#_Climbing gecko
+2017,01,23,08,29,10_#_Gecko
+2017,01,23,08,57,35_#_Gecko lizard
+2017,01,23,11,50,33_#_Java coding
+2017,01,24,00,33,55_#_pictures of Bridges
+2017,01,24,01,25,33_#_furry Beaver
+2017,01,24,02,07,23_#_Cubs in the wild
+2017,01,24,03,05,13_#_Cub
+2017,01,24,03,09,17_#_furry Beaver
+2017,01,24,03,16,43_#_pictures of Bridges
+2017,01,24,03,20,20_#_Beaver dams
+2017,01,24,03,43,53_#_Bridge
+2017,01,24,03,46,24_#_Caring for a Dog
+2017,01,24,03,53,17_#_Caring for a Dog
+2017,01,24,03,59,08_#_lion Cubs
+2017,01,24,04,15,31_#_Cubs in the wild
+2017,01,24,04,53,01_#_Dog
+2017,01,24,04,59,21_#_Dog fights
+2017,01,24,05,15,41_#_biology of Frogs
+2017,01,24,05,29,47_#_biology of Frogs
+2017,01,24,05,56,03_#_Fire kits
+2017,01,24,06,20,47_#_Fire
+2017,01,24,06,27,24_#_Green energy
+2017,01,24,07,06,01_#_Gecko lizard
+2017,01,24,07,15,04_#_Elephant
+2017,01,24,08,02,59_#_Gecko
+2017,01,24,08,07,40_#_Climbing gecko
+2017,01,24,08,10,56_#_Java coding
+2017,01,24,08,24,17_#_Climbing gecko
+2017,01,24,08,55,14_#_Green plants
+2017,01,24,09,00,18_#_Jackal hunting habits
+2017,01,24,09,19,36_#_Jackal
+2017,01,24,09,21,45_#_Green energy
+2017,01,24,09,44,51_#_Jackal
+2017,01,24,10,43,06_#_Igloo life
+2017,01,25,01,11,07_#_Beaver
+2017,01,25,02,32,16_#_pictures of Bridges
+2017,01,25,02,32,58_#_Anteater animal
+2017,01,25,06,10,16_#_Gecko
+2017,01,25,06,10,29_#_Green plants
+2017,01,25,06,13,46_#_Fire kits
+2017,01,25,06,24,21_#_Frog
+2017,01,25,06,53,14_#_Green energy
+2017,01,25,09,34,02_#_Gecko
+2017,01,25,09,46,06_#_Jackal
+2017,01,25,09,50,36_#_Green plants
+2017,01,25,10,22,44_#_Internet usage
+2017,01,25,10,53,23_#_Jackal hunting habits
+2017,01,25,10,55,14_#_Jackal animal
+2017,01,25,11,44,29_#_how to connect to the internet
+2017,01,26,00,15,52_#_Bridge construction
+2017,01,26,02,16,31_#_Antarctic
+2017,01,26,02,18,40_#_Anteater
+2017,01,26,02,26,10_#_Beaver dams
+2017,01,26,02,29,40_#_Change in size Delta
+2017,01,26,02,32,24_#_Delta force
+2017,01,26,02,51,57_#_scary Anteater
+2017,01,26,02,53,13_#_Beaver
+2017,01,26,02,59,24_#_Cat pictures
+2017,01,26,03,02,47_#_Delta force
+2017,01,26,04,39,03_#_Frog babies
+2017,01,26,04,43,55_#_exercise Expert
+2017,01,26,05,15,50_#_Delta force
+2017,01,26,05,28,12_#_funny cats
+2017,01,26,05,47,22_#_biology of Frogs
+2017,01,26,05,51,22_#_Fire starter
+2017,01,26,05,56,02_#_Elephant parks
+2017,01,26,06,12,02_#_Frog babies
+2017,01,26,07,00,36_#_Fire
+2017,01,26,07,21,51_#_circus of Elephants
+2017,01,26,07,36,42_#_Climbing gecko
+2017,01,26,08,03,35_#_Hyphen punctuation
+2017,01,26,08,24,47_#_Usage of the Hyphen
+2017,01,26,08,31,22_#_Gecko lizard
+2017,01,26,08,37,03_#_Hyphen punctuation
+2017,01,26,10,08,39_#_jobs for Java developers
+2017,01,26,10,14,04_#_Igloo life
+2017,01,26,10,14,57_#_jobs for Java developers
+2017,01,26,10,29,07_#_Igloo life
+2017,01,27,01,19,29_#_furry Beaver
+2017,01,27,01,40,22_#_furry Beaver
+2017,01,27,02,06,21_#_Delta force
+2017,01,27,04,02,07_#_Delta
+2017,01,27,04,25,57_#_Change in size Delta
+2017,01,27,05,52,56_#_Frog babies
+2017,01,27,07,21,06_#_Hyphen
+2017,01,27,07,21,29_#_Hyphen punctuation
+2017,01,27,08,11,37_#_Green energy
+2017,01,27,08,28,18_#_jobs for Java developers
+2017,01,27,08,55,31_#_Hyphen punctuation
+2017,01,27,09,14,32_#_Green energy
+2017,01,27,10,36,47_#_Jackal animal
+2017,01,27,10,47,30_#_Java
+2017,01,27,11,28,15_#_Jackal
+2017,01,27,11,48,40_#_Java coding
+2017,01,28,00,03,05_#_Anteater
+2017,01,28,01,19,23_#_furry Beaver
+2017,01,28,02,40,31_#_Beaver dams
+2017,01,28,03,08,36_#_Dog
+2017,01,28,03,12,42_#_Bridge construction
+2017,01,28,04,11,24_#_Caring for a Dog
+2017,01,28,04,56,06_#_Dog fights
+2017,01,28,06,36,04_#_Running Expert
+2017,01,28,06,51,08_#_Hyphen
+2017,01,28,07,02,23_#_places to buy houses
+2017,01,28,07,08,37_#_House auctions
+2017,01,28,07,20,18_#_Gecko lizard
+2017,01,28,07,20,39_#_Gecko lizard
+2017,01,28,07,23,54_#_Fire kits
+2017,01,28,07,42,14_#_House
+2017,01,28,07,44,28_#_Hyphen punctuation
+2017,01,28,07,57,19_#_Green
+2017,01,28,08,59,41_#_Green energy
+2017,01,28,09,05,25_#_Jackal
+2017,01,28,09,09,21_#_building an Igloo
+2017,01,28,09,26,29_#_Climbing gecko
+2017,01,28,09,30,33_#_Java
+2017,01,28,09,43,11_#_House auctions
+2017,01,28,09,49,32_#_Hyphen
+2017,01,28,09,55,14_#_Gecko
+2017,01,28,10,02,27_#_Jackal hunting habits
+2017,01,28,10,19,41_#_Java
+2017,01,29,00,13,20_#_Bridge
+2017,01,29,02,22,30_#_Delta
+2017,01,29,02,42,49_#_Antarctic
+2017,01,29,03,13,58_#_Bridge
+2017,01,29,03,29,18_#_Antarctic
+2017,01,29,03,37,44_#_lion Cubs
+2017,01,29,03,46,54_#_pictures of Bridges
+2017,01,29,04,09,21_#_Delta force
+2017,01,29,04,20,15_#_lion Cubs
+2017,01,29,04,44,17_#_Delta force
+2017,01,29,05,02,16_#_circus of Elephants
+2017,01,29,05,04,31_#_circus of Elephants
+2017,01,29,05,05,14_#_Cubs in the wild
+2017,01,29,05,20,28_#_Expert
+2017,01,29,05,22,47_#_Running Expert
+2017,01,29,05,39,31_#_Fire kits
+2017,01,29,05,57,49_#_lion Cubs
+2017,01,29,06,05,15_#_Usage of the Hyphen
+2017,01,29,06,36,43_#_Frog babies
+2017,01,29,06,46,11_#_Hyphen
+2017,01,29,08,23,41_#_Usage of the Hyphen
+2017,01,29,08,31,48_#_Hyphen
+2017,01,29,08,41,14_#_Gecko lizard
+2017,01,29,08,44,16_#_Jackal hunting habits
+2017,01,29,08,48,57_#_Hyphen punctuation
+2017,01,29,09,14,17_#_Gecko
+2017,01,29,09,44,32_#_Gecko
+2017,01,29,09,58,44_#_Gecko lizard
+2017,01,29,10,55,39_#_Java coding
+2017,01,29,11,51,12_#_Java
+2017,01,30,00,27,34_#_Bridge
+2017,01,30,01,17,50_#_Bridge
+2017,01,30,01,22,32_#_Anteater animal
+2017,01,30,02,09,23_#_location Antarctic
+2017,01,30,02,10,48_#_pictures of Bridges
+2017,01,30,02,22,04_#_funny cats
+2017,01,30,02,46,01_#_lion Cubs
+2017,01,30,03,15,35_#_Cubs in the wild
+2017,01,30,04,21,51_#_funny cats
+2017,01,30,04,48,57_#_Cat
+2017,01,30,05,34,41_#_Frog
+2017,01,30,05,53,07_#_Expert
+2017,01,30,06,21,44_#_Green energy
+2017,01,30,06,45,18_#_biology of Frogs
+2017,01,30,06,49,33_#_House
+2017,01,30,07,00,13_#_biology of Frogs
+2017,01,30,07,04,51_#_Hyphen punctuation
+2017,01,30,07,17,53_#_Expert
+2017,01,30,07,24,07_#_Gecko lizard
+2017,01,30,07,25,24_#_Usage of the Hyphen
+2017,01,30,07,42,45_#_places to buy houses
+2017,01,30,07,45,43_#_House
+2017,01,30,07,50,56_#_Hyphen punctuation
+2017,01,30,08,10,32_#_Gecko
+2017,01,30,08,29,13_#_Usage of the Hyphen
+2017,01,30,08,34,42_#_Usage of the Hyphen
+2017,01,30,08,49,47_#_House
+2017,01,30,08,55,22_#_Green plants
+2017,01,30,09,01,54_#_House
+2017,01,30,09,09,05_#_Gecko
+2017,01,30,10,21,50_#_Jackal animal
+2017,01,30,10,26,11_#_Igloo
+2017,01,30,10,37,21_#_Jackal hunting habits
+2017,01,30,10,57,18_#_building an Igloo
+2017,01,31,02,26,40_#_Anteater
+2017,01,31,02,51,13_#_Cat pictures
+2017,01,31,02,53,36_#_Anteater
+2017,01,31,03,00,54_#_Dog
+2017,01,31,03,19,39_#_Caring for a Dog
+2017,01,31,03,41,08_#_Dog fights
+2017,01,31,03,41,29_#_Delta force
+2017,01,31,04,05,47_#_Fire
+2017,01,31,04,46,54_#_Cat pictures
+2017,01,31,05,11,11_#_Delta force
+2017,01,31,05,36,35_#_Frog babies
+2017,01,31,05,37,44_#_exercise Expert
+2017,01,31,05,44,15_#_Frog babies
+2017,01,31,05,44,47_#_Fire starter
+2017,01,31,05,44,55_#_Change in size Delta
+2017,01,31,05,54,02_#_Change in size Delta
+2017,01,31,06,57,05_#_Expert
+2017,01,31,06,57,05_#_Frog babies
+2017,01,31,09,03,38_#_building an Igloo
+2017,01,31,10,02,59_#_how to connect to the internet
+2017,01,31,10,42,26_#_Jackal
+2017,01,31,11,52,54_#_Jackal animal
