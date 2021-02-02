@@ -7,8 +7,6 @@ Created by Tashiv Sewpersad for use in the TimeRank project. All aspects of this
 
 This project contains three software artefacts, namely the user modelling segment of the TimeRank Porject, a tool for generating user data logs and a Chrome Extension template which demonstrates native messaging using  python 3. The core software artefact is the user modelling program contained in the Profiler.py and Profiler_Grapher.py files. This program has two modes of operation and this is specified in the following section.
 
-<img src="https://github.com/Tashiv/2017-Research-UserModelling/blob/master/.media/context.png?raw=true">
-
 ## Usage
 The project's user modelling tool has two modes of operation. The first is the testing mode which has a command line type interface. This presents the user with a range of tests to execute in order to test various aspects of the user modelling process. This was used to generate the data for the project's write-up. This mode can be activated using:
 	
@@ -29,3 +27,5 @@ python3 Profiler.py
 		   
 **/tools** = contains the log generator and the chrome extension template. I.e. these are the secondary artefacts mentioned above. Also the rule files used to generate the test logs can be found within this directory as well.
 		 
+## Diagrams
+<img src="https://github.com/Tashiv/2017-Research-UserModelling/blob/master/.media/context.png?raw=true">
