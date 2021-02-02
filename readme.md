@@ -6,7 +6,9 @@ A tool for modelling user search data based on the time of those queries.
 Created by Tashiv Sewpersad for use in the TimeRank project. All aspects of this project are licensed under the GNU General Public License, which can be found at <http://www.gnu.org/licenses/>.
 
 This project contains three software artefacts, namely the user modelling segment of the TimeRank Porject, a tool for generating user data logs and a Chrome Extension template which demonstrates native messaging using  python 3. The core software artefact is the user modelling program contained in the Profiler.py and Profiler_Grapher.py files. This program has two modes of operation and this is specified in the following section.
-	
+
+<img src="https://github.com/Tashiv/2017-Research-UserModelling/blob/master/.media/context.png?raw=true">
+
 ## Usage
 The project's user modelling tool has two modes of operation. The first is the testing mode which has a command line type interface. This presents the user with a range of tests to execute in order to test various aspects of the user modelling process. This was used to generate the data for the project's write-up. This mode can be activated using:
 	
